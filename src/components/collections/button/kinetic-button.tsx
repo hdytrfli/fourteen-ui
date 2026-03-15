@@ -2,10 +2,11 @@ import * as React from 'react';
 import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { type LucideIcon } from 'lucide-react';
+
 import { cn } from '@/libs/utils';
+import type { IconPosition } from '@/libs/types';
 import { Button } from '@/components/primitive/button';
 import { DURATION, EASE, STAGGER } from '@/libs/constants';
-import type { IconPosition } from '@/libs/types';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;

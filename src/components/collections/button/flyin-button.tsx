@@ -3,9 +3,9 @@ import { gsap } from 'gsap';
 import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
-import { Button } from '@/components/primitive/button';
 import { DURATION, EASE } from '@/libs/constants';
 import type { IconPosition } from '@/libs/types';
+import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;

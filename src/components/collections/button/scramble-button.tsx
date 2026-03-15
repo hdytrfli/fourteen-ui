@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
+import type { LucideIcon } from 'lucide-react';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+
+import { cn } from '@/libs/utils';
+import type { IconPosition } from '@/libs/types';
 import { DURATION, EASE } from '@/libs/constants';
 import { Button } from '@/components/primitive/button';
-import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
-import type { LucideIcon } from 'lucide-react';
-import type { IconPosition } from '@/libs/types';
-import { cn } from '@/libs/utils';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;

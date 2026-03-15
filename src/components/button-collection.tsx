@@ -14,12 +14,12 @@ import {
 
 import { Showcase } from '@/components/primitive/showcase';
 import { Gallery } from '@/components/primitive/gallery';
-import { ScrambleButton } from './collections/button/scramble-button';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
 import { TiltIconButton } from '@/components/collections/button/tilt-button';
+import { KineticButton } from '@/components/collections/button/kinetic-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { MagneticButton } from '@/components/collections/button/magnetic-button';
-import { KineticButton } from '@/components/collections/button/kinetic-button';
+import { ScrambleButton } from '@/components/collections/button/scramble-button';
 
 interface ButtonCollectionProps {
 	//
@@ -33,14 +33,14 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Rolling button component reversed'>
-				<RollingButton label='Get started' hover='Read more' direction='left' variant='primary' />
+				<RollingButton label='Read more' hover='Get started' direction='left' variant='primary' />
 			</Showcase>
 
-			<Showcase label='Animated icons component start'>
+			<Showcase label='Slides in icons component start'>
 				<FlyinButton label='Download' icon={Download} position='start' variant='primary' />
 			</Showcase>
 
-			<Showcase label='Animated icons component end'>
+			<Showcase label='Slides in icons component end'>
 				<FlyinButton label='Explore now' icon={ArrowUpRight} position='end' variant='primary' />
 			</Showcase>
 

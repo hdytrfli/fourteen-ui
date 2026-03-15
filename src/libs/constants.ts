@@ -1,7 +1,7 @@
 /**
  * Shared GSAP timing and easing tokens.
  */
-export const STAGGER = { tight: 0.025, base: 0.05 } as const;
+export const STAGGER = { tight: 0.01, base: 0.05 } as const;
 export const DURATION = { fast: 0.25, base: 0.3, slow: 0.8 } as const;
 
 export const EASE = {
