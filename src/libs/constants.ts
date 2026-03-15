@@ -10,12 +10,3 @@ export const EASE = {
 	out: 'power4.out',
 	inOut: 'power4.inOut',
 } as const;
-
-const CHARS = [
-	'!@#$%^&*()_+-=[]{}|;:,./<>?',
-	'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-	'abcdefghijklmnopqrstuvwxyz',
-	'0123456789',
-] as const;
-
-export const SCRAMBLE_CHARS = CHARS.flat().join('');

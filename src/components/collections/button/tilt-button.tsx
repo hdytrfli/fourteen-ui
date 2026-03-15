@@ -2,8 +2,7 @@ import * as React from 'react';
 import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/libs/utils';
 import { Button } from '@/components/primitive/button';
-
-type IconPosition = 'start' | 'end';
+import type { IconPosition } from '@/libs/types';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;

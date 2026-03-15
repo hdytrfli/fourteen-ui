@@ -4,10 +4,12 @@ import { SplitText } from 'gsap/SplitText';
 
 import { Button } from '@/components/primitive/button';
 import { DURATION, EASE, STAGGER } from '@/libs/constants';
+import type { RollingDirection } from '@/libs/types';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
 	hover: string;
+	direction?: RollingDirection;
 }
 
 /**
@@ -16,7 +18,7 @@ interface Props extends React.ComponentProps<typeof Button> {
  * @param label - Text shown by default
  * @param replace - Text that rolls in on hover
  */
-export const RollingButton = ({ label, hover, className, ...rest }: Props) => {
+export const RollingButton = ({ label, hover, direction, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const text = React.useRef<HTMLSpanElement>(null);
 	const next = React.useRef<HTMLSpanElement>(null);
@@ -36,11 +38,13 @@ export const RollingButton = ({ label, hover, className, ...rest }: Props) => {
 
 		tl.to(initial.chars, {
 			yPercent: -100,
+			reversed: direction === 'left',
 			stagger: STAGGER.tight,
 		}).to(
 			replaced.chars,
 			{
 				yPercent: 0,
+				reversed: direction === 'left',
 				stagger: STAGGER.tight,
 			},
 			0
