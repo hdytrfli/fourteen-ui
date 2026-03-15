@@ -13,7 +13,7 @@ export const Gallery: React.FC<GalleryProps> = ({ title, description, className,
 	return (
 		<section className={cn('grid gap-2', className)} {...props}>
 			<CollectionHeader title={title} description={description} />
-			<div className='grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-12 group'>{children}</div>
+			<div className='grid sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12 group'>{children}</div>
 		</section>
 	);
 };

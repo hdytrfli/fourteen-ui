@@ -4,8 +4,8 @@ import { FastForward, Plane } from 'lucide-react';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
-import { TiltIconButton } from '@/components/collections/button/tilt-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
+import { KineticButton } from './collections/button/kinetic-button';
 
 interface VariantCollectionProps {
 	//
@@ -23,7 +23,7 @@ export const VariantCollection: React.FC<VariantCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Accent variant button'>
-				<TiltIconButton label='Accent' icon={Plane} position='start' variant='accent' />
+				<KineticButton label='Accent' icon={Plane} position='start' variant='accent' />
 			</Showcase>
 		</Gallery>
 	);

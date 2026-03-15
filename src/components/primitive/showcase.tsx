@@ -30,18 +30,16 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 	return (
 		<article
 			className={cn(
-				'relative',
-				'bg-zinc-800 rounded-xl h-48',
+				'bg-zinc-800 text-zinc-500',
 				'flex items-center justify-center',
+				'overflow-visible rounded-xl h-48',
 				'transition-colors duration-500 ease-in-out',
 				'group-hover:text-zinc-700 hover:text-zinc-300',
 				className
 			)}
 			{...rest}>
+			<label className='w-full text-center absolute bottom-0 translate-y-full -mb-2 text-sm'>{label}</label>
 			<div ref={ref}>{children}</div>
-			<label className='w-full text-center absolute bottom-0 translate-y-full -mb-2 text-sm'>
-				<span className='ml-2'>{label}</span>
-			</label>
 		</article>
 	);
 };

@@ -1,0 +1,19 @@
+import { cn } from '@/libs/utils';
+import * as React from 'react';
+
+interface AvatarProps extends React.ComponentProps<'button'> {
+	src: string;
+	alt: string;
+}
+
+export const Avatar: React.FC<AvatarProps> = ({ src, alt, className, ...props }) => {
+	return (
+		<button
+			role='button'
+			aria-label={alt}
+			className={cn('size-12', 'rounded-full bg-background', 'cursor-pointer overflow-hidden', className)}
+			{...props}>
+			<img src={src} alt={alt} className='w-full h-full object-cover' />
+		</button>
+	);
+};

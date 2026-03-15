@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 
+import { Footer } from '@/components/footer';
 import { ButtonCollection } from '@/components/button-collection';
 import { VariantCollection } from '@/components/variant-collection';
-import { Footer } from '@/components/footer';
+import { DropdownCollection } from '@/components/dropdown-collection';
 
 export default function App(): React.JSX.Element {
 	return (
@@ -22,6 +23,7 @@ export default function App(): React.JSX.Element {
 				<div className='grid gap-20'>
 					<ButtonCollection />
 					<VariantCollection />
+					<DropdownCollection />
 				</div>
 			</div>
 
