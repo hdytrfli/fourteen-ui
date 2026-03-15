@@ -13,6 +13,7 @@ interface Props extends React.ComponentProps<'div'> {
 export const Dropdown = ({ children, className, ...rest }: Props) => {
 	const [open, setOpen] = React.useState(false);
 	const ref = React.useRef<HTMLDivElement>(null);
+	const anchor = React.useRef<HTMLDivElement>(null);
 
 	const toggle = () => setOpen((prev) => !prev);
 	const close = () => setOpen(false);
@@ -29,9 +30,11 @@ export const Dropdown = ({ children, className, ...rest }: Props) => {
 	const [trigger, ...rest_children] = React.Children.toArray(children);
 
 	return (
-		<DropdownContext.Provider value={{ open, toggle }}>
+		<DropdownContext.Provider value={{ open, toggle, anchor: anchor }}>
 			<div ref={ref} className={cn('relative w-fit', className)} {...rest}>
-				{React.cloneElement(trigger as React.ReactElement<{ onClick: () => void }>, { onClick: toggle })}
+				<div ref={anchor}>
+					{React.cloneElement(trigger as React.ReactElement<{ onClick: () => void }>, { onClick: toggle })}
+				</div>
 				{rest_children}
 			</div>
 		</DropdownContext.Provider>

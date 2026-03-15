@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { cn } from '@/libs/utils';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -7,20 +8,34 @@ interface Props extends React.ComponentProps<'div'> {
 }
 
 /**
- * Dropdown panel that shows and hides based on open state.
- * Extend this component to add animation.
+ * Dropdown panel that portals to document.body to escape stacking context issues.
  * @param children - DropdownItem components
  */
 export const DropdownContent = ({ children, className, ...rest }: Props) => {
-	const { open } = useDropdown();
+	const { open, anchor } = useDropdown();
+	const ref = React.useRef<HTMLDivElement>(null);
 
-	return (
+	React.useLayoutEffect(() => {
+		const el = ref.current;
+		const container = anchor.current;
+		if (!el || !container) return;
+
+		const { bottom, left } = container.getBoundingClientRect();
+		Object.assign(el.style, {
+			top: bottom + window.scrollY + 8 + 'px',
+			left: left + window.scrollX + 'px',
+		});
+	}, [open, anchor]);
+
+	return ReactDOM.createPortal(
 		<div
+			ref={ref}
 			aria-hidden={!open}
 			className={cn(
+				'absolute z-50',
 				'w-fit min-w-40 p-1',
-				'rounded-2xl bg-background',
-				'absolute top-full left-0 mt-2 z-50!',
+				'rounded-xl bg-background',
+				'border border-zinc-800',
 				{
 					'visible pointer-events-auto': open,
 					'invisible pointer-events-none': !open,
@@ -29,6 +44,7 @@ export const DropdownContent = ({ children, className, ...rest }: Props) => {
 			)}
 			{...rest}>
 			{children}
-		</div>
+		</div>,
+		document.body
 	);
 };

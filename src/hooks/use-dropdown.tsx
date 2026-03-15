@@ -3,6 +3,7 @@ import * as React from 'react';
 interface ContextValue {
 	open: boolean;
 	toggle: () => void;
+	anchor: React.RefObject<HTMLDivElement | null>;
 }
 
 export const DropdownContext = React.createContext<ContextValue | null>(null);
