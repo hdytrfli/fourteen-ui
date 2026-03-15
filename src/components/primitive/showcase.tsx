@@ -30,6 +30,7 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 	return (
 		<article
 			className={cn(
+				'relative',
 				'bg-zinc-800 text-zinc-500',
 				'flex items-center justify-center',
 				'overflow-visible rounded-xl h-48',
