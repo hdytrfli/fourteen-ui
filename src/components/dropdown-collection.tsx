@@ -1,5 +1,16 @@
 import * as React from 'react';
-import { ChevronDown, Copy, LogOut, Pencil, Settings, Trash, TriangleAlert, User } from 'lucide-react';
+import {
+	ChevronDown,
+	ChevronLeft,
+	ChevronRight,
+	Copy,
+	LogOut,
+	Pencil,
+	Settings,
+	Trash,
+	TriangleAlert,
+	User,
+} from 'lucide-react';
 
 import { Button } from '@/components/primitive/button';
 import { Avatar } from '@/components/primitive/avatar';
@@ -20,7 +31,7 @@ interface DropdownCollectionProps {
 export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 	return (
 		<Gallery title='Dropdown' description='A collection of button dropdown components.'>
-			<Showcase label='Plain dropdown with button'>
+			<Showcase label='Plain dropdown with button click'>
 				<Dropdown>
 					<Button variant='primary'>
 						<span>Dropdown</span>
@@ -33,9 +44,21 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
-
-			<Showcase label='Plain dropdown with label'>
-				<Dropdown>
+			<Showcase label='Plain dropdown with button hover'>
+				<Dropdown variant='hover'>
+					<Button variant='primary'>
+						<span>Dropdown</span>
+						<ChevronDown size={16} />
+					</Button>
+					<DropdownContent>
+						<DropdownItem label='Edit' icon={Pencil} />
+						<DropdownItem label='Duplicate' icon={Copy} />
+						<DropdownItem label='Delete' icon={Trash} />
+					</DropdownContent>
+				</Dropdown>
+			</Showcase>
+			<Showcase label='Plain dropdown with label hover'>
+				<Dropdown variant='hover'>
 					<label className='text-foreground underline underline-offset-2 decoration-wavy cursor-pointer'>
 						Dropdown
 					</label>
@@ -46,9 +69,8 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
-
-			<Showcase label='Plain dropdown with avatar'>
-				<Dropdown>
+			<Showcase label='Plain dropdown with avatar hover'>
+				<Dropdown variant='hover'>
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
 					<DropdownContent>
 						<DropdownItem label='Profile' icon={User} />
@@ -59,7 +81,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Fade dropdown with button'>
+			<Showcase label='Fade dropdown with button click'>
 				<Dropdown>
 					<Button variant='primary'>
 						<span>Fade</span>
@@ -72,8 +94,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
-
-			<Showcase label='Staggered dropdown with button'>
+			<Showcase label='Staggered dropdown with button click'>
 				<Dropdown>
 					<Button variant='primary'>
 						<span>Staggered</span>
@@ -87,7 +108,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Blur dropdown with button'>
+			<Showcase label='Blur dropdown with button click'>
 				<Dropdown>
 					<Button variant='primary'>
 						<span>Blur</span>
@@ -98,6 +119,34 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<DropdownItem label='Duplicate' icon={Copy} />
 						<DropdownItem label='Delete' icon={Trash} />
 					</BlurDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Plain dropdown with left top placement'>
+				<Dropdown variant='click'>
+					<Button variant='primary'>
+						<ChevronLeft size={16} />
+						<span>Open left</span>
+					</Button>
+					<StaggeredDropdown placement='left-top'>
+						<DropdownItem label='Edit' icon={Pencil} />
+						<DropdownItem label='Duplicate' icon={Copy} />
+						<DropdownItem label='Delete' icon={Trash} />
+					</StaggeredDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Plain dropdown with right top placement'>
+				<Dropdown variant='click'>
+					<Button variant='primary'>
+						<span>Open right</span>
+						<ChevronRight size={16} />
+					</Button>
+					<StaggeredDropdown placement='right-top'>
+						<DropdownItem label='Edit' icon={Pencil} />
+						<DropdownItem label='Duplicate' icon={Copy} />
+						<DropdownItem label='Delete' icon={Trash} />
+					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>
 		</Gallery>
