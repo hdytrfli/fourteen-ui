@@ -33,18 +33,18 @@ export const DropdownItem = ({
 	...rest
 }: Props) => {
 	const variants: Record<Variant, ClassValue> = {
-		primary: 'bg-background text-zinc-300 hover:bg-border hover:text-foreground',
-		destructive: 'bg-background text-zinc-300 hover:bg-rose-700 hover:text-foreground',
+		primary: 'bg-background text-zinc-400 hover:bg-border hover:text-foreground',
+		destructive: 'bg-background text-zinc-400 hover:bg-rose-700 hover:text-foreground',
 	};
 
 	return (
 		<button
 			className={cn(
-				'cursor-pointer',
-				'rounded-lg gap-3 p-3',
+				'rounded-lg',
+				'gap-3 p-3 cursor-pointer',
+				'w-full flex items-center',
 				'text-sm font-medium text-left',
 				'transition-colors duration-200',
-				'w-full flex items-center',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				variants[variant],
 				positions[position],

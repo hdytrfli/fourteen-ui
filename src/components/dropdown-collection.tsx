@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+	ArrowUpRight,
 	ChevronDown,
 	ChevronLeft,
 	ChevronRight,
@@ -23,6 +24,9 @@ import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { StaggeredDropdown } from './collections/dropdown/staggered-dropdown';
 import { BlurDropdown } from './collections/dropdown/blur-dropdown';
 import { FadeDropdown } from './collections/dropdown/fade-dropdown';
+import { ScaleDropdown } from './collections/dropdown/scale-dropdown';
+import { TypewriterDropdown } from './collections/dropdown/typewriter-dropdown';
+import { AccordionDropdown } from './collections/dropdown/accordion-dropdown';
 
 interface DropdownCollectionProps {
 	//
@@ -31,9 +35,12 @@ interface DropdownCollectionProps {
 const Demo = () => {
 	return (
 		<React.Fragment>
-			<DropdownItem label='Edit' icon={Pencil} />
-			<DropdownItem label='Duplicate' icon={Copy} />
-			<DropdownItem label='Delete' icon={Trash} variant='destructive' />
+			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
+			<hr className='border-b border-border border-dashed block mb-1'></hr>
+			<DropdownItem position='end' label='Edit data' icon={Pencil} />
+			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
+			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
+			<DropdownItem position='end' label='Delete data' icon={Trash} variant='destructive' />
 		</React.Fragment>
 	);
 };
@@ -80,11 +87,37 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				<Dropdown variant='hover'>
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
 					<DropdownContent>
-						<DropdownItem label='Profile' icon={User} />
-						<DropdownItem label='Privacy' icon={TriangleAlert} />
-						<DropdownItem label='Settings' icon={Settings} />
-						<DropdownItem label='Logout' icon={LogOut} variant='destructive' />
+						<label className='block px-3 py-3 text-sm font-medium'>John Doe</label>
+						<hr className='border-b border-border border-dashed block mb-1'></hr>
+						<DropdownItem position='end' label='Profile' icon={User} />
+						<DropdownItem position='end' label='Privacy' icon={TriangleAlert} />
+						<DropdownItem position='end' label='Settings' icon={Settings} />
+						<DropdownItem position='end' label='Logout' icon={LogOut} variant='destructive' />
 					</DropdownContent>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Plain dropdown with left top placement'>
+				<Dropdown variant='click'>
+					<Button variant={variant}>
+						<ChevronLeft size={16} />
+						<span>Open left</span>
+					</Button>
+					<FadeDropdown placement='left-top'>
+						<Demo />
+					</FadeDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Plain dropdown with right top placement'>
+				<Dropdown variant='click'>
+					<Button variant={variant}>
+						<span>Open right</span>
+						<ChevronRight size={16} />
+					</Button>
+					<FadeDropdown placement='right-top'>
+						<Demo />
+					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
 
@@ -94,7 +127,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Fade</span>
 						<ChevronDown size={16} />
 					</Button>
-					<FadeDropdown>
+					<FadeDropdown placement='bottom-center'>
 						<Demo />
 					</FadeDropdown>
 				</Dropdown>
@@ -106,7 +139,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Staggered</span>
 						<ChevronDown size={16} />
 					</Button>
-					<StaggeredDropdown>
+					<StaggeredDropdown placement='bottom-center'>
 						<Demo />
 					</StaggeredDropdown>
 				</Dropdown>
@@ -118,33 +151,45 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Blur</span>
 						<ChevronDown size={16} />
 					</Button>
-					<BlurDropdown>
+					<BlurDropdown placement='bottom-center'>
 						<Demo />
 					</BlurDropdown>
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Plain dropdown with left top placement'>
-				<Dropdown variant='click'>
+			<Showcase label='Scale dropdown with button click'>
+				<Dropdown>
 					<Button variant={variant}>
-						<ChevronLeft size={16} />
-						<span>Open left</span>
+						<span>Scale</span>
+						<ChevronDown size={16} />
 					</Button>
-					<StaggeredDropdown placement='left-top'>
+					<ScaleDropdown placement='bottom-center'>
 						<Demo />
-					</StaggeredDropdown>
+					</ScaleDropdown>
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Plain dropdown with right top placement'>
-				<Dropdown variant='click'>
+			<Showcase label='Typewriter dropdown with button click'>
+				<Dropdown>
 					<Button variant={variant}>
-						<span>Open right</span>
-						<ChevronRight size={16} />
+						<span>Typewriter</span>
+						<ChevronDown size={16} />
 					</Button>
-					<StaggeredDropdown placement='right-top'>
+					<TypewriterDropdown placement='bottom-center'>
 						<Demo />
-					</StaggeredDropdown>
+					</TypewriterDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Accordion dropdown with button click'>
+				<Dropdown>
+					<Button variant={variant}>
+						<span>Accordion</span>
+						<ChevronDown size={16} />
+					</Button>
+					<AccordionDropdown placement='bottom-center'>
+						<Demo />
+					</AccordionDropdown>
 				</Dropdown>
 			</Showcase>
 		</Gallery>

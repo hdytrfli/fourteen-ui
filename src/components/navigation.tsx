@@ -21,6 +21,8 @@ export const Navigation: React.FC = () => {
 		<Dropdown variant='hover'>
 			<RollingButton variant='ghost' label='Menu' hover='Navigation' />
 			<DropdownContent placement='bottom-right'>
+				<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
+				<hr className='border-b border-border border-dashed block mb-1'></hr>
 				{links.map(({ to, label, icon }) => (
 					<Link to={to} key={to} className='no-underline'>
 						<DropdownItem label={label} icon={icon} position='end' />

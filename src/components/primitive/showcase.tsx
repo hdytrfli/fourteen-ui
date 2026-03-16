@@ -35,7 +35,7 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 				'flex items-center justify-center',
 				'overflow-visible rounded-xl min-h-48 p-10',
 				'transition-colors duration-500 ease-in-out',
-				'group-hover:text-zinc-700 hover:text-zinc-300',
+				'group-hover:text-zinc-600 hover:text-zinc-300',
 				className
 			)}
 			{...rest}>
