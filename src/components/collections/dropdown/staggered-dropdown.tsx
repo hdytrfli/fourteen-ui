@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE, STAGGER, DISTANCE } from '@/libs/constants';
+import { DURATION, EASE, STAGGER, DISTANCE_DROPDOWN } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -20,7 +20,7 @@ export const StaggeredDropdown = ({ children, className, ...rest }: Props) => {
 	React.useLayoutEffect(() => {
 		const el = ref.current;
 		if (!el) return;
-		gsap.set(el.children, { opacity: 0, y: DISTANCE });
+		gsap.set(el.children, { opacity: 0, y: DISTANCE_DROPDOWN });
 	}, []);
 
 	React.useLayoutEffect(() => {
@@ -40,7 +40,7 @@ export const StaggeredDropdown = ({ children, className, ...rest }: Props) => {
 		if (!open) {
 			gsap.set(el.children, {
 				opacity: 0,
-				y: DISTANCE,
+				y: DISTANCE_DROPDOWN,
 			});
 		}
 	}, [open]);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DISTANCE, DURATION, EASE } from '@/libs/constants';
+import { DISTANCE_DROPDOWN, DURATION, EASE } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -23,7 +23,7 @@ export const FadeDropdown = ({ children, className, ...rest }: Props) => {
 
 		const variants = {
 			open: { opacity: 1, y: 0, ease: EASE.out },
-			closed: { opacity: 0, y: DISTANCE, ease: EASE.in },
+			closed: { opacity: 0, y: DISTANCE_DROPDOWN, ease: EASE.in },
 		} as const;
 
 		const state = open ? 'open' : 'closed';

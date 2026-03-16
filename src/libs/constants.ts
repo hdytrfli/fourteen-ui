@@ -11,4 +11,5 @@ export const EASE = {
 	inOut: 'power4.inOut',
 } as const;
 
-export const DISTANCE = -6;
+export const DISTANCE_MODAL = 20;
+export const DISTANCE_DROPDOWN = -6;

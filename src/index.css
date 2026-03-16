@@ -28,6 +28,11 @@
 	@apply max-w-4xl;
 }
 
+@utility scrollbar-none {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
 body {
 	color: var(--color-text);
 	font-family: var(--font-sans);
@@ -45,11 +50,6 @@ a {
 	text-decoration-style: wavy;
 	text-decoration-line: underline;
 	text-decoration-color: var(--color-accent);
-}
-
-@utility scrollbar-none {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
 }
 
 input:-webkit-autofill,
