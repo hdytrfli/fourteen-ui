@@ -3,6 +3,7 @@ import { VariantCollection } from '@/components/variant-collection';
 import { DropdownCollection } from '@/components/dropdown-collection';
 import { ModalCollection } from '@/components/modal-collection';
 import { CardCollection } from '@/components/card-collection';
+import { TooltipCollection } from '@/components/tooltip-collection';
 
 export const PAGES = [
 	{
@@ -36,5 +37,11 @@ export const PAGES = [
 		title: 'Card collections',
 		desciption: 'Card components with hover effects, shadows, and interactive elements.',
 		component: CardCollection,
+	},
+	{
+		path: '/tooltips',
+		title: 'Tooltip collections',
+		desciption: 'Tooltip components with fade, scale, and blur animation variants.',
+		component: TooltipCollection,
 	},
 ];

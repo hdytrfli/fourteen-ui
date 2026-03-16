@@ -7,6 +7,7 @@ import { ModalCollection } from '@/components/modal-collection';
 import { ButtonCollection } from '@/components/button-collection';
 import { VariantCollection } from '@/components/variant-collection';
 import { DropdownCollection } from '@/components/dropdown-collection';
+import { TooltipCollection } from '@/components/tooltip-collection';
 
 export default function App(): React.JSX.Element {
 	return (
@@ -29,6 +30,7 @@ export default function App(): React.JSX.Element {
 			<div className='grid gap-20'>
 				<ButtonCollection />
 				<VariantCollection />
+				<TooltipCollection />
 				<DropdownCollection />
 				<CardCollection />
 				<ModalCollection />
