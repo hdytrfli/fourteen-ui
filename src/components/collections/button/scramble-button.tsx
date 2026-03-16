@@ -38,7 +38,7 @@ gsap.registerPlugin(ScrambleTextPlugin);
 export const ScrambleButton = ({
 	label,
 	icon: Icon,
-	position = 'end',
+	position = 'start',
 	className,
 	...rest
 }: Props) => {

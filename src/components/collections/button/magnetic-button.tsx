@@ -24,12 +24,12 @@ const variants = {
  * Button that physically follows the cursor on hover and snaps back on leave.
  * @param label - Visible button text
  * @param icon - Optional Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'end')
+ * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'start')
  */
 export const MagneticButton = ({
 	label,
 	icon: Icon,
-	position = 'end',
+	position = 'start',
 	className,
 	...rest
 }: Props) => {

@@ -22,9 +22,15 @@ const variants = {
  * Button with an icon that tilts slightly on hover.
  * @param label - Visible button text
  * @param icon - Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'end')
+ * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'start')
  */
-export const TiltButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const TiltButton = ({
+	label,
+	icon: Icon,
+	position = 'start',
+	className,
+	...rest
+}: Props) => {
 	return (
 		<Button aria-label={label} className={cn('group/tilt-button', className)} {...rest}>
 			<span

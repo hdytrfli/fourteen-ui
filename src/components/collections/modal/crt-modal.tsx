@@ -8,10 +8,10 @@ import { ModalContent } from '@/components/primitive/modal-content';
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 
 /**
- * Modal variant that unfolds from the top like a scroll or banner.
+ * Modal variant with a CRT-style turn-on effect that expands from the center.
  * @param children - Modal body content
  */
-export const FoldModal = ({ children, ...rest }: Props) => {
+export const CrtModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
 	const ref = React.useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ export const FoldModal = ({ children, ...rest }: Props) => {
 		gsap.set(el, {
 			opacity: 0,
 			scaleY: 0,
-			transformOrigin: 'top center',
+			transformOrigin: 'center center',
 		});
 	}, []);
 
@@ -31,10 +31,10 @@ export const FoldModal = ({ children, ...rest }: Props) => {
 		if (!el) return;
 
 		gsap.to(el, {
-			ease: EASE.out,
+			ease: EASE.crt,
 			opacity: open ? 1 : 0,
 			scaleY: open ? 1 : 0,
-			duration: DURATION.base,
+			duration: DURATION.slow,
 		});
 	}, [open]);
 

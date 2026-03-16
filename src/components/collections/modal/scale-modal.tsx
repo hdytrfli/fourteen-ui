@@ -33,7 +33,7 @@ export const ScaleModal = ({ children, ...rest }: Props) => {
 			ease: EASE.out,
 			opacity: open ? 1 : 0,
 			scale: open ? 1 : 1.1,
-			duration: DURATION.base,
+			duration: DURATION.slow,
 		});
 	}, [open]);
 

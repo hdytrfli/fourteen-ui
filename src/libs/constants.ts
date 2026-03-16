@@ -9,6 +9,7 @@ export const EASE = {
 	in: 'power4.in',
 	out: 'power4.out',
 	inOut: 'power4.inOut',
+	crt: 'expo.out',
 } as const;
 
 export const DISTANCE_MODAL = 20;

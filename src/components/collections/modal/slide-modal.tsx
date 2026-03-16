@@ -33,7 +33,7 @@ export const SlideModal = ({ children, ...rest }: Props) => {
 			ease: EASE.out,
 			opacity: open ? 1 : 0,
 			y: open ? 0 : 40,
-			duration: DURATION.base,
+			duration: DURATION.slow,
 		});
 	}, [open]);
 

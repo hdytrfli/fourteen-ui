@@ -21,8 +21,7 @@ export const RotateModal = ({ children, ...rest }: Props) => {
 
 		gsap.set(el, {
 			opacity: 0,
-			rotateY: -30,
-			transformOrigin: 'left center',
+			rotate: -10,
 		});
 	}, []);
 
@@ -33,7 +32,7 @@ export const RotateModal = ({ children, ...rest }: Props) => {
 		gsap.to(el, {
 			ease: EASE.inOut,
 			opacity: open ? 1 : 0,
-			rotateY: open ? 0 : -30,
+			rotate: open ? 0 : -10,
 			duration: DURATION.slow,
 		});
 	}, [open]);

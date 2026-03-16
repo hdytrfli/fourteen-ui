@@ -29,12 +29,12 @@ const JUMP_HEIGHT = -4;
  * Icon joins the bounce after all letters complete their motion.
  * @param label - Visible button text
  * @param icon - Optional Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end' (default: 'end')
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  */
 export const KineticButton = ({
 	label,
 	icon: Icon,
-	position = 'end',
+	position = 'start',
 	className,
 	...rest
 }: Props) => {

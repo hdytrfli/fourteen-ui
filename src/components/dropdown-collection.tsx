@@ -12,10 +12,10 @@ import {
 	User,
 } from 'lucide-react';
 
-import { Button, type ButtonVariant } from '@/components/primitive/button';
 import { Avatar } from '@/components/primitive/avatar';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
+import { Button, type ButtonVariant } from '@/components/primitive/button';
 
 import { Dropdown } from '@/components/primitive/dropdown';
 import { DropdownItem } from '@/components/primitive/dropdown-item';
@@ -27,6 +27,16 @@ import { FadeDropdown } from './collections/dropdown/fade-dropdown';
 interface DropdownCollectionProps {
 	//
 }
+
+const Demo = () => {
+	return (
+		<React.Fragment>
+			<DropdownItem label='Edit' icon={Pencil} />
+			<DropdownItem label='Duplicate' icon={Copy} />
+			<DropdownItem label='Delete' icon={Trash} variant='destructive' />
+		</React.Fragment>
+	);
+};
 
 export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 	const variant: ButtonVariant = 'secondary';
@@ -40,9 +50,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<DropdownContent>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -53,23 +61,17 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Dropdown</span>
 						<ChevronDown size={16} />
 					</Button>
-					<DropdownContent>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+					<DropdownContent placement='bottom-center'>
+						<Demo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
 
 			<Showcase label='Plain dropdown with label hover'>
 				<Dropdown variant='hover'>
-					<label className='text-foreground underline underline-offset-2 decoration-wavy cursor-pointer'>
-						Dropdown
-					</label>
+					<label className='text-foreground link-accent cursor-pointer'>Dropdown</label>
 					<DropdownContent>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -81,7 +83,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<DropdownItem label='Profile' icon={User} />
 						<DropdownItem label='Privacy' icon={TriangleAlert} />
 						<DropdownItem label='Settings' icon={Settings} />
-						<DropdownItem label='Logout' icon={LogOut} />
+						<DropdownItem label='Logout' icon={LogOut} variant='destructive' />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -93,9 +95,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<FadeDropdown>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
@@ -107,9 +107,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<StaggeredDropdown>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>
@@ -121,9 +119,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<BlurDropdown>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</BlurDropdown>
 				</Dropdown>
 			</Showcase>
@@ -135,9 +131,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Open left</span>
 					</Button>
 					<StaggeredDropdown placement='left-top'>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>
@@ -149,9 +143,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronRight size={16} />
 					</Button>
 					<StaggeredDropdown placement='right-top'>
-						<DropdownItem label='Edit' icon={Pencil} />
-						<DropdownItem label='Duplicate' icon={Copy} />
-						<DropdownItem label='Delete' icon={Trash} />
+						<Demo />
 					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>

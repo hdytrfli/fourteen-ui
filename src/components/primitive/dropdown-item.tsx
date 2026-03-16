@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { cn } from '@/libs/utils';
 import { type LucideIcon } from 'lucide-react';
+import type { ClassValue } from 'clsx';
+
+type Variant = 'primary' | 'destructive';
 
 interface Props extends React.ComponentProps<'button'> {
 	label: string;
 	icon?: LucideIcon;
+	variant?: Variant;
 }
 
 /**
@@ -12,16 +16,28 @@ interface Props extends React.ComponentProps<'button'> {
  * @param label - Display text for the item
  * @param icon - Optional Lucide icon component
  */
-export const DropdownItem = ({ label, icon: Icon, className, ...rest }: Props) => {
+export const DropdownItem = ({
+	label,
+	variant = 'primary',
+	icon: Icon,
+	className,
+	...rest
+}: Props) => {
+	const variants: Record<Variant, ClassValue> = {
+		primary: 'bg-background text-zinc-300 hover:bg-border hover:text-foreground',
+		destructive: 'bg-background text-zinc-300 hover:bg-rose-700 hover:text-foreground',
+	};
+
 	return (
 		<button
 			className={cn(
-				'rounded-xl gap-2 px-3 py-2',
+				'cursor-pointer',
+				'rounded-lg gap-2 px-3 py-2',
 				'text-sm font-medium text-left',
-				'transition-colors duration-150',
+				'transition-colors duration-200',
 				'w-full flex items-center justify-between',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
-				'text-zinc-300 cursor-pointer hover:bg-foreground hover:text-background',
+				variants[variant],
 				className
 			)}
 			{...rest}>

@@ -18,7 +18,7 @@ import { SlideModal } from '@/components/collections/modal/slide-modal';
 import { BlurModal } from '@/components/collections/modal/blur-modal';
 import { ScaleModal } from '@/components/collections/modal/scale-modal';
 import { RotateModal } from '@/components/collections/modal/rotate-modal';
-import { FoldModal } from '@/components/collections/modal/fold-modal';
+import { CrtModal } from '@/components/collections/modal/crt-modal';
 import { ElasticModal } from '@/components/collections/modal/elastic-modal';
 import { NewspaperModal } from '@/components/collections/modal/newspaper-modal';
 
@@ -51,7 +51,7 @@ export const ModalCollection = () => {
 	const slide = useModalState();
 	const scale = useModalState();
 	const rotate = useModalState();
-	const fold = useModalState();
+	const crt = useModalState();
 	const elastic = useModalState();
 	const newspaper = useModalState();
 
@@ -85,9 +85,7 @@ export const ModalCollection = () => {
 			</Showcase>
 
 			<Showcase label='Modal with label trigger and size large'>
-				<label
-					onClick={label.onOpen}
-					className='text-foreground underline underline-offset-2 decoration-wavy cursor-pointer'>
+				<label onClick={label.onOpen} className='text-foreground link-accent cursor-pointer'>
 					Read terms
 				</label>
 				<Modal open={label.open} onClose={label.onClose}>
@@ -189,7 +187,7 @@ export const ModalCollection = () => {
 
 			<Showcase label='Modal with blur variant'>
 				<Button variant='secondary' onClick={blur.onOpen}>
-					Open modal
+					Open blur modal
 				</Button>
 				<Modal open={blur.open} onClose={blur.onClose}>
 					<BlurModal title='Welcome back'>
@@ -203,7 +201,7 @@ export const ModalCollection = () => {
 
 			<Showcase label='Modal with slide variant'>
 				<Button variant='secondary' onClick={slide.onOpen}>
-					Open modal
+					Open slide modal
 				</Button>
 				<Modal open={slide.open} onClose={slide.onClose}>
 					<SlideModal title='Welcome back'>
@@ -217,7 +215,7 @@ export const ModalCollection = () => {
 
 			<Showcase label='Modal with scale variant'>
 				<Button variant='secondary' onClick={scale.onOpen}>
-					Open modal
+					Open scale modal
 				</Button>
 				<Modal open={scale.open} onClose={scale.onClose}>
 					<ScaleModal title='Welcome back'>
@@ -231,7 +229,7 @@ export const ModalCollection = () => {
 
 			<Showcase label='Modal with rotate variant'>
 				<Button variant='secondary' onClick={rotate.onOpen}>
-					Open modal
+					Open rotate modal
 				</Button>
 				<Modal open={rotate.open} onClose={rotate.onClose}>
 					<RotateModal title='Welcome back'>
@@ -243,23 +241,23 @@ export const ModalCollection = () => {
 				</Modal>
 			</Showcase>
 
-			<Showcase label='Modal with fold variant'>
-				<Button variant='secondary' onClick={fold.onOpen}>
-					Open modal
+			<Showcase label='Modal with crt variant'>
+				<Button variant='secondary' onClick={crt.onOpen}>
+					Open crt modal
 				</Button>
-				<Modal open={fold.open} onClose={fold.onClose}>
-					<FoldModal title='Welcome back'>
+				<Modal open={crt.open} onClose={crt.onClose}>
+					<CrtModal title='Welcome back'>
 						<Demo
-							description='This unfolds from the top like a scroll or banner. Scales from 0 to 1 on the Y-axis with the transform origin at the top for a folding paper effect.'
-							onClose={fold.onClose}
+							description='This expands from the center like an old CRT TV turning on. Uses expo.out easing for a sharp, snappy animation.'
+							onClose={crt.onClose}
 						/>
-					</FoldModal>
+					</CrtModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with elastic variant'>
 				<Button variant='secondary' onClick={elastic.onOpen}>
-					Open modal
+					Open elastic modal
 				</Button>
 				<Modal open={elastic.open} onClose={elastic.onClose}>
 					<ElasticModal title='Welcome back'>
@@ -273,7 +271,7 @@ export const ModalCollection = () => {
 
 			<Showcase label='Modal with newspaper variant'>
 				<Button variant='secondary' onClick={newspaper.onOpen}>
-					Open modal
+					Open newspaper modal
 				</Button>
 				<Modal open={newspaper.open} onClose={newspaper.onClose}>
 					<NewspaperModal title='Welcome back'>

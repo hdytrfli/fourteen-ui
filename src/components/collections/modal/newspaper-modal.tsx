@@ -39,7 +39,7 @@ export const NewspaperModal = ({ children, ...rest }: Props) => {
 			scaleX: open ? 1 : 0,
 			scaleY: open ? 1 : 0,
 			rotate: open ? 0 : -10,
-			duration: DURATION.base,
+			duration: DURATION.slow,
 		});
 	}, [open]);
 

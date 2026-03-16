@@ -18,9 +18,15 @@ interface Props extends React.ComponentProps<typeof Button> {
  * expanding the button padding to make room without shifting the label.
  * @param label - Visible button text
  * @param icon - Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end' (default: 'end')
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  */
-export const FlyinButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const FlyinButton = ({
+	label,
+	icon: Icon,
+	position = 'start',
+	className,
+	...rest
+}: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const icon = React.useRef<HTMLSpanElement>(null);
 
@@ -63,7 +69,7 @@ export const FlyinButton = ({ label, icon: Icon, position = 'end', className, ..
 				aria-hidden
 				className={cn('absolute top-1/2 -translate-y-1/2', {
 					'left-4': position === 'start',
-					'right-4': position === 'end',
+					'right-4': position === 'start',
 				})}>
 				<Icon size={16} />
 			</span>
