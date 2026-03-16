@@ -9,9 +9,9 @@ interface Props extends React.ComponentProps<'div'> {
 
 /**
  * Tooltip root that manages open state and wires the trigger child.
- * @param delay - Delay in ms before tooltip appears (default: 500)
+ * @param delay - Delay in ms before tooltip appears (default: 300)
  */
-export const Tooltip = ({ children, className, delay = 500, ...rest }: Props) => {
+export const Tooltip = ({ children, className, delay = 300, ...rest }: Props) => {
 	const [open, setOpen] = React.useState(false);
 	const ref = React.useRef<HTMLDivElement>(null);
 	const anchor = React.useRef<HTMLDivElement>(null);

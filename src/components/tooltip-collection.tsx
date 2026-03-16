@@ -11,6 +11,7 @@ import {
 	Bookmark,
 	Copy,
 	Link,
+	User,
 } from 'lucide-react';
 
 import { Avatar } from '@/components/primitive/avatar';
@@ -22,6 +23,7 @@ import { TooltipContent } from '@/components/primitive/tooltip-content';
 import { FadeTooltip } from '@/components/collections/tooltip/fade-tooltip';
 import { ScaleTooltip } from '@/components/collections/tooltip/scale-tooltip';
 import { BlurTooltip } from '@/components/collections/tooltip/blur-tooltip';
+import { SharedTooltipTrigger } from '@/components/collections/tooltip/shared-tooltip';
 
 export const TooltipCollection = () => {
 	return (
@@ -49,7 +51,7 @@ export const TooltipCollection = () => {
 				</div>
 			</Showcase>
 
-			<Showcase label='Long trigger and content tooltip' className='col-span-2'>
+			<Showcase label='Long trigger and content tooltip' className='md:col-span-2'>
 				<div className='flex gap-3'>
 					<Tooltip>
 						<Button variant='secondary'>Long tooltip trigger</Button>
@@ -60,7 +62,7 @@ export const TooltipCollection = () => {
 				</div>
 			</Showcase>
 
-			<Showcase label='Different placements' className='col-span-2'>
+			<Showcase label='Different placements' className='md:col-span-2'>
 				<div className='flex gap-3'>
 					<Tooltip>
 						<Button variant='secondary'>Left</Button>
@@ -84,9 +86,9 @@ export const TooltipCollection = () => {
 			<Showcase label='Custom content tooltip'>
 				<Tooltip>
 					<Button variant='secondary'>
-						<Pencil size={16} />
+						<User size={16} />
 					</Button>
-					<TooltipContent placement='top-center' className='max-w-sm text-sm text-start p-4'>
+					<TooltipContent placement='top-center' className='max-w-sm text-sm text-start p-3'>
 						<div className='flex items-center gap-3'>
 							<Avatar
 								alt='Avatar'
@@ -168,6 +170,83 @@ export const TooltipCollection = () => {
 						</Button>
 						<BlurTooltip placement='top-center'>Open settings</BlurTooltip>
 					</Tooltip>
+				</div>
+			</Showcase>
+
+			<Showcase label='Custom tooltip content with animation'>
+				<Tooltip>
+					<Avatar
+						alt='Avatar'
+						className='flex-none'
+						src='https://picsum.photos/seed/img1/400/300'
+					/>
+					<BlurTooltip
+						placement='top-center'
+						className='w-full max-w-60 text-sm text-start p-3 grid gap-2'>
+						<div>
+							<h5 className='font-medium'>Service status</h5>
+							<p className='text-zinc-500'>Last updated 2 minutes ago</p>
+						</div>
+						<div className='grid gap-1'>
+							<div className='flex items-center gap-2'>
+								<div className='size-2 rounded-full flex-none bg-emerald-600' />
+								<span>Deployement is up</span>
+							</div>
+							<div className='flex items-center gap-2'>
+								<div className='size-2 rounded-full flex-none bg-emerald-600' />
+								<span>Database is up</span>
+							</div>
+							<div className='flex items-center gap-2'>
+								<div className='size-2 rounded-full flex-none bg-rose-600' />
+								<span>Redis is down</span>
+							</div>
+						</div>
+					</BlurTooltip>
+				</Tooltip>
+			</Showcase>
+
+			<Showcase label='Shared tooltip with text swap' className='md:col-span-2'>
+				<div className='flex gap-3'>
+					<SharedTooltipTrigger label='Edit item'>
+						<Button variant='secondary'>
+							<Pencil size={16} />
+						</Button>
+					</SharedTooltipTrigger>
+					<SharedTooltipTrigger label='Delete item'>
+						<Button variant='secondary'>
+							<Trash size={16} />
+						</Button>
+					</SharedTooltipTrigger>
+					<SharedTooltipTrigger label='Download file'>
+						<Button variant='secondary'>
+							<Download size={16} />
+						</Button>
+					</SharedTooltipTrigger>
+				</div>
+			</Showcase>
+
+			<Showcase label='Shared tooltip with text swap' className='col-span-full'>
+				<div className='flex flex-col lg:flex-row items-center gap-3'>
+					<SharedTooltipTrigger label='Edit item'>
+						<Button variant='secondary'>
+							<Pencil size={16} />
+							<span>Edit data</span>
+						</Button>
+					</SharedTooltipTrigger>
+
+					<SharedTooltipTrigger label='Delete item'>
+						<Button variant='destructive'>
+							<Trash size={16} />
+							<span>Delete item</span>
+						</Button>
+					</SharedTooltipTrigger>
+
+					<SharedTooltipTrigger label='Download file'>
+						<Button variant='primary'>
+							<Download size={16} />
+							<span>Download file</span>
+						</Button>
+					</SharedTooltipTrigger>
 				</div>
 			</Showcase>
 		</Gallery>
