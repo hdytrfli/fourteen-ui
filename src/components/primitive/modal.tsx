@@ -31,21 +31,20 @@ export const Modal = ({ open, onClose, children, className, ...rest }: Props) =>
 
 	useFocusTrap(content, open, onClose);
 
+	if (!open) return null;
 	return (
 		<ModalContext.Provider value={{ open, close: onClose, content }}>
 			{ReactDOM.createPortal(
 				<div
-					aria-hidden={!open}
+					role='dialog'
+					aria-modal='true'
 					onClick={onClose}
 					className={cn(
 						'fixed inset-0 z-50',
 						'flex items-center justify-center',
 						'bg-zinc-950/80 backdrop-blur-sm',
 						'transition-all duration-100 ease-in-out',
-						{
-							'opacity-100 visible pointer-events-auto': open,
-							'opacity-0 invisible pointer-events-none': !open,
-						},
+						'opacity-100 visible pointer-events-auto',
 						className
 					)}
 					{...rest}>

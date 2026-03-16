@@ -63,12 +63,12 @@ export const DropdownContent = ({
 
 	React.useLayoutEffect(() => {
 		const el = ref.current;
-		const anchorEl = anchor.current;
-		if (!el || !anchorEl) return;
+		const dropdown = anchor.current;
 
-		const anchorRect = anchorEl.getBoundingClientRect();
-		const elRect = el.getBoundingClientRect();
-		const { top, left } = getPosition(anchorRect, elRect, placement);
+		if (!el || !dropdown || !open) return;
+		const content = dropdown.getBoundingClientRect();
+		const wrapper = el.getBoundingClientRect();
+		const { top, left } = getPosition(content, wrapper, placement);
 
 		Object.assign(el.style, {
 			top: top + window.scrollY + 'px',
@@ -76,12 +76,14 @@ export const DropdownContent = ({
 		});
 	}, [open, anchor, placement]);
 
+	if (!open) return null;
 	const horizontal = placement.startsWith('left') || placement.startsWith('right');
 
 	return ReactDOM.createPortal(
 		<div
 			ref={ref}
-			aria-hidden={!open}
+			role='menu'
+			aria-modal='false'
 			className={cn(
 				'absolute z-50',
 				{
