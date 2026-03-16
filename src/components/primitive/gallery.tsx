@@ -9,7 +9,13 @@ interface GalleryProps extends React.ComponentProps<'section'> {
 	children: React.ReactNode;
 }
 
-export const Gallery: React.FC<GalleryProps> = ({ title, description, className, children, ...props }) => {
+export const Gallery: React.FC<GalleryProps> = ({
+	title,
+	description,
+	className,
+	children,
+	...props
+}) => {
 	return (
 		<section className={cn('grid gap-2', className)} {...props}>
 			<CollectionHeader title={title} description={description} />

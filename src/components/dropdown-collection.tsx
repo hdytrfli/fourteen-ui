@@ -12,7 +12,7 @@ import {
 	User,
 } from 'lucide-react';
 
-import { Button } from '@/components/primitive/button';
+import { Button, type ButtonVariant } from '@/components/primitive/button';
 import { Avatar } from '@/components/primitive/avatar';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
@@ -29,11 +29,13 @@ interface DropdownCollectionProps {
 }
 
 export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
+	const variant: ButtonVariant = 'secondary';
+
 	return (
 		<Gallery title='Dropdown' description='A collection of button dropdown components.'>
 			<Showcase label='Plain dropdown with button click'>
 				<Dropdown>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Dropdown</span>
 						<ChevronDown size={16} />
 					</Button>
@@ -44,9 +46,10 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
+
 			<Showcase label='Plain dropdown with button hover'>
 				<Dropdown variant='hover'>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Dropdown</span>
 						<ChevronDown size={16} />
 					</Button>
@@ -57,6 +60,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
+
 			<Showcase label='Plain dropdown with label hover'>
 				<Dropdown variant='hover'>
 					<label className='text-foreground underline underline-offset-2 decoration-wavy cursor-pointer'>
@@ -69,6 +73,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
+
 			<Showcase label='Plain dropdown with avatar hover'>
 				<Dropdown variant='hover'>
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
@@ -83,7 +88,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 
 			<Showcase label='Fade dropdown with button click'>
 				<Dropdown>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Fade</span>
 						<ChevronDown size={16} />
 					</Button>
@@ -94,9 +99,10 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
+
 			<Showcase label='Staggered dropdown with button click'>
 				<Dropdown>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Staggered</span>
 						<ChevronDown size={16} />
 					</Button>
@@ -110,7 +116,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 
 			<Showcase label='Blur dropdown with button click'>
 				<Dropdown>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Blur</span>
 						<ChevronDown size={16} />
 					</Button>
@@ -124,7 +130,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 
 			<Showcase label='Plain dropdown with left top placement'>
 				<Dropdown variant='click'>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<ChevronLeft size={16} />
 						<span>Open left</span>
 					</Button>
@@ -138,7 +144,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 
 			<Showcase label='Plain dropdown with right top placement'>
 				<Dropdown variant='click'>
-					<Button variant='primary'>
+					<Button variant={variant}>
 						<span>Open right</span>
 						<ChevronRight size={16} />
 					</Button>

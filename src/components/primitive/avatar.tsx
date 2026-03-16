@@ -11,7 +11,13 @@ export const Avatar: React.FC<AvatarProps> = ({ src, alt, className, ...props })
 		<button
 			role='button'
 			aria-label={alt}
-			className={cn('size-12', 'rounded-full bg-background', 'cursor-pointer overflow-hidden', className)}
+			className={cn(
+				'size-12',
+				'rounded-full bg-background',
+				'cursor-pointer overflow-hidden',
+				'focus-visible:ring-2 focus-visible:ring-foreground outline-none',
+				className
+			)}
 			{...props}>
 			<img src={src} alt={alt} className='w-full h-full object-cover' />
 		</button>

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/libs/utils';
+import { type LucideIcon } from 'lucide-react';
 
 interface Props extends React.ComponentProps<'button'> {
 	label: string;
@@ -20,7 +20,7 @@ export const DropdownItem = ({ label, icon: Icon, className, ...rest }: Props) =
 				'text-sm font-medium text-left',
 				'transition-colors duration-150',
 				'w-full flex items-center justify-between',
-				'focus-visible:ring-2 focus-visible:ring-zinc-500 outline-none',
+				'focus-visible:ring-2 focus-visible:ring-foreground outline-none',
 				'text-zinc-300 cursor-pointer hover:bg-foreground hover:text-background',
 				className
 			)}

@@ -26,7 +26,13 @@ const variants = {
  * @param icon - Optional Lucide icon component
  * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'end')
  */
-export const MagneticButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const MagneticButton = ({
+	label,
+	icon: Icon,
+	position = 'end',
+	className,
+	...rest
+}: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 
 	React.useLayoutEffect(() => {

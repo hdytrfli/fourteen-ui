@@ -5,6 +5,7 @@
 	--accent: #fedb45;
 	--background: #1d1d1f;
 	--foreground: #ffffff;
+	--border: #2a2a2e;
 
 	--font-geist: 'Geist Variable', system-ui, sans-serif;
 	--font-gloock: 'Gloock', system-ui, serif;
@@ -18,6 +19,7 @@
 	--color-accent: var(--color-emerald-500);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-border: var(--border);
 }
 
 @utility container {
@@ -43,4 +45,9 @@ a {
 	text-decoration-style: wavy;
 	text-decoration-line: underline;
 	text-decoration-color: var(--color-accent);
+}
+
+@utility scrollbar-none {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }

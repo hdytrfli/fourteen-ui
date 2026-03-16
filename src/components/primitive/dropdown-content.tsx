@@ -28,13 +28,19 @@ const getPosition = (anchor: DOMRect, el: DOMRect, placement: Placement) => {
 		'bottom-center': { top: anchor.bottom, left: anchor.left + anchor.width / 2 - el.width / 2 },
 		'bottom-right': { top: anchor.bottom, left: anchor.right - el.width },
 		'top-left': { top: anchor.top - el.height, left: anchor.left },
-		'top-center': { top: anchor.top - el.height, left: anchor.left + anchor.width / 2 - el.width / 2 },
+		'top-center': {
+			top: anchor.top - el.height,
+			left: anchor.left + anchor.width / 2 - el.width / 2,
+		},
 		'top-right': { top: anchor.top - el.height, left: anchor.right - el.width },
 		'right-top': { top: anchor.top, left: anchor.right },
 		'right-center': { top: anchor.top + anchor.height / 2 - el.height / 2, left: anchor.right },
 		'right-bottom': { top: anchor.bottom - el.height, left: anchor.right },
 		'left-top': { top: anchor.top, left: anchor.left - el.width },
-		'left-center': { top: anchor.top + anchor.height / 2 - el.height / 2, left: anchor.left - el.width },
+		'left-center': {
+			top: anchor.top + anchor.height / 2 - el.height / 2,
+			left: anchor.left - el.width,
+		},
 		'left-bottom': { top: anchor.bottom - el.height, left: anchor.left - el.width },
 	};
 
@@ -46,7 +52,12 @@ const getPosition = (anchor: DOMRect, el: DOMRect, placement: Placement) => {
  * @param children - DropdownItem components
  * @param placement - Where the dropdown appears relative to the trigger (default: 'bottom-left')
  */
-export const DropdownContent = ({ children, placement = 'bottom-left', className, ...rest }: Props) => {
+export const DropdownContent = ({
+	children,
+	placement = 'bottom-left',
+	className,
+	...rest
+}: Props) => {
 	const { open, anchor } = useDropdown();
 	const ref = React.useRef<HTMLDivElement>(null);
 
@@ -82,7 +93,9 @@ export const DropdownContent = ({ children, placement = 'bottom-left', className
 				className
 			)}
 			{...rest}>
-			<div className='w-fit min-w-40 p-1 rounded-xl bg-background border border-zinc-800'>{children}</div>
+			<div className='w-fit min-w-40 p-1 rounded-xl bg-background border border-border'>
+				{children}
+			</div>
 		</div>,
 		document.body
 	);

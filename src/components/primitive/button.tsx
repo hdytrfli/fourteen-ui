@@ -3,26 +3,28 @@ import * as React from 'react';
 import { cn } from '@/libs/utils';
 import type { ClassValue } from 'clsx';
 
-type Variant = 'primary' | 'secondary' | 'accent';
+export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'destructive' | 'ghost';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
-	variant: Variant;
+	variant: ButtonVariant;
 }
 
 export const Button: React.FC<ButtonProps> = ({ children, variant, className, ...rest }) => {
-	const variants: Record<Variant, ClassValue> = {
-		primary: 'bg-background text-foreground',
-		secondary: 'bg-foreground text-background',
+	const variants: Record<ButtonVariant, ClassValue> = {
+		ghost: 'bg-border text-foreground',
 		accent: 'bg-accent text-foreground',
+		secondary: 'bg-background text-foreground',
+		primary: 'bg-foreground text-background',
+		destructive: 'bg-rose-700 text-foreground',
 	};
 
 	return (
 		<button
 			className={cn(
-				'px-6 h-10',
-				'flex items-center gap-2',
+				'px-4 h-12',
+				'flex items-center gap-2 justify-center',
 				'relative text-sm rounded-full font-medium cursor-pointer',
-				'focus-visible:ring-2 focus-visible:ring-zinc-500 outline-none',
+				'focus-visible:ring-2 focus-visible:ring-foreground outline-none',
 				variants[variant],
 				className
 			)}

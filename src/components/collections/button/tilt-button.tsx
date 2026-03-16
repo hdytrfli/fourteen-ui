@@ -24,12 +24,19 @@ const variants = {
  * @param icon - Lucide icon component
  * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'end')
  */
-export const TiltIconButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const TiltButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
 	return (
 		<Button aria-label={label} className={cn('group/tilt-button', className)} {...rest}>
-			<span className={cn('flex items-center gap-2', 'pointer-events-none select-none', variants.position[position])}>
+			<span
+				className={cn(
+					'flex items-center gap-2',
+					'pointer-events-none select-none',
+					variants.position[position]
+				)}>
 				<span>{label}</span>
-				<span aria-hidden className='transition-transform duration-300 ease-in-out group-hover/tilt-button:-rotate-12'>
+				<span
+					aria-hidden
+					className='transition-transform duration-300 ease-in-out group-hover/tilt-button:-rotate-12'>
 					<Icon size={16} />
 				</span>
 			</span>

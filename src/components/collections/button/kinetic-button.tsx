@@ -31,7 +31,13 @@ const JUMP_HEIGHT = -4;
  * @param icon - Optional Lucide icon component
  * @param position - Whether the icon sits at the 'start' or 'end' (default: 'end')
  */
-export const KineticButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const KineticButton = ({
+	label,
+	icon: Icon,
+	position = 'end',
+	className,
+	...rest
+}: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const text = React.useRef<HTMLSpanElement>(null);
 	const icon = React.useRef<HTMLSpanElement>(null);

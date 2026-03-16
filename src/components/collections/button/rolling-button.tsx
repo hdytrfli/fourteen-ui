@@ -71,7 +71,9 @@ export const RollingButton = ({ label, hover, direction, className, ...rest }: P
 				<span aria-hidden className='invisible px-1'>
 					{label.length >= hover.length ? label : hover}
 				</span>
-				<span ref={text} className='initial flex gap-1 items-center overflow-hidden justify-center absolute inset-0'>
+				<span
+					ref={text}
+					className='initial flex gap-1 items-center overflow-hidden justify-center absolute inset-0'>
 					{label}
 				</span>
 				<span

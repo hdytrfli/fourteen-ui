@@ -41,7 +41,9 @@ export const Dropdown = ({ children, variant = 'click', className, ...rest }: Pr
 				className={cn('relative w-fit', className)}
 				onMouseLeave={variant === 'hover' ? closeMenu : undefined}
 				{...rest}>
-				<div ref={anchor}>{React.cloneElement(trigger as React.ReactElement<Record<string, unknown>>, props)}</div>
+				<div ref={anchor}>
+					{React.cloneElement(trigger as React.ReactElement<Record<string, unknown>>, props)}
+				</div>
 				{content}
 			</div>
 		</DropdownContext.Provider>

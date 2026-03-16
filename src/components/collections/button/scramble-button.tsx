@@ -35,7 +35,13 @@ gsap.registerPlugin(ScrambleTextPlugin);
  * Button that scrambles its label through random characters before resolving on hover.
  * @param label - Visible button text and final resolved value
  */
-export const ScrambleButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
+export const ScrambleButton = ({
+	label,
+	icon: Icon,
+	position = 'end',
+	className,
+	...rest
+}: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const text = React.useRef<HTMLSpanElement>(null);
 
