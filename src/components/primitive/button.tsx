@@ -21,6 +21,7 @@ export const Button: React.FC<ButtonProps> = ({ children, variant, className, ..
 	return (
 		<button
 			className={cn(
+				'no-underline',
 				'px-4 h-12 select-none',
 				'flex items-center gap-2 justify-center',
 				'relative text-sm rounded-xl font-medium cursor-pointer',

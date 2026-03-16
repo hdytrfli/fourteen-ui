@@ -33,35 +33,37 @@
 	scrollbar-width: none;
 }
 
-body {
-	color: var(--color-text);
-	font-family: var(--font-sans);
-	background-color: var(--color-background);
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-p {
-	line-height: 2;
-}
-
-.link-accent {
+@utility link-accent {
 	text-decoration-style: wavy;
 	text-decoration-line: underline;
 	text-decoration-color: var(--color-accent);
 }
 
-a {
-	text-decoration-style: wavy;
-	text-decoration-line: underline;
-	text-decoration-color: var(--color-accent);
-}
+@layer components {
+	body {
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		background-color: var(--color-background);
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-	-webkit-box-shadow: 0 0 0 1000px hsl(var(--border)) inset;
-	-webkit-text-fill-color: hsl(var(--foreground));
-	caret-color: hsl(var(--foreground));
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	p {
+		line-height: 2;
+	}
+
+	a {
+		text-decoration-style: wavy;
+		text-decoration-line: underline;
+		text-decoration-color: var(--color-accent);
+	}
+
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus {
+		-webkit-box-shadow: 0 0 0 1000px hsl(var(--border)) inset;
+		-webkit-text-fill-color: hsl(var(--foreground));
+		caret-color: hsl(var(--foreground));
+	}
 }

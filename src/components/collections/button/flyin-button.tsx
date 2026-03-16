@@ -14,8 +14,7 @@ interface Props extends React.ComponentProps<typeof Button> {
 }
 
 /**
- * Button with a label and a Lucide icon that slides in from its natural side on hover,
- * expanding the button padding to make room without shifting the label.
+ * Button with a label and a Lucide icon that slides in from its natural side on hover.
  * @param label - Visible button text
  * @param icon - Lucide icon component
  * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
@@ -28,7 +27,7 @@ export const FlyinButton = ({
 	...rest
 }: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
-	const icon = React.useRef<HTMLSpanElement>(null);
+	const iconRef = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
 		const el = ref.current;
@@ -37,14 +36,14 @@ export const FlyinButton = ({
 		const from = position === 'start' ? -16 : 16;
 		const padding = position === 'start' ? 'paddingLeft' : 'paddingRight';
 
-		gsap.set(icon.current, { x: from, opacity: 0 });
+		gsap.set(iconRef.current, { x: from, opacity: 0 });
 
 		const tl = gsap.timeline({
 			paused: true,
 			defaults: { duration: DURATION.base, ease: EASE.inOut },
 		});
 
-		tl.to(el, { [padding]: 40 }).to(icon.current, { x: 0, opacity: 1 }, 0);
+		tl.to(el, { [padding]: 40 }).to(iconRef.current, { x: 0, opacity: 1 }, 0);
 
 		const play = () => tl.play();
 		const reverse = () => tl.reverse();
@@ -65,11 +64,11 @@ export const FlyinButton = ({
 				<span>{label}</span>
 			</span>
 			<span
-				ref={icon}
+				ref={iconRef}
 				aria-hidden
 				className={cn('absolute top-1/2 -translate-y-1/2', {
 					'left-4': position === 'start',
-					'right-4': position === 'start',
+					'right-4': position === 'end',
 				})}>
 				<Icon size={16} />
 			</span>

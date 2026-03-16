@@ -14,11 +14,11 @@ interface Props extends React.ComponentProps<typeof Button> {
 
 /**
  * Button with a staggered character roll on hover.
- * Width is driven by whichever label is naturally wider in the current font.
  * @param label - Text shown by default
- * @param replace - Text that rolls in on hover
+ * @param hover - Text that rolls in on hover
+ * @param direction - Rolling direction 'left' or 'right' (default: 'left')
  */
-export const RollingButton = ({ label, hover, direction, className, ...rest }: Props) => {
+export const RollingButton = ({ label, hover, direction = 'left', className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const text = React.useRef<HTMLSpanElement>(null);
 	const next = React.useRef<HTMLSpanElement>(null);
@@ -42,11 +42,7 @@ export const RollingButton = ({ label, hover, direction, className, ...rest }: P
 			stagger: STAGGER.tight,
 		}).to(
 			replaced.chars,
-			{
-				yPercent: 0,
-				reversed: direction === 'left',
-				stagger: STAGGER.tight,
-			},
+			{ yPercent: 0, reversed: direction === 'left', stagger: STAGGER.tight },
 			0
 		);
 

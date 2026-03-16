@@ -34,6 +34,8 @@ gsap.registerPlugin(ScrambleTextPlugin);
 /**
  * Button that scrambles its label through random characters before resolving on hover.
  * @param label - Visible button text and final resolved value
+ * @param icon - Optional Lucide icon component
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  */
 export const ScrambleButton = ({
 	label,
@@ -79,8 +81,7 @@ export const ScrambleButton = ({
 		<Button ref={ref} aria-label={label} className={className} {...rest}>
 			<span
 				className={cn(
-					'flex items-center gap-2',
-					'pointer-events-none select-none',
+					'flex items-center gap-2 pointer-events-none select-none',
 					Icon && variants.position[position]
 				)}>
 				<span ref={text}>{label}</span>

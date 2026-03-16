@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
+import type { ClassValue } from 'clsx';
 import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
@@ -13,18 +14,16 @@ interface Props extends React.ComponentProps<typeof Button> {
 	position?: IconPosition;
 }
 
-const variants = {
-	position: {
-		start: 'flex-row-reverse',
-		end: 'flex-row',
-	},
+const positions: Record<IconPosition, ClassValue> = {
+	start: 'flex-row-reverse',
+	end: 'flex-row',
 } as const;
 
 /**
  * Button that physically follows the cursor on hover and snaps back on leave.
  * @param label - Visible button text
  * @param icon - Optional Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end' of the label (default: 'start')
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  */
 export const MagneticButton = ({
 	label,
@@ -53,12 +52,7 @@ export const MagneticButton = ({
 		};
 
 		const handleLeave = () => {
-			gsap.to(el, {
-				x: 0,
-				y: 0,
-				duration: DURATION.slow,
-				ease: EASE.out,
-			});
+			gsap.to(el, { x: 0, y: 0, duration: DURATION.slow, ease: EASE.out });
 		};
 
 		el.addEventListener('mousemove', handleMove);
@@ -74,9 +68,8 @@ export const MagneticButton = ({
 		<Button ref={ref} aria-label={label} className={cn(className)} {...rest}>
 			<span
 				className={cn(
-					'flex items-center gap-2',
-					'pointer-events-none select-none',
-					Icon && variants.position[position]
+					'flex items-center gap-2 pointer-events-none select-none',
+					Icon && positions[position]
 				)}>
 				<span>{label}</span>
 				{Icon && (

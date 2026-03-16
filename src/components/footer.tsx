@@ -18,9 +18,8 @@ export const Footer: React.FC<FooterProps> = ({ className, ...props }) => {
 			<span className='flex items-center gap-2'>
 				Copyright <Copyright size={16} /> {year} Fourteen Studio
 			</span>
-			<Link
-				to='https://github.com/hdytrfli/fourteen-ui'
-				className='no-underline flex items-center gap-2'>
+
+			<Link to='https://github.com/hdytrfli/fourteen-ui' className='flex items-center gap-2'>
 				<Github size={16} />
 				<span>GitHub</span>
 			</Link>

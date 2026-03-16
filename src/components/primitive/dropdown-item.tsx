@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from '@/libs/utils';
 import { type LucideIcon } from 'lucide-react';
 import type { ClassValue } from 'clsx';
+import type { IconPosition } from '@/libs/types';
 
 type Variant = 'primary' | 'destructive';
 
@@ -9,16 +10,24 @@ interface Props extends React.ComponentProps<'button'> {
 	label: string;
 	icon?: LucideIcon;
 	variant?: Variant;
+	position?: IconPosition;
 }
+
+const positions: Record<IconPosition, ClassValue> = {
+	start: 'flex-row-reverse justify-end',
+	end: 'flex-row justify-between',
+} as const;
 
 /**
  * A single item inside a DropdownContent.
  * @param label - Display text for the item
  * @param icon - Optional Lucide icon component
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  */
 export const DropdownItem = ({
 	label,
 	variant = 'primary',
+	position = 'start',
 	icon: Icon,
 	className,
 	...rest
@@ -32,12 +41,13 @@ export const DropdownItem = ({
 		<button
 			className={cn(
 				'cursor-pointer',
-				'rounded-lg gap-2 px-3 py-2',
+				'rounded-lg gap-3 p-3',
 				'text-sm font-medium text-left',
 				'transition-colors duration-200',
-				'w-full flex items-center justify-between',
+				'w-full flex items-center',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				variants[variant],
+				positions[position],
 				className
 			)}
 			{...rest}>
