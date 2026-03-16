@@ -28,7 +28,7 @@ export const CardHeader = ({ title, onClose, className, ...rest }: Props) => {
 						'bg-border text-foreground',
 						'flex items-center justify-center',
 						'absolute top-1/2 right-6 -translate-y-1/2',
-						'focus-visible:ring-2 focus-visible:ring-foreground outline-none'
+						'focus-visible:ring-2 focus-visible:ring-accent outline-none'
 					)}>
 					<X size={14} />
 				</button>

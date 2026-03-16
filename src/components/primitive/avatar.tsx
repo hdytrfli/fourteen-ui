@@ -12,10 +12,10 @@ export const Avatar: React.FC<AvatarProps> = ({ src, alt, className, ...props })
 			role='button'
 			aria-label={alt}
 			className={cn(
-				'size-12',
+				'size-12 select-none',
 				'rounded-full bg-background',
 				'cursor-pointer overflow-hidden',
-				'focus-visible:ring-2 focus-visible:ring-foreground outline-none',
+				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				className
 			)}
 			{...props}>

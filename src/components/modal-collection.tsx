@@ -105,45 +105,67 @@ export const ModalCollection = () => {
 				/>
 				<Modal open={avatar.open} onClose={avatar.onClose}>
 					<ModalBackdrop>
-						<ModalContent title='Account' closeable>
+						<ModalContent title='Account' closeable size='lg'>
 							<ModalBody className='grid gap-4'>
 								<p>
 									Hello, John Doe. This is your account page. You can manage your account settings
 									here or delete your account if you want.
 								</p>
-								<form className='grid gap-4'>
+								<form className='grid grid-cols-2 gap-4'>
 									<div>
-										<label className='block text-sm font-medium'>Username</label>
+										<label className='block text-sm mb-1 font-medium'>Username</label>
 										<input
 											type='text'
-											placeholder='Username'
+											placeholder='Enter your username'
 											className={cn(
 												'bg-border w-full',
-												'px-6 h-12 rounded-xl',
-												'focus-visible:ring-2 focus-visible:ring-foreground outline-none'
+												'px-4 h-12 rounded-xl',
+												'focus-visible:ring-2 focus-visible:ring-accent outline-none'
 											)}
 										/>
 									</div>
+
 									<div>
-										<label className='block text-sm font-medium'>Password</label>
+										<label className='block text-sm mb-1 font-medium'>Password</label>
 										<input
 											type='password'
-											placeholder='Password'
+											placeholder='Enter your password'
 											className={cn(
 												'bg-border w-full',
-												'px-6 h-12 rounded-xl',
-												'focus-visible:ring-2 focus-visible:ring-foreground outline-none'
+												'px-4 h-12 rounded-xl',
+												'focus-visible:ring-2 focus-visible:ring-accent outline-none'
+											)}
+										/>
+									</div>
+
+									<div className='col-span-full'>
+										<label className='block text-sm mb-1 font-medium'>Email</label>
+										<input
+											type='email'
+											placeholder='Enter your email'
+											className={cn(
+												'bg-border w-full',
+												'px-4 h-12 rounded-xl',
+												'focus-visible:ring-2 focus-visible:ring-accent outline-none'
 											)}
 										/>
 									</div>
 								</form>
 							</ModalBody>
 							<ModalFooter>
+								<TiltButton
+									icon={X}
+									position='start'
+									label='Cancel'
+									variant='ghost'
+									className='rounded-xl'
+									onClick={avatar.onClose}
+								/>
 								<ScrambleButton
 									icon={LogOut}
 									position='start'
 									label='Login'
-									variant='primary'
+									variant='accent'
 									className='rounded-xl'
 								/>
 							</ModalFooter>
