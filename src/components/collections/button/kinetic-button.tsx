@@ -46,7 +46,7 @@ export const KineticButton = ({
 		const el = ref.current;
 		if (!el) return;
 
-		const split = SplitText.create(text.current, { type: 'chars' });
+		const split = SplitText.create(text.current, { type: 'words, chars' });
 		gsap.set(split.chars, { y: 0 });
 
 		if (icon.current) gsap.set(icon.current, { y: 0 });
@@ -126,7 +126,7 @@ export const KineticButton = ({
 					'pointer-events-none select-none',
 					Icon && variants.position[position]
 				)}>
-				<span ref={text} className='flex'>
+				<span ref={text} className='flex gap-1'>
 					{label}
 				</span>
 				{Icon && (

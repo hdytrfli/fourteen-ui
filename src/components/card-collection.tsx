@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Trash, TriangleAlert, X } from 'lucide-react';
+import { ArrowUpRight, Trash, TriangleAlert, X } from 'lucide-react';
 
 import { Card } from '@/components/primitive/card';
 import { Gallery } from '@/components/primitive/gallery';
@@ -9,6 +9,8 @@ import { CardContent } from '@/components/primitive/card-content';
 import { CardFooter } from '@/components/primitive/card-footer';
 import { TiltButton } from '@/components/collections/button/tilt-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
+import { cn } from '@/libs/utils';
+import { KineticButton } from './collections/button/kinetic-button';
 
 interface CardCollectionProps {
 	//
@@ -32,7 +34,7 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 							icon={X}
 							variant='ghost'
 							position='start'
-							label='Cancel action'
+							label='Cancel'
 							className='rounded-xl'
 						/>
 						<ScrambleButton
@@ -41,6 +43,74 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 							label='Delete content'
 							className='rounded-xl'
 							variant='destructive'
+						/>
+					</CardFooter>
+				</Card>
+			</Showcase>
+
+			<Showcase label='Update user card' className='col-span-full'>
+				<Card className='max-w-lg'>
+					<CardHeader title='Update user card' onClose={() => console.log('close')} />
+					<CardContent className='grid gap-4'>
+						<p>
+							Hello, John Doe. This is your account page. You can manage your account settings here
+							or delete your account if you want.
+						</p>
+						<form className='grid grid-cols-2 gap-4'>
+							<div>
+								<label className='block text-sm mb-1 font-medium'>Username</label>
+								<input
+									type='text'
+									placeholder='Enter your username'
+									className={cn(
+										'bg-border w-full',
+										'px-4 h-12 rounded-xl',
+										'focus-visible:ring-2 focus-visible:ring-accent outline-none'
+									)}
+								/>
+							</div>
+
+							<div>
+								<label className='block text-sm mb-1 font-medium'>Password</label>
+								<input
+									type='password'
+									placeholder='Enter your password'
+									className={cn(
+										'bg-border w-full',
+										'px-4 h-12 rounded-xl',
+										'focus-visible:ring-2 focus-visible:ring-accent outline-none'
+									)}
+								/>
+							</div>
+
+							<div className='col-span-full'>
+								<label className='block text-sm mb-1 font-medium'>Email</label>
+								<input
+									type='email'
+									placeholder='Enter your email'
+									className={cn(
+										'bg-border w-full',
+										'px-4 h-12 rounded-xl',
+										'focus-visible:ring-2 focus-visible:ring-accent outline-none'
+									)}
+								/>
+							</div>
+						</form>
+					</CardContent>
+					<CardFooter>
+						<TiltButton
+							icon={X}
+							variant='ghost'
+							position='start'
+							label='Cancel update'
+							className='rounded-xl'
+						/>
+						<KineticButton
+							position='end'
+							variant='primary'
+							icon={ArrowUpRight}
+							label='Update content'
+							className='rounded-xl'
 						/>
 					</CardFooter>
 				</Card>
