@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ArrowUpRight, Trash, TriangleAlert, X } from 'lucide-react';
 
+import { cn } from '@/libs/utils';
 import { Card } from '@/components/primitive/card';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
@@ -9,8 +10,7 @@ import { CardContent } from '@/components/primitive/card-content';
 import { CardFooter } from '@/components/primitive/card-footer';
 import { TiltButton } from '@/components/collections/button/tilt-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { cn } from '@/libs/utils';
-import { KineticButton } from './collections/button/kinetic-button';
+import { KineticButton } from '@/components/collections/button/kinetic-button';
 
 interface CardCollectionProps {
 	//
@@ -50,7 +50,7 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 
 			<Showcase label='Update user card' className='col-span-full'>
 				<Card className='max-w-lg'>
-					<CardHeader title='Update user card' onClose={() => console.log('close')} />
+					<CardHeader title='Update user card' />
 					<CardContent className='grid gap-4'>
 						<p>
 							Hello, John Doe. This is your account page. You can manage your account settings here
