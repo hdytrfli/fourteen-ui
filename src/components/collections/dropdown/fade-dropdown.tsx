@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DISTANCE_DROPDOWN, DURATION, EASE } from '@/libs/constants';
+import { DISTANCE_DROPDOWN, DURATION, EASE, VALUES } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -18,19 +18,19 @@ export const FadeDropdown = ({ children, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		const variants = {
-			open: { opacity: 1, y: 0, ease: EASE.out },
-			closed: { opacity: 0, y: DISTANCE_DROPDOWN, ease: EASE.in },
+		const states = {
+			open: { opacity: VALUES.visible, y: VALUES.zero, ease: EASE.default },
+			closed: { opacity: VALUES.hidden, y: DISTANCE_DROPDOWN, ease: EASE.default },
 		} as const;
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.to(el, {
-			...variants[state],
-			duration: DURATION.slow,
+		gsap.to(element, {
+			...states[state],
+			duration: DURATION.base,
 		});
 	}, [open]);
 

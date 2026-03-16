@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE } from '@/libs/constants';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -18,29 +18,29 @@ export const ScaleDropdown = ({ children, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		const variants = {
+		const states = {
 			open: {
-				scale: 1,
-				opacity: 1,
+				scale: VALUES.one,
+				opacity: VALUES.visible,
 				transformOrigin: 'top center',
-				ease: EASE.out,
+				ease: EASE.default,
 			},
 			closed: {
 				scale: 0.9,
-				opacity: 0,
+				opacity: VALUES.hidden,
 				transformOrigin: 'top center',
-				ease: EASE.in,
+				ease: EASE.default,
 			},
 		} as const;
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.set(el, { scale: 0.9, opacity: 0 });
-		gsap.to(el, {
-			...variants[state],
+		gsap.set(element, { scale: 0.9, opacity: VALUES.hidden });
+		gsap.to(element, {
+			...states[state],
 			duration: DURATION.base,
 		});
 	}, [open]);

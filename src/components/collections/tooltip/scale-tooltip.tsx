@@ -25,15 +25,15 @@ export const ScaleTooltip = ({ children, className, ...rest }: Props) => {
 			gsap.to(el, {
 				scale: 1,
 				opacity: 1,
-				duration: DURATION.slow,
-				ease: EASE.out,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		} else {
 			gsap.to(el, {
 				scale: 0.8,
 				opacity: 0,
-				duration: DURATION.slow,
-				ease: EASE.in,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		}
 

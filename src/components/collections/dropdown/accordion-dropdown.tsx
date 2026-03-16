@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, STAGGER } from '@/libs/constants';
+import { DURATION, EASE, STAGGER } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -18,10 +18,10 @@ export const AccordionDropdown = ({ children, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		const items = Array.from(el.children) as HTMLElement[];
+		const items = Array.from(element.children) as HTMLElement[];
 
 		if (open) {
 			gsap.fromTo(
@@ -30,9 +30,9 @@ export const AccordionDropdown = ({ children, className, ...rest }: Props) => {
 				{
 					height: 'auto',
 					opacity: 1,
-					ease: 'power2.out',
+					ease: EASE.default,
 					stagger: STAGGER.base,
-					duration: DURATION.slow,
+					duration: DURATION.base,
 				}
 			);
 		}
@@ -41,11 +41,15 @@ export const AccordionDropdown = ({ children, className, ...rest }: Props) => {
 			gsap.to(items, {
 				height: 0,
 				opacity: 0,
-				ease: 'power2.in',
+				ease: EASE.default,
 				stagger: STAGGER.base,
-				duration: DURATION.slow,
+				duration: DURATION.base,
 			});
 		}
+
+		return () => {
+			gsap.killTweensOf(items);
+		};
 	}, [open]);
 
 	return (

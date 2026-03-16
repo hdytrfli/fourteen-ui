@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE } from '@/libs/constants';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { useMousePosition } from '@/hooks/use-mouse-position';
 import { TooltipContext } from '@/hooks/use-shared-tooltip';
 
@@ -56,12 +56,12 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 	}, []);
 
 	React.useLayoutEffect(() => {
-		const el = container.current;
-		if (!el) return;
+		const containerElement = container.current;
+		if (!containerElement) return;
 
 		const gap = 6;
 
-		Object.assign(el.style, {
+		Object.assign(containerElement.style, {
 			left: x + 'px',
 			top: y - gap + 'px',
 			transform: 'translate(-50%, -100%)',
@@ -78,35 +78,41 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 			const newLabel = triggers.current.get(id);
 			if (!newLabel) return;
 
-			const el = container.current;
-			const inner = content.current;
-			if (!el || !inner) return;
+			const containerElement = container.current;
+			const contentElement = content.current;
+			if (!containerElement || !contentElement) return;
 
 			if (label && newLabel !== label) {
-				gsap.to(inner, {
-					yPercent: -100,
-					opacity: 0,
+				const states = {
+					exit: { yPercent: -100, opacity: VALUES.hidden, ease: EASE.default },
+					enter: { yPercent: VALUES.zero, opacity: VALUES.visible, ease: EASE.default },
+				} as const;
+
+				gsap.to(contentElement, {
+					...states.exit,
 					duration: DURATION.base,
-					ease: EASE.out,
 					onComplete: () => {
 						setLabel(newLabel);
 						gsap.fromTo(
-							inner,
-							{ yPercent: 100, opacity: 0 },
+							contentElement,
+							{ yPercent: 100, opacity: VALUES.hidden },
 							{
-								yPercent: 0,
-								opacity: 1,
+								...states.enter,
 								duration: DURATION.base,
-								ease: EASE.out,
 							}
 						);
 					},
 				});
 			} else if (!label) {
-				gsap.set(el, { visibility: 'visible' });
-				gsap.set(inner, { yPercent: 0, opacity: 0 });
-				gsap.to(el, { opacity: 1, duration: DURATION.base, ease: EASE.out });
-				gsap.to(inner, { opacity: 1, duration: DURATION.base, ease: EASE.out });
+				const states = {
+					enter: { opacity: VALUES.visible, ease: EASE.default },
+					initial: { yPercent: VALUES.zero, opacity: VALUES.hidden },
+				} as const;
+
+				gsap.set(containerElement, { visibility: 'visible' });
+				gsap.set(contentElement, states.initial);
+				gsap.to(containerElement, { ...states.enter, duration: DURATION.base });
+				gsap.to(contentElement, { ...states.enter, duration: DURATION.base });
 				visible.current = true;
 				setLabel(newLabel);
 			}
@@ -116,11 +122,11 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 
 	const hide = React.useCallback(() => {
 		timer.current = window.setTimeout(() => {
-			const el = container.current;
-			if (!el) return;
+			const containerElement = container.current;
+			if (!containerElement) return;
 
-			gsap.to(el, {
-				opacity: 0,
+			gsap.to(containerElement, {
+				opacity: VALUES.hidden,
 				duration: DURATION.fast,
 				ease: EASE.default,
 			});

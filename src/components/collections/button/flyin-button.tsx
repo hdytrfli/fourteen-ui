@@ -13,6 +13,11 @@ interface Props extends React.ComponentProps<typeof Button> {
 	position?: IconPosition;
 }
 
+const positions = {
+	start: 'flex-row-reverse',
+	end: 'flex-row',
+} as const;
+
 /**
  * Button with a label and a Lucide icon that slides in from its natural side on hover.
  * @param label - Visible button text
@@ -30,37 +35,42 @@ export const FlyinButton = ({
 	const iconRef = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		const iconElement = iconRef.current;
+		if (!element || !iconElement) return;
 
 		const from = position === 'start' ? -16 : 16;
 		const padding = position === 'start' ? 'paddingLeft' : 'paddingRight';
 
-		gsap.set(iconRef.current, { x: from, opacity: 0 });
+		gsap.set(iconElement, { x: from, opacity: 0 });
 
-		const tl = gsap.timeline({
+		const timeline = gsap.timeline({
 			paused: true,
-			defaults: { duration: DURATION.base, ease: EASE.inOut },
+			defaults: { duration: DURATION.base, ease: EASE.default },
 		});
 
-		tl.to(el, { [padding]: 40 }).to(iconRef.current, { x: 0, opacity: 1 }, 0);
+		timeline.to(element, { [padding]: 40 }).to(iconElement, { x: 0, opacity: 1 }, 0);
 
-		const play = () => tl.play();
-		const reverse = () => tl.reverse();
+		const play = () => timeline.play();
+		const reverse = () => timeline.reverse();
 
-		el.addEventListener('mouseenter', play);
-		el.addEventListener('mouseleave', reverse);
+		element.addEventListener('mouseenter', play);
+		element.addEventListener('mouseleave', reverse);
 
 		return () => {
-			el.removeEventListener('mouseenter', play);
-			el.removeEventListener('mouseleave', reverse);
-			tl.kill();
+			element.removeEventListener('mouseenter', play);
+			element.removeEventListener('mouseleave', reverse);
+			timeline.kill();
 		};
 	}, [position]);
 
 	return (
 		<Button ref={ref} aria-label={label} className={className} {...rest}>
-			<span className='flex items-center pointer-events-none select-none'>
+			<span
+				className={cn(
+					'flex items-center gap-2 pointer-events-none select-none',
+					positions[position]
+				)}>
 				<span>{label}</span>
 			</span>
 			<span

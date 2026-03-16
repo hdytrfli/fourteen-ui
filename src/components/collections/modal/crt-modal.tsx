@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gsap } from 'gsap';
 
 import { useModal } from '@/hooks/use-modal';
-import { DURATION, EASE } from '@/libs/constants';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { ModalContent } from '@/components/primitive/modal-content';
 
 interface Props extends React.ComponentProps<typeof ModalContent> {}
@@ -16,10 +16,10 @@ export const CrtModal = ({ children, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		gsap.set(el, {
+		gsap.set(element, {
 			opacity: 0,
 			scaleY: 0,
 			transformOrigin: 'center center',
@@ -27,14 +27,19 @@ export const CrtModal = ({ children, ...rest }: Props) => {
 	}, []);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		gsap.to(el, {
-			ease: EASE.crt,
-			opacity: open ? 1 : 0,
-			scaleY: open ? 1 : 0,
-			duration: DURATION.slow,
+		const states = {
+			open: { opacity: VALUES.visible, scaleY: VALUES.one, ease: EASE.crt },
+			closed: { opacity: VALUES.hidden, scaleY: VALUES.zero, ease: EASE.crt },
+		} as const;
+
+		const state = open ? 'open' : 'closed';
+
+		gsap.to(element, {
+			...states[state],
+			duration: DURATION.base,
 		});
 	}, [open]);
 

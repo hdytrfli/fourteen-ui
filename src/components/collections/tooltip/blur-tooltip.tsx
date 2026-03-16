@@ -27,16 +27,16 @@ export const BlurTooltip = ({ children, className, ...rest }: Props) => {
 				opacity: 1,
 				filter: 'blur(0px)',
 				y: 0,
-				duration: DURATION.slow,
-				ease: EASE.out,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		} else {
 			gsap.to(el, {
 				opacity: 0,
 				filter: 'blur(8px)',
 				y: 4,
-				duration: DURATION.slow,
-				ease: EASE.in,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		}
 

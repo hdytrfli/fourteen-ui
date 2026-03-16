@@ -6,7 +6,7 @@ import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/libs/utils';
 import type { IconPosition } from '@/libs/types';
 import { Button } from '@/components/primitive/button';
-import { DURATION, EASE, STAGGER } from '@/libs/constants';
+import { DURATION, EASE, STAGGER, VALUES } from '@/libs/constants';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
@@ -14,14 +14,12 @@ interface Props extends React.ComponentProps<typeof Button> {
 	position?: IconPosition;
 }
 
-const variants = {
-	position: {
-		start: 'flex-row-reverse',
-		end: 'flex-row',
-	},
+const positions = {
+	start: 'flex-row-reverse',
+	end: 'flex-row',
 } as const;
 
-const JUMP_HEIGHT = -4;
+const JUMP_HEIGHT = -6;
 
 /**
  * Button with kinetic text that bounces on hover.
@@ -41,52 +39,57 @@ export const KineticButton = ({
 	const icon = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		const textElement = text.current;
+		const iconElement = icon.current;
+		if (!element || !textElement) return;
 
-		const split = SplitText.create(text.current, { type: 'words, chars' });
-		gsap.set(split.chars, { y: 0 });
+		const split = SplitText.create(textElement, { type: 'words, chars' });
+		gsap.set(split.chars, { y: VALUES.zero });
+		if (iconElement) gsap.set(iconElement, { y: VALUES.zero });
 
-		if (icon.current) gsap.set(icon.current, { y: 0 });
-
-		const tl = gsap.timeline({
+		const timeline = gsap.timeline({
 			paused: true,
-			defaults: { duration: DURATION.base, ease: EASE.inOut },
+			defaults: { duration: DURATION.base, ease: EASE.default },
 		});
 
 		const first = position === 'start';
-		const delay = first ? 0 : split.chars.length * STAGGER.tight;
+		const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
 
-		if (icon.current) {
-			tl.to(icon.current, { y: JUMP_HEIGHT, duration: DURATION.base * 0.5, ease: EASE.out }, delay);
-			tl.to(
-				icon.current,
-				{ y: 0, duration: DURATION.base * 0.5, ease: EASE.in },
-				delay + DURATION.base * 0.5
+		if (iconElement) {
+			timeline.to(
+				iconElement,
+				{ y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default },
+				delay
+			);
+			timeline.to(
+				iconElement,
+				{ y: VALUES.zero, duration: DURATION.base, ease: EASE.default },
+				delay + DURATION.base
 			);
 		}
 
-		split.chars.forEach((char, i) => {
-			const delay = first ? (i + 1) * STAGGER.tight : i * STAGGER.tight;
-			tl.to(char, { y: JUMP_HEIGHT, duration: DURATION.base * 0.5, ease: EASE.out }, delay);
-			tl.to(
+		split.chars.forEach((char, index) => {
+			const charDelay = first ? (index + VALUES.one) * STAGGER.base : index * STAGGER.base;
+			timeline.to(char, { y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default }, charDelay);
+			timeline.to(
 				char,
-				{ y: 0, duration: DURATION.base * 0.5, ease: EASE.in },
-				delay + DURATION.base * 0.5
+				{ y: VALUES.zero, duration: DURATION.base, ease: EASE.default },
+				charDelay + DURATION.base
 			);
 		});
 
-		const play = () => tl.play();
-		const reverse = () => tl.reverse();
+		const play = () => timeline.play();
+		const reverse = () => timeline.reverse();
 
-		el.addEventListener('mouseenter', play);
-		el.addEventListener('mouseleave', reverse);
+		element.addEventListener('mouseenter', play);
+		element.addEventListener('mouseleave', reverse);
 
 		return () => {
-			el.removeEventListener('mouseenter', play);
-			el.removeEventListener('mouseleave', reverse);
+			element.removeEventListener('mouseenter', play);
+			element.removeEventListener('mouseleave', reverse);
 			split.revert();
-			tl.kill();
+			timeline.kill();
 		};
 	}, [position]);
 
@@ -95,7 +98,7 @@ export const KineticButton = ({
 			<span
 				className={cn(
 					'relative flex items-center gap-2 pointer-events-none select-none',
-					Icon && variants.position[position]
+					Icon && positions[position]
 				)}>
 				<span ref={text} className='flex gap-1'>
 					{label}

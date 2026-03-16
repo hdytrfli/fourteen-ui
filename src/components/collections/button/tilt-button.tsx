@@ -11,11 +11,9 @@ interface Props extends React.ComponentProps<typeof Button> {
 	position?: IconPosition;
 }
 
-const variants = {
-	position: {
-		start: 'flex-row-reverse',
-		end: 'flex-row',
-	},
+const positions = {
+	start: 'flex-row-reverse',
+	end: 'flex-row',
 } as const;
 
 /**
@@ -36,7 +34,7 @@ export const TiltButton = ({
 			<span
 				className={cn(
 					'flex items-center gap-2 pointer-events-none select-none',
-					variants.position[position]
+					positions[position]
 				)}>
 				<span>{label}</span>
 				<span

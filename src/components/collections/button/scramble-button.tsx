@@ -21,11 +21,9 @@ const CHARS = [
 	'0123456789',
 ] as const;
 
-const variants = {
-	position: {
-		start: 'flex-row-reverse',
-		end: 'flex-row',
-	},
+const positions = {
+	start: 'flex-row-reverse',
+	end: 'flex-row',
 } as const;
 
 const SCRAMBLE_CHARS = CHARS.flat().join('');
@@ -48,15 +46,16 @@ export const ScrambleButton = ({
 	const text = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		const textElement = text.current;
+		if (!element || !textElement) return;
 
-		const tl = gsap.timeline({
+		const timeline = gsap.timeline({
 			paused: true,
-			defaults: { duration: DURATION.slow, ease: EASE.inOut },
+			defaults: { duration: DURATION.base, ease: EASE.default },
 		});
 
-		tl.to(text.current, {
+		timeline.to(textElement, {
 			scrambleText: {
 				text: label,
 				chars: SCRAMBLE_CHARS,
@@ -64,16 +63,16 @@ export const ScrambleButton = ({
 			},
 		});
 
-		const play = () => tl.restart();
-		const reverse = () => tl.reverse();
+		const play = () => timeline.restart();
+		const reverse = () => timeline.reverse();
 
-		el.addEventListener('mouseenter', play);
-		el.addEventListener('mouseleave', reverse);
+		element.addEventListener('mouseenter', play);
+		element.addEventListener('mouseleave', reverse);
 
 		return () => {
-			el.removeEventListener('mouseenter', play);
-			el.removeEventListener('mouseleave', reverse);
-			tl.kill();
+			element.removeEventListener('mouseenter', play);
+			element.removeEventListener('mouseleave', reverse);
+			timeline.kill();
 		};
 	}, [label]);
 
@@ -82,7 +81,7 @@ export const ScrambleButton = ({
 			<span
 				className={cn(
 					'flex items-center gap-2 pointer-events-none select-none',
-					Icon && variants.position[position]
+					positions[position]
 				)}>
 				<span ref={text}>{label}</span>
 				{Icon && (

@@ -26,15 +26,15 @@ export const FadeTooltip = ({ children, className, ...rest }: Props) => {
 			gsap.to(el, {
 				opacity: 1,
 				y: 0,
-				duration: DURATION.slow,
-				ease: EASE.out,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		} else {
 			gsap.to(el, {
 				opacity: 0,
 				y: 4,
-				duration: DURATION.slow,
-				ease: EASE.in,
+				duration: DURATION.base,
+				ease: EASE.default,
 			});
 		}
 

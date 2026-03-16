@@ -18,39 +18,39 @@ export const StaggeredDropdown = ({ children, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
-		gsap.set(el.children, { opacity: 0, y: DISTANCE_DROPDOWN });
+		const element = ref.current;
+		if (!element) return;
+		gsap.set(element.children, { opacity: 0, y: DISTANCE_DROPDOWN });
 	}, []);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
 		if (open) {
 			gsap.fromTo(
-				el.children,
+				element.children,
 				{ opacity: 0, y: DISTANCE_DROPDOWN },
 				{
 					opacity: 1,
 					y: 0,
-					ease: EASE.out,
+					ease: EASE.default,
 					stagger: STAGGER.base,
-					duration: DURATION.slow,
+					duration: DURATION.base,
 				}
 			);
 		}
 
 		if (!open) {
-			gsap.to(el.children, {
+			gsap.to(element.children, {
 				opacity: 0,
 				y: DISTANCE_DROPDOWN,
-				ease: EASE.in,
+				ease: EASE.default,
 				stagger: {
 					each: STAGGER.base,
 					from: 'start',
 				},
-				duration: DURATION.slow,
+				duration: DURATION.base,
 			});
 		}
 	}, [open]);

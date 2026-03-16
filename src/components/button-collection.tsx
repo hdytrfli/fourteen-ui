@@ -21,6 +21,7 @@ import { KineticButton } from '@/components/collections/button/kinetic-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { MagneticButton } from '@/components/collections/button/magnetic-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
+import { SwapButton } from '@/components/collections/button/swap-button';
 
 interface ButtonCollectionProps {
 	//
@@ -32,11 +33,43 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 	return (
 		<Gallery title='Buttons' description='A collection of button components.'>
 			<Showcase label='Rolling button component'>
-				<RollingButton label='Get started' hover='Read more' direction='right' variant={variant} />
+				<RollingButton label='Get started' direction='right' variant={variant} />
 			</Showcase>
 
 			<Showcase label='Rolling button component reversed'>
-				<RollingButton label='Read more' hover='Get started' direction='left' variant={variant} />
+				<RollingButton label='Read more' direction='left' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Rolling button with icon start'>
+				<RollingButton
+					label='Get started'
+					icon={ArrowUpRight}
+					position='start'
+					direction='right'
+					variant={variant}
+				/>
+			</Showcase>
+
+			<Showcase label='Rolling button with icon end'>
+				<RollingButton
+					label='Read more'
+					icon={ArrowUpRight}
+					position='end'
+					direction='left'
+					variant={variant}
+				/>
+			</Showcase>
+
+			<Showcase label='Swap button component'>
+				<SwapButton label='Subscribe' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Swap button with icon start'>
+				<SwapButton label='Subscribe' icon={Download} position='start' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Swap button with icon end'>
+				<SwapButton label='Subscribe' icon={Download} position='end' variant={variant} />
 			</Showcase>
 
 			<Showcase label='Slides in icons component start'>

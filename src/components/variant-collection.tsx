@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FastForward, Ghost, Plane, Trash } from 'lucide-react';
+import { FastForward, Info, Plane, Send, Trash } from 'lucide-react';
 
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
@@ -17,7 +17,7 @@ export const VariantCollection: React.FC<VariantCollectionProps> = () => {
 	return (
 		<Gallery title='Variant' description='A collection of button variant components.'>
 			<Showcase label='Primary variant button'>
-				<RollingButton label='Primary' hover='Primary' variant='primary' />
+				<RollingButton label='Primary' icon={Send} position='start' variant='primary' />
 			</Showcase>
 
 			<Showcase label='Secondary variant button'>
@@ -33,7 +33,7 @@ export const VariantCollection: React.FC<VariantCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Ghost variant button'>
-				<MagneticButton label='Ghost' icon={Ghost} position='start' variant='ghost' />
+				<MagneticButton label='Ghost' icon={Info} position='start' variant='ghost' />
 			</Showcase>
 		</Gallery>
 	);

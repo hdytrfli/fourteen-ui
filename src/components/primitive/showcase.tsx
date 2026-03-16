@@ -23,7 +23,7 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 		gsap.fromTo(
 			el,
 			{ opacity: 0, y: 10, filter: 'blur(10px)' },
-			{ opacity: 1, y: 0, filter: 'blur(0px)', duration: DURATION.slow, ease: EASE.inOut }
+			{ opacity: 1, y: 0, filter: 'blur(0px)', duration: DURATION.base, ease: EASE.default }
 		);
 	}, []);
 

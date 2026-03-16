@@ -52,7 +52,12 @@ export const MagneticButton = ({
 		};
 
 		const handleLeave = () => {
-			gsap.to(el, { x: 0, y: 0, duration: DURATION.slow, ease: EASE.out });
+			gsap.to(el, {
+				x: 0,
+				y: 0,
+				duration: DURATION.base,
+				ease: EASE.out,
+			});
 		};
 
 		el.addEventListener('mousemove', handleMove);

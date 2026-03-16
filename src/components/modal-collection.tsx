@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Trash, TriangleAlert, User, LogOut, X } from 'lucide-react';
+import { Trash, TriangleAlert, User, X, Save } from 'lucide-react';
 
 import { useModalState } from '@/hooks/use-modal-state';
 import { Button } from '@/components/primitive/button';
@@ -157,8 +157,13 @@ export const ModalCollection = () => {
 							</form>
 						</ModalBody>
 						<ModalFooter>
-							<TiltButton icon={X} label='Cancel' variant='ghost' onClick={avatar.onClose} />
-							<ScrambleButton icon={LogOut} position='start' label='Login' variant='accent' />
+							<TiltButton icon={X} label='Dismiss' variant='ghost' onClick={avatar.onClose} />
+							<ScrambleButton
+								icon={Save}
+								position='start'
+								variant='primary'
+								label='Update profile'
+							/>
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
@@ -178,7 +183,7 @@ export const ModalCollection = () => {
 							</p>
 						</ModalBody>
 						<ModalFooter>
-							<TiltButton icon={X} label='Cancel' variant='ghost' onClick={confirm.onClose} />
+							<TiltButton icon={X} label='Dismiss' variant='ghost' onClick={confirm.onClose} />
 							<ScrambleButton icon={Trash} label='Delete account' variant='destructive' />
 						</ModalFooter>
 					</ModalContent>

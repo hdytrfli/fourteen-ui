@@ -19,10 +19,10 @@ export const TypewriterDropdown = ({ children, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const element = ref.current;
+		if (!element) return;
 
-		const items = Array.from(el.children) as HTMLElement[];
+		const items = Array.from(element.children) as HTMLElement[];
 		if (!items.length) return;
 
 		gsap.set(items, {
@@ -34,9 +34,9 @@ export const TypewriterDropdown = ({ children, className, ...rest }: Props) => {
 			gsap.to(items, {
 				xPercent: 0,
 				opacity: 1,
-				ease: EASE.out,
+				ease: EASE.default,
 				stagger: STAGGER.base,
-				duration: DURATION.slow,
+				duration: DURATION.base,
 			});
 		}
 
@@ -44,9 +44,9 @@ export const TypewriterDropdown = ({ children, className, ...rest }: Props) => {
 			gsap.to(items, {
 				xPercent: -100,
 				opacity: 0,
-				ease: EASE.in,
+				ease: EASE.default,
 				stagger: STAGGER.base,
-				duration: DURATION.slow,
+				duration: DURATION.base,
 			});
 		}
 
