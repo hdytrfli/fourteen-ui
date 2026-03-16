@@ -10,7 +10,7 @@ import { Button } from '@/components/primitive/button';
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
 	icon: LucideIcon;
-	position: IconPosition;
+	position?: IconPosition;
 }
 
 /**
@@ -18,9 +18,9 @@ interface Props extends React.ComponentProps<typeof Button> {
  * expanding the button padding to make room without shifting the label.
  * @param label - Visible button text
  * @param icon - Lucide icon component
- * @param position - Whether the icon sits at the 'start' or 'end'
+ * @param position - Whether the icon sits at the 'start' or 'end' (default: 'end')
  */
-export const FlyinButton = ({ label, icon: Icon, position, className, ...rest }: Props) => {
+export const FlyinButton = ({ label, icon: Icon, position = 'end', className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
 	const icon = React.useRef<HTMLSpanElement>(null);
 

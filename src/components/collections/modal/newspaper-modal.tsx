@@ -8,10 +8,11 @@ import { ModalContent } from '@/components/primitive/modal-content';
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 
 /**
- * Modal variant that blurs and fades in on open.
+ * Modal variant that unfolds like a newspaper being opened.
+ * Combines scale on both axes with a subtle rotation.
  * @param children - Modal body content
  */
-export const BlurModal = ({ children, ...rest }: Props) => {
+export const NewspaperModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
 	const ref = React.useRef<HTMLDivElement>(null);
 
@@ -21,7 +22,10 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 
 		gsap.set(el, {
 			opacity: 0,
-			filter: 'blur(8px)',
+			scaleX: 0,
+			scaleY: 0,
+			rotate: -10,
+			transformOrigin: 'center center',
 		});
 	}, []);
 
@@ -30,10 +34,12 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 		if (!el) return;
 
 		gsap.to(el, {
-			ease: EASE.inOut,
+			ease: EASE.out,
 			opacity: open ? 1 : 0,
-			filter: open ? 'blur(0px)' : 'blur(8px)',
-			duration: DURATION.slow,
+			scaleX: open ? 1 : 0,
+			scaleY: open ? 1 : 0,
+			rotate: open ? 0 : -10,
+			duration: DURATION.base,
 		});
 	}, [open]);
 

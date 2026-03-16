@@ -8,10 +8,10 @@ import { ModalContent } from '@/components/primitive/modal-content';
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 
 /**
- * Modal variant that blurs and fades in on open.
+ * Modal variant that rotates in from the left like a door swinging open.
  * @param children - Modal body content
  */
-export const BlurModal = ({ children, ...rest }: Props) => {
+export const RotateModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
 	const ref = React.useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,8 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 
 		gsap.set(el, {
 			opacity: 0,
-			filter: 'blur(8px)',
+			rotateY: -30,
+			transformOrigin: 'left center',
 		});
 	}, []);
 
@@ -32,7 +33,7 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 		gsap.to(el, {
 			ease: EASE.inOut,
 			opacity: open ? 1 : 0,
-			filter: open ? 'blur(0px)' : 'blur(8px)',
+			rotateY: open ? 0 : -30,
 			duration: DURATION.slow,
 		});
 	}, [open]);

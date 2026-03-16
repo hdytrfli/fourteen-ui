@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
-import { DURATION, EASE, DISTANCE_MODAL } from '@/libs/constants';
-import { ModalContent } from '@/components/primitive/modal-content';
+
 import { useModal } from '@/hooks/use-modal';
+import { DURATION, EASE } from '@/libs/constants';
+import { ModalContent } from '@/components/primitive/modal-content';
 
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 
 /**
- * Modal variant that slides up from the bottom on open.
+ * Modal variant that slides up from the bottom.
  * @param children - Modal body content
  */
 export const SlideModal = ({ children, ...rest }: Props) => {
@@ -17,7 +18,11 @@ export const SlideModal = ({ children, ...rest }: Props) => {
 	React.useLayoutEffect(() => {
 		const el = ref.current;
 		if (!el) return;
-		gsap.set(el, { opacity: 0, y: DISTANCE_MODAL });
+
+		gsap.set(el, {
+			opacity: 0,
+			y: 40,
+		});
 	}, []);
 
 	React.useLayoutEffect(() => {
@@ -25,10 +30,10 @@ export const SlideModal = ({ children, ...rest }: Props) => {
 		if (!el) return;
 
 		gsap.to(el, {
-			ease: EASE.inOut,
+			ease: EASE.out,
 			opacity: open ? 1 : 0,
-			duration: DURATION.slow,
-			y: open ? 0 : DISTANCE_MODAL,
+			y: open ? 0 : 40,
+			duration: DURATION.base,
 		});
 	}, [open]);
 

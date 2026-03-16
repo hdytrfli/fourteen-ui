@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Trash, TriangleAlert, User, LogOut, X } from 'lucide-react';
 
 import { useModalState } from '@/hooks/use-modal-state';
@@ -10,10 +11,35 @@ import { cn } from '@/libs/utils';
 import { Modal } from '@/components/primitive/modal';
 import { TiltButton } from '@/components/collections/button/tilt-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { ModalBody, ModalContent, ModalFooter } from '@/components/primitive/modal-content';
-import { FlyinButton } from './collections/button/flyin-button';
-import { SlideModal } from './collections/modal/slide-modal';
-import { BlurModal } from './collections/modal/blur-modal';
+import { ModalContent, ModalBody, ModalFooter } from '@/components/primitive/modal-content';
+
+import { FlyinButton } from '@/components/collections/button/flyin-button';
+import { SlideModal } from '@/components/collections/modal/slide-modal';
+import { BlurModal } from '@/components/collections/modal/blur-modal';
+import { ScaleModal } from '@/components/collections/modal/scale-modal';
+import { RotateModal } from '@/components/collections/modal/rotate-modal';
+import { FoldModal } from '@/components/collections/modal/fold-modal';
+import { ElasticModal } from '@/components/collections/modal/elastic-modal';
+import { NewspaperModal } from '@/components/collections/modal/newspaper-modal';
+
+interface ModalContentProps {
+	description: string;
+	onClose: () => void;
+}
+
+const Demo = ({ description, onClose }: ModalContentProps) => {
+	return (
+		<React.Fragment>
+			<ModalBody>
+				<p>{description}</p>
+			</ModalBody>
+			<ModalFooter>
+				<TiltButton icon={X} label='Dismiss' variant='ghost' onClick={onClose} />
+				<FlyinButton icon={User} variant='primary' label='Go to dashboard' />
+			</ModalFooter>
+		</React.Fragment>
+	);
+};
 
 export const ModalCollection = () => {
 	const simple = useModalState();
@@ -23,6 +49,11 @@ export const ModalCollection = () => {
 	const confirm = useModalState();
 	const blur = useModalState();
 	const slide = useModalState();
+	const scale = useModalState();
+	const rotate = useModalState();
+	const fold = useModalState();
+	const elastic = useModalState();
+	const newspaper = useModalState();
 
 	return (
 		<Gallery title='Modal' description='A collection of modal components.'>
@@ -48,29 +79,7 @@ export const ModalCollection = () => {
 				</Button>
 				<Modal open={footer.open} onClose={footer.onClose}>
 					<ModalContent title='Welcome back'>
-						<ModalBody>
-							<p>
-								You have 3 unread notifications and 2 pending tasks. Head to your dashboard to
-								review them or dismiss this message.
-							</p>
-						</ModalBody>
-						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Dismiss'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={footer.onClose}
-							/>
-							<FlyinButton
-								icon={User}
-								position='start'
-								variant='primary'
-								label='Go to dashboard'
-								className='rounded-xl'
-							/>
-						</ModalFooter>
+						<Demo description='This permanent footer with two buttons.' onClose={footer.onClose} />
 					</ModalContent>
 				</Modal>
 			</Showcase>
@@ -83,32 +92,14 @@ export const ModalCollection = () => {
 				</label>
 				<Modal open={label.open} onClose={label.onClose}>
 					<ModalContent title='Terms of service' size='lg'>
-						<ModalBody>
-							<p>
-								By using this service you agree to our terms and conditions. We collect minimal data
-								necessary to provide the service, and we will never sell your data to third parties.
-								You can request deletion of your account and associated data at any time by
-								contacting support. Continued use of the service constitutes acceptance of any
-								future updates to these terms.
-							</p>
-						</ModalBody>
-						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Decline'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={label.onClose}
-							/>
-							<ScrambleButton
-								icon={LogOut}
-								position='start'
-								label='Accept terms'
-								variant='primary'
-								className='rounded-xl'
-							/>
-						</ModalFooter>
+						<Demo
+							description={`
+								By using this service you agree to our terms and conditions. 
+								We collect minimal data necessary to provide the service, and we will never sell your data to third parties. 
+								You can request deletion of your account and associated data at any time by contacting support. 
+							`}
+							onClose={label.onClose}
+						/>
 					</ModalContent>
 				</Modal>
 			</Showcase>
@@ -168,21 +159,8 @@ export const ModalCollection = () => {
 							</form>
 						</ModalBody>
 						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Cancel'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={avatar.onClose}
-							/>
-							<ScrambleButton
-								icon={LogOut}
-								position='start'
-								label='Login'
-								variant='accent'
-								className='rounded-xl'
-							/>
+							<TiltButton icon={X} label='Cancel' variant='ghost' onClick={avatar.onClose} />
+							<ScrambleButton icon={LogOut} position='start' label='Login' variant='accent' />
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
@@ -202,21 +180,8 @@ export const ModalCollection = () => {
 							</p>
 						</ModalBody>
 						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Cancel'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={confirm.onClose}
-							/>
-							<ScrambleButton
-								icon={Trash}
-								position='start'
-								label='Delete account'
-								variant='destructive'
-								className='rounded-xl'
-							/>
+							<TiltButton icon={X} label='Cancel' variant='ghost' onClick={confirm.onClose} />
+							<ScrambleButton icon={Trash} label='Delete account' variant='destructive' />
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
@@ -228,29 +193,10 @@ export const ModalCollection = () => {
 				</Button>
 				<Modal open={blur.open} onClose={blur.onClose}>
 					<BlurModal title='Welcome back'>
-						<ModalBody>
-							<p>
-								This will temporarily blur the background and fade in on open. This is useful for
-								modals that require user interaction.
-							</p>
-						</ModalBody>
-						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Dismiss'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={blur.onClose}
-							/>
-							<FlyinButton
-								icon={User}
-								position='start'
-								variant='primary'
-								label='Go to dashboard'
-								className='rounded-xl'
-							/>
-						</ModalFooter>
+						<Demo
+							description='This will temporarily blur the background and fade in on open. This is useful for modals that require user interaction.'
+							onClose={blur.onClose}
+						/>
 					</BlurModal>
 				</Modal>
 			</Showcase>
@@ -261,30 +207,81 @@ export const ModalCollection = () => {
 				</Button>
 				<Modal open={slide.open} onClose={slide.onClose}>
 					<SlideModal title='Welcome back'>
-						<ModalBody>
-							<p>
-								This will slide up from the bottom of the screen on open. This is useful for modals
-								that require user interaction.
-							</p>
-						</ModalBody>
-						<ModalFooter>
-							<TiltButton
-								icon={X}
-								position='start'
-								label='Dismiss'
-								variant='ghost'
-								className='rounded-xl'
-								onClick={slide.onClose}
-							/>
-							<FlyinButton
-								icon={User}
-								position='start'
-								variant='primary'
-								label='Go to dashboard'
-								className='rounded-xl'
-							/>
-						</ModalFooter>
+						<Demo
+							description='This will slide up from the bottom of the screen on open. This is useful for modals that require user interaction.'
+							onClose={slide.onClose}
+						/>
 					</SlideModal>
+				</Modal>
+			</Showcase>
+
+			<Showcase label='Modal with scale variant'>
+				<Button variant='secondary' onClick={scale.onOpen}>
+					Open modal
+				</Button>
+				<Modal open={scale.open} onClose={scale.onClose}>
+					<ScaleModal title='Welcome back'>
+						<Demo
+							description='This will scale down from 110% to 100% on open. This creates a subtle pop-in effect that draws attention to the modal content.'
+							onClose={scale.onClose}
+						/>
+					</ScaleModal>
+				</Modal>
+			</Showcase>
+
+			<Showcase label='Modal with rotate variant'>
+				<Button variant='secondary' onClick={rotate.onOpen}>
+					Open modal
+				</Button>
+				<Modal open={rotate.open} onClose={rotate.onClose}>
+					<RotateModal title='Welcome back'>
+						<Demo
+							description='This rotates in from the left side like a door swinging open. Uses 3D transform with perspective for a realistic door-swing effect.'
+							onClose={rotate.onClose}
+						/>
+					</RotateModal>
+				</Modal>
+			</Showcase>
+
+			<Showcase label='Modal with fold variant'>
+				<Button variant='secondary' onClick={fold.onOpen}>
+					Open modal
+				</Button>
+				<Modal open={fold.open} onClose={fold.onClose}>
+					<FoldModal title='Welcome back'>
+						<Demo
+							description='This unfolds from the top like a scroll or banner. Scales from 0 to 1 on the Y-axis with the transform origin at the top for a folding paper effect.'
+							onClose={fold.onClose}
+						/>
+					</FoldModal>
+				</Modal>
+			</Showcase>
+
+			<Showcase label='Modal with elastic variant'>
+				<Button variant='secondary' onClick={elastic.onOpen}>
+					Open modal
+				</Button>
+				<Modal open={elastic.open} onClose={elastic.onClose}>
+					<ElasticModal title='Welcome back'>
+						<Demo
+							description='This bounces with an elastic overshoot effect. Uses GSAPs elastic ease to create a playful, springy animation that overshoots before settling.'
+							onClose={elastic.onClose}
+						/>
+					</ElasticModal>
+				</Modal>
+			</Showcase>
+
+			<Showcase label='Modal with newspaper variant'>
+				<Button variant='secondary' onClick={newspaper.onOpen}>
+					Open modal
+				</Button>
+				<Modal open={newspaper.open} onClose={newspaper.onClose}>
+					<NewspaperModal title='Welcome back'>
+						<Demo
+							description='This unfolds like a newspaper being opened. Combines scale on both axes with a subtle rotation for a paper-unfolding effect.'
+							onClose={newspaper.onClose}
+						/>
+					</NewspaperModal>
 				</Modal>
 			</Showcase>
 		</Gallery>

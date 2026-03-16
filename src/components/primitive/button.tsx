@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({ children, variant, className, ..
 			className={cn(
 				'px-4 h-12 select-none',
 				'flex items-center gap-2 justify-center',
-				'relative text-sm rounded-full font-medium cursor-pointer',
+				'relative text-sm rounded-xl font-medium cursor-pointer',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				variants[variant],
 				className

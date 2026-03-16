@@ -8,10 +8,10 @@ import { ModalContent } from '@/components/primitive/modal-content';
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 
 /**
- * Modal variant that blurs and fades in on open.
+ * Modal variant that scales down from 110% to 100% on open.
  * @param children - Modal body content
  */
-export const BlurModal = ({ children, ...rest }: Props) => {
+export const ScaleModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
 	const ref = React.useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,7 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 
 		gsap.set(el, {
 			opacity: 0,
-			filter: 'blur(8px)',
+			scale: 1.1,
 		});
 	}, []);
 
@@ -30,10 +30,10 @@ export const BlurModal = ({ children, ...rest }: Props) => {
 		if (!el) return;
 
 		gsap.to(el, {
-			ease: EASE.inOut,
+			ease: EASE.out,
 			opacity: open ? 1 : 0,
-			filter: open ? 'blur(0px)' : 'blur(8px)',
-			duration: DURATION.slow,
+			scale: open ? 1 : 1.1,
+			duration: DURATION.base,
 		});
 	}, [open]);
 
