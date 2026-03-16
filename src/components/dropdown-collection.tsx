@@ -21,12 +21,12 @@ import { Button, type ButtonVariant } from '@/components/primitive/button';
 import { Dropdown } from '@/components/primitive/dropdown';
 import { DropdownItem } from '@/components/primitive/dropdown-item';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
-import { StaggeredDropdown } from './collections/dropdown/staggered-dropdown';
-import { BlurDropdown } from './collections/dropdown/blur-dropdown';
-import { FadeDropdown } from './collections/dropdown/fade-dropdown';
-import { ScaleDropdown } from './collections/dropdown/scale-dropdown';
-import { TypewriterDropdown } from './collections/dropdown/typewriter-dropdown';
-import { AccordionDropdown } from './collections/dropdown/accordion-dropdown';
+import { BlurDropdown } from '@/components/collections/dropdown/blur-dropdown';
+import { FadeDropdown } from '@/components/collections/dropdown/fade-dropdown';
+import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown';
+import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
+import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
+import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
 
 interface DropdownCollectionProps {
 	//
@@ -98,7 +98,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Plain dropdown with left top placement'>
-				<Dropdown variant='click'>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<ChevronLeft size={16} />
 						<span>Open left</span>
@@ -110,7 +110,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Plain dropdown with right top placement'>
-				<Dropdown variant='click'>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Open right</span>
 						<ChevronRight size={16} />
@@ -122,7 +122,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Fade dropdown with button click'>
-				<Dropdown>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Fade</span>
 						<ChevronDown size={16} />
@@ -133,8 +133,8 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Staggered dropdown with button click'>
-				<Dropdown>
+			<Showcase label='Staggered dropdown with button'>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Staggered</span>
 						<ChevronDown size={16} />
@@ -145,8 +145,8 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Blur dropdown with button click'>
-				<Dropdown>
+			<Showcase label='Blur dropdown with button'>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Blur</span>
 						<ChevronDown size={16} />
@@ -157,8 +157,8 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Scale dropdown with button click'>
-				<Dropdown>
+			<Showcase label='Scale dropdown with button'>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Scale</span>
 						<ChevronDown size={16} />
@@ -170,7 +170,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Typewriter dropdown with button click'>
-				<Dropdown>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Typewriter</span>
 						<ChevronDown size={16} />
@@ -182,7 +182,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Accordion dropdown with button click'>
-				<Dropdown>
+				<Dropdown variant='hover'>
 					<Button variant={variant}>
 						<span>Accordion</span>
 						<ChevronDown size={16} />

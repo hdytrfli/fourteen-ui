@@ -41,7 +41,7 @@ export const TiltButton = ({
 				<span>{label}</span>
 				<span
 					aria-hidden
-					className='transition-transform duration-300 ease-in-out group-hover/tilt-button:-rotate-12'>
+					className='transition-transform duration-300 ease-in-out group-hover/tilt-button:-rotate-24'>
 					<Icon size={16} />
 				</span>
 			</span>
