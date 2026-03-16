@@ -48,7 +48,7 @@ export const StaggeredDropdown = ({ children, className, ...rest }: Props) => {
 				ease: EASE.in,
 				stagger: {
 					each: STAGGER.base,
-					from: 'last',
+					from: 'start',
 				},
 				duration: DURATION.slow,
 			});
