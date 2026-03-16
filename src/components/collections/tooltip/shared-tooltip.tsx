@@ -150,11 +150,12 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 				<div
 					ref={container}
 					className={cn(
-						'px-4 py-2 rounded-full',
-						'text-xs text-foreground',
+						'fixed z-50',
+						'pointer-events-none',
 						'max-w-48 wrap-break-words',
-						'fixed z-50 pointer-events-none',
-						'bg-background border border-border'
+						'bg-background text-foreground',
+						'text-xs font-medium text-center',
+						'px-4 py-2 rounded-2xl border border-border'
 					)}>
 					<div ref={content}>{label}</div>
 				</div>,

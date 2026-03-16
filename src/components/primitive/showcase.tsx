@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 
 import { cn } from '@/libs/utils';
 import { DURATION, EASE } from '@/libs/constants';
+import { useInView } from '@/hooks/use-in-view';
 
 interface Props extends React.ComponentProps<'article'> {
 	label: string;
@@ -10,22 +11,22 @@ interface Props extends React.ComponentProps<'article'> {
 }
 
 /**
- * Showcase wrapper that fades and unblurs its children on mount.
+ * Showcase wrapper that fades and unblurs its children when in view.
  * @param label - Caption displayed below the card
  */
 export const Showcase = ({ label, children, className, ...rest }: Props) => {
-	const ref = React.useRef<HTMLDivElement>(null);
+	const { ref, shown } = useInView({ threshold: 0.3 });
 
 	React.useLayoutEffect(() => {
 		const el = ref.current;
-		if (!el) return;
+		if (!el || !shown) return;
 
 		gsap.fromTo(
 			el,
-			{ opacity: 0, y: 10, filter: 'blur(10px)' },
-			{ opacity: 1, y: 0, filter: 'blur(0px)', duration: DURATION.base, ease: EASE.default }
+			{ opacity: 0, y: 40, filter: 'blur(10px)' },
+			{ opacity: 1, y: 0, filter: 'blur(0px)', duration: DURATION.slow, ease: EASE.default }
 		);
-	}, []);
+	}, [ref, shown]);
 
 	return (
 		<article

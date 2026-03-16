@@ -18,7 +18,7 @@ export default function CollectionPage({
 					<h1 className='text-4xl font-heading'>{title}</h1>
 					<Navigation />
 				</div>
-				<p className='max-w-2xl'>{description}</p>
+				<p className='max-w-2xl text-zinc-400'>{description}</p>
 			</header>
 
 			<div className='grid gap-20'>{children}</div>

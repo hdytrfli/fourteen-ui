@@ -20,7 +20,7 @@ export const Navigation: React.FC = () => {
 
 	const links = [
 		{ label: 'All collections', to: '/', icon: Home },
-		{ label: 'Button collectionsa', to: '/buttons', icon: ArrowUpRight },
+		{ label: 'Button collections', to: '/buttons', icon: ArrowUpRight },
 		{ label: 'Variant collections', to: '/variants', icon: Box },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
@@ -38,7 +38,13 @@ export const Navigation: React.FC = () => {
 				<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
 				<hr className='border-b border-border border-dashed block mb-1'></hr>
 				{links.map(({ to, label, icon }) => (
-					<DropdownItem label={label} icon={icon} position='end' onClick={() => navigate(to)} />
+					<DropdownItem
+						key={to}
+						icon={icon}
+						label={label}
+						position='end'
+						onClick={() => navigate(to, { viewTransition: true })}
+					/>
 				))}
 			</StaggeredDropdown>
 		</Dropdown>

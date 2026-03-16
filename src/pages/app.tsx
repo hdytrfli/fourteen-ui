@@ -14,11 +14,11 @@ export default function App(): React.JSX.Element {
 		<React.Fragment>
 			<header className='grid gap-2'>
 				<div className='flex items-center justify-between'>
-					<h1 className='text-4xl font-heading'>Idea collections</h1>
+					<h1 className='text-5xl font-heading'>Idea collections</h1>
 					<Navigation />
 				</div>
 
-				<p className='max-w-2xl'>
+				<p className='max-w-2xl text-zinc-400'>
 					Collections of ideas for your next project. Built with{' '}
 					<Link to='https://reactjs.org/'>React</Link> and{' '}
 					<Link to='https://tailwindcss.com/'>Tailwind CSS</Link> and animated using{' '}
