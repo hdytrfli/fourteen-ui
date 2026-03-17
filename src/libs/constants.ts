@@ -1,7 +1,7 @@
 /**
  * Shared GSAP timing and easing tokens.
  */
-export const STAGGER = { tight: 0.01, base: 0.02 } as const;
+export const STAGGER = { tight: 0.02, base: 0.05 } as const;
 export const DURATION = { fast: 0.1, base: 0.3, slow: 0.5, late: 0.8 } as const;
 
 export const EASE = {
@@ -11,9 +11,6 @@ export const EASE = {
 	default: 'ease.in(1, 0.5)',
 	elastic: 'elastic.out(1, 0.5)',
 } as const;
-
-export const DISTANCE_MODAL = 20;
-export const DISTANCE_DROPDOWN = -6;
 
 /**
  * Numeric constants for animation values.

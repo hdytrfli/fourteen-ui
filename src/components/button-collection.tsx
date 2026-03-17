@@ -10,11 +10,16 @@ import {
 	Activity,
 	MessageCircle,
 	UserPlus,
+	ChevronRight,
+	ChevronLeft,
+	Play,
+	Square,
+	Users,
 } from 'lucide-react';
 
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
-import type { ButtonVariant } from '@/components/primitive/button';
+import { Button, type ButtonVariant } from '@/components/primitive/button';
 import { TiltButton } from '@/components/collections/button/tilt-button';
 import { SwapButton } from '@/components/collections/button/swap-button';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
@@ -32,32 +37,40 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 
 	return (
 		<Gallery title='Buttons' description='A collection of button components.'>
-			<Showcase label='Rolling button component'>
-				<RollingButton label='Get started' direction='right' variant={variant} />
+			<Showcase label='Plain button'>
+				<Button variant={variant}>
+					<span>Get started</span>
+				</Button>
 			</Showcase>
 
-			<Showcase label='Rolling button component reversed'>
-				<RollingButton label='Read more' direction='left' variant={variant} />
+			<Showcase label='Plain button with icon start'>
+				<Button variant={variant}>
+					<span>Start now</span>
+					<ChevronRight size={16} />
+				</Button>
+			</Showcase>
+
+			<Showcase label='Plain button with icon end'>
+				<Button variant={variant}>
+					<ChevronLeft size={16} />
+					<span>Go back</span>
+				</Button>
+			</Showcase>
+
+			<Showcase label='Rolling button component'>
+				<RollingButton label='Get rolled' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Rolling button component'>
+				<RollingButton label='Get rolled' variant={variant} reversed />
 			</Showcase>
 
 			<Showcase label='Rolling button with icon start'>
-				<RollingButton
-					label='Get started'
-					icon={ArrowUpRight}
-					position='start'
-					direction='right'
-					variant={variant}
-				/>
+				<RollingButton label='Play video' icon={Play} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Rolling button with icon end'>
-				<RollingButton
-					label='Read more'
-					icon={ArrowUpRight}
-					position='end'
-					direction='left'
-					variant={variant}
-				/>
+				<RollingButton label='Stop audio' icon={Square} position='end' variant={variant} />
 			</Showcase>
 
 			<Showcase label='Swap button component'>
@@ -65,15 +78,15 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Swap button with icon start'>
-				<SwapButton label='Subscribe' icon={Download} position='start' variant={variant} />
+				<SwapButton label='Subscribe' icon={UserPlus} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Swap button with icon end'>
-				<SwapButton label='Subscribe' icon={Download} position='end' variant={variant} />
+				<SwapButton label='Create group' icon={Users} position='end' variant={variant} />
 			</Showcase>
 
 			<Showcase label='Slides in icons component start'>
-				<FlyinButton label='Download' icon={Download} position='start' variant={variant} />
+				<FlyinButton label='Download' icon={Download} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Slides in icons component end'>
@@ -85,7 +98,7 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Tilt button with icon start'>
-				<TiltButton label='Enable feature' icon={FlaskConical} position='start' variant={variant} />
+				<TiltButton label='Enable feature' icon={FlaskConical} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Tilt button with icon end'>
@@ -97,12 +110,7 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Scramble button with icon start'>
-				<ScrambleButton
-					label='Contact us'
-					icon={MessageCircle}
-					position='start'
-					variant={variant}
-				/>
+				<ScrambleButton label='Contact us' icon={MessageCircle} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Scramble button with icon end'>
@@ -114,7 +122,7 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Magnetic button with icon start'>
-				<MagneticButton label='Checkout' icon={ShoppingBag} position='start' variant={variant} />
+				<MagneticButton label='Checkout' icon={ShoppingBag} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Magnetic button with icon end'>
@@ -126,7 +134,7 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 			</Showcase>
 
 			<Showcase label='Kinetic button with icon start'>
-				<KineticButton label='Get moving' icon={Zap} position='start' variant={variant} />
+				<KineticButton label='Get moving' icon={Zap} variant={variant} />
 			</Showcase>
 
 			<Showcase label='Kinetic button with icon end'>

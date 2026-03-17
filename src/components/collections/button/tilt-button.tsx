@@ -32,7 +32,7 @@ export const TiltButton = ({
 	return (
 		<Button
 			aria-label={label}
-			className={cn('transition-transform duration-300 ease-in-out hover:-rotate-3', className)}
+			className={cn('transition-transform duration-300 ease-in-out hover:-rotate-6', className)}
 			{...rest}>
 			<span
 				className={cn(

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { cn } from '@/libs/utils';
 import { type LucideIcon } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
+import { AnimatedHeight } from '@/components/primitive/animated-height';
 import type { ClassValue } from 'clsx';
 import type { IconPosition } from '@/libs/types';
-import { AnimatedHeight } from '@/components/primitive/animated-height';
 
 type Variant = 'primary' | 'destructive';
 
@@ -14,9 +14,18 @@ interface Props extends React.ComponentProps<'li'> {
 	variant?: Variant;
 	position?: IconPosition;
 	children?: React.ReactNode;
-	submenuRef?: React.RefObject<HTMLUListElement | null>;
-	onOpenChange?: (open: boolean) => void;
+	submenuRef?: React.Ref<HTMLUListElement>;
 }
+
+const variants: Record<Variant, ClassValue> = {
+	primary: 'text-text hover:bg-border hover:text-foreground',
+	destructive: 'text-text hover:bg-rose-700 hover:text-foreground',
+};
+
+const positions: Record<IconPosition, ClassValue> = {
+	start: 'flex-row',
+	end: 'flex-row-reverse',
+};
 
 /**
  * A menu item that can optionally contain a submenu.
@@ -36,30 +45,15 @@ export const MenuItem = ({
 	children,
 	className,
 	submenuRef,
-	onOpenChange,
 	...rest
 }: Props) => {
 	const [open, setOpen] = React.useState(false);
 	const submenu = React.Children.count(children) > 0;
+	const localRef = React.useRef<HTMLUListElement>(null);
+	const ref = (submenuRef as React.RefObject<HTMLUListElement>) || localRef;
 
 	const toggle = () => {
-		if (submenu) {
-			setOpen((prev) => {
-				const next = !prev;
-				onOpenChange?.(next);
-				return next;
-			});
-		}
-	};
-
-	const variants: Record<Variant, ClassValue> = {
-		primary: 'text-text hover:bg-border hover:text-foreground',
-		destructive: 'text-text hover:bg-rose-700 hover:text-foreground',
-	};
-
-	const positions: Record<IconPosition, ClassValue> = {
-		start: 'flex-row',
-		end: 'flex-row-reverse',
+		if (submenu) setOpen((prev) => !prev);
 	};
 
 	return (
@@ -92,7 +86,7 @@ export const MenuItem = ({
 			{submenu && (
 				<AnimatedHeight open={open}>
 					<ul
-						ref={submenuRef}
+						ref={ref}
 						className={cn(
 							'ml-4 pl-2',
 							'flex flex-col gap-1',

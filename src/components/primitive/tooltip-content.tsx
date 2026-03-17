@@ -18,62 +18,32 @@ type Placement =
 	| 'right-bottom';
 
 interface Props extends React.ComponentProps<'div'> {
-	children: React.ReactNode;
 	placement?: Placement;
+	children: React.ReactNode;
 	ref?: React.Ref<HTMLDivElement>;
 }
 
 const getPosition = (anchor: DOMRect, width: number, height: number, placement: Placement) => {
 	const gap = 6;
 	const positions = {
-		'bottom-left': {
-			top: anchor.bottom + gap,
-			left: anchor.left,
-		},
-		'bottom-center': {
-			top: anchor.bottom + gap,
-			left: anchor.left + anchor.width / 2 - width / 2,
-		},
-		'bottom-right': {
-			top: anchor.bottom + gap,
-			left: anchor.right - width,
-		},
-		'top-left': {
-			top: anchor.top - height - gap,
-			left: anchor.left,
-		},
+		'bottom-left': { top: anchor.bottom + gap, left: anchor.left },
+		'bottom-center': { top: anchor.bottom + gap, left: anchor.left + anchor.width / 2 - width / 2 },
+		'bottom-right': { top: anchor.bottom + gap, left: anchor.right - width },
+		'top-left': { top: anchor.top - height - gap, left: anchor.left },
 		'top-center': {
 			top: anchor.top - height - gap,
 			left: anchor.left + anchor.width / 2 - width / 2,
 		},
-		'top-right': {
-			top: anchor.top - height - gap,
-			left: anchor.right - width,
-		},
-		'right-top': {
-			top: anchor.top,
-			left: anchor.right + gap,
-		},
-		'right-center': {
-			top: anchor.top + anchor.height / 2 - height / 2,
-			left: anchor.right + gap,
-		},
-		'right-bottom': {
-			top: anchor.bottom - height,
-			left: anchor.right + gap,
-		},
-		'left-top': {
-			top: anchor.top,
-			left: anchor.left - width - gap,
-		},
+		'top-right': { top: anchor.top - height - gap, left: anchor.right - width },
+		'right-top': { top: anchor.top, left: anchor.right + gap },
+		'right-center': { top: anchor.top + anchor.height / 2 - height / 2, left: anchor.right + gap },
+		'right-bottom': { top: anchor.bottom - height, left: anchor.right + gap },
+		'left-top': { top: anchor.top, left: anchor.left - width - gap },
 		'left-center': {
 			top: anchor.top + anchor.height / 2 - height / 2,
 			left: anchor.left - width - gap,
 		},
-		'left-bottom': {
-			top: anchor.bottom - height,
-			left: anchor.left - width - gap,
-		},
+		'left-bottom': { top: anchor.bottom - height, left: anchor.left - width - gap },
 	};
 
 	return positions[placement];
@@ -83,10 +53,10 @@ const getPosition = (anchor: DOMRect, width: number, height: number, placement: 
  * Tooltip content that portals to document.body.
  */
 export const TooltipContent = ({
-	children,
-	placement = 'top-center',
-	className,
 	ref,
+	children,
+	className,
+	placement = 'top-center',
 	...rest
 }: Props) => {
 	const { open, anchor } = useTooltip();
@@ -97,20 +67,17 @@ export const TooltipContent = ({
 		const el = external.current;
 		const tooltip = anchor.current;
 
-		if (!el || !tooltip || !open) return;
+		if (!el || !tooltip) return;
 
-		const naturalWidth = el.offsetWidth;
-		const naturalHeight = el.offsetHeight;
-		const content = tooltip.getBoundingClientRect();
-		const { top, left } = getPosition(content, naturalWidth, naturalHeight, placement);
+		const width = el.offsetWidth;
+		const height = el.offsetHeight;
+		const { top, left } = getPosition(tooltip.getBoundingClientRect(), width, height, placement);
 
 		Object.assign(el.style, {
 			top: top + window.scrollY + 'px',
 			left: left + window.scrollX + 'px',
 		});
-	}, [open, anchor, placement, external]);
-
-	if (!open) return null;
+	}, [anchor, placement, external]);
 
 	return ReactDOM.createPortal(
 		<div
@@ -122,6 +89,10 @@ export const TooltipContent = ({
 				'bg-background text-foreground',
 				'text-xs font-medium text-center',
 				'px-4 py-2 rounded-2xl border border-border',
+				{
+					'opacity-100 visible': open,
+					'opacity-0 invisible': !open,
+				},
 				className
 			)}
 			{...rest}>

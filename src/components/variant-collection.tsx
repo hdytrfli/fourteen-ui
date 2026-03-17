@@ -17,23 +17,23 @@ export const VariantCollection: React.FC<VariantCollectionProps> = () => {
 	return (
 		<Gallery title='Variant' description='A collection of button variant components.'>
 			<Showcase label='Primary variant button'>
-				<RollingButton label='Primary' icon={Send} position='start' variant='primary' />
+				<RollingButton label='Primary' icon={Send} variant='primary' />
 			</Showcase>
 
 			<Showcase label='Secondary variant button'>
-				<FlyinButton label='Secondary' icon={FastForward} position='start' variant='secondary' />
+				<FlyinButton label='Secondary' icon={FastForward} variant='secondary' />
 			</Showcase>
 
 			<Showcase label='Accent variant button'>
-				<KineticButton label='Accent' icon={Plane} position='start' variant='accent' />
+				<KineticButton label='Accent' icon={Plane} variant='accent' />
 			</Showcase>
 
 			<Showcase label='Destructive variant button'>
-				<ScrambleButton label='Destructive' icon={Trash} position='start' variant='destructive' />
+				<ScrambleButton label='Destructive' icon={Trash} variant='destructive' />
 			</Showcase>
 
 			<Showcase label='Ghost variant button'>
-				<MagneticButton label='Ghost' icon={Info} position='start' variant='ghost' />
+				<MagneticButton label='Ghost' icon={Info} variant='ghost' />
 			</Showcase>
 		</Gallery>
 	);

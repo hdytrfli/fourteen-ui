@@ -5,7 +5,7 @@ import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
 import type { IconPosition } from '@/libs/types';
-import { DURATION, EASE } from '@/libs/constants';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
@@ -32,45 +32,49 @@ export const MagneticButton = ({
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const button = buttonRef.current;
+		if (!button) return;
 
-		const handleMove = (e: MouseEvent) => {
-			const { left, top, width, height } = el.getBoundingClientRect();
-			const cx = left + width / 2;
-			const cy = top + height / 2;
+		const states = {
+			offset: 0.5,
+		} as const;
 
-			gsap.to(el, {
-				x: (e.clientX - cx) * 0.3,
-				y: (e.clientY - cy) * 0.3,
+		const handleMove = (event: MouseEvent) => {
+			const rect = button.getBoundingClientRect();
+			const centerX = rect.left + rect.width / 2;
+			const centerY = rect.top + rect.height / 2;
+
+			gsap.to(button, {
+				x: (event.clientX - centerX) * states.offset,
+				y: (event.clientY - centerY) * states.offset,
 				duration: DURATION.base,
 				ease: EASE.out,
 			});
 		};
 
 		const handleLeave = () => {
-			gsap.to(el, {
-				x: 0,
-				y: 0,
+			gsap.to(button, {
+				x: VALUES.zero,
+				y: VALUES.zero,
 				duration: DURATION.base,
 				ease: EASE.out,
 			});
 		};
 
-		el.addEventListener('mousemove', handleMove);
-		el.addEventListener('mouseleave', handleLeave);
+		button.addEventListener('mousemove', handleMove);
+		button.addEventListener('mouseleave', handleLeave);
 
 		return () => {
-			el.removeEventListener('mousemove', handleMove);
-			el.removeEventListener('mouseleave', handleLeave);
+			button.removeEventListener('mousemove', handleMove);
+			button.removeEventListener('mouseleave', handleLeave);
 		};
 	}, []);
 
 	return (
-		<Button ref={ref} aria-label={label} className={cn(className)} {...rest}>
+		<Button ref={buttonRef} aria-label={label} className={cn(className)} {...rest}>
 			<span
 				className={cn(
 					'flex items-center gap-2 pointer-events-none select-none',

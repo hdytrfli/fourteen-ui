@@ -36,7 +36,7 @@ const Demo = () => {
 	return (
 		<React.Fragment>
 			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
-			<hr className='border-b border-border border-dashed block mb-1'></hr>
+			<hr className='border-b border-border border-dashed' />
 			<DropdownItem position='end' label='Edit data' icon={Pencil} />
 			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
 			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
@@ -77,7 +77,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			<Showcase label='Plain dropdown with label hover'>
 				<Dropdown variant='hover'>
 					<label className='text-foreground link-accent cursor-pointer'>Dropdown</label>
-					<DropdownContent>
+					<DropdownContent placement='bottom-center'>
 						<Demo />
 					</DropdownContent>
 				</Dropdown>
@@ -86,13 +86,13 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 			<Showcase label='Plain dropdown with avatar hover'>
 				<Dropdown variant='hover'>
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
-					<DropdownContent>
+					<DropdownContent placement='bottom-center'>
 						<label className='block px-3 py-3 text-sm font-medium'>John Doe</label>
-						<hr className='border-b border-border border-dashed block mb-1'></hr>
-						<DropdownItem position='end' label='Profile' icon={User} />
-						<DropdownItem position='end' label='Privacy' icon={TriangleAlert} />
-						<DropdownItem position='end' label='Settings' icon={Settings} />
-						<DropdownItem position='end' label='Logout' icon={LogOut} variant='destructive' />
+						<hr className='border-b border-border border-dashed' />
+						<DropdownItem label='Profile' icon={User} />
+						<DropdownItem label='Privacy' icon={TriangleAlert} />
+						<DropdownItem label='Settings' icon={Settings} />
+						<DropdownItem label='Logout' icon={LogOut} variant='destructive' />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -133,18 +133,6 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				</Dropdown>
 			</Showcase>
 
-			<Showcase label='Staggered dropdown with button'>
-				<Dropdown variant='hover'>
-					<Button variant={variant}>
-						<span>Staggered</span>
-						<ChevronDown size={16} />
-					</Button>
-					<StaggeredDropdown placement='bottom-center'>
-						<Demo />
-					</StaggeredDropdown>
-				</Dropdown>
-			</Showcase>
-
 			<Showcase label='Blur dropdown with button'>
 				<Dropdown variant='hover'>
 					<Button variant={variant}>
@@ -166,6 +154,18 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					<ScaleDropdown placement='bottom-center'>
 						<Demo />
 					</ScaleDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Staggered dropdown with button'>
+				<Dropdown variant='hover'>
+					<Button variant={variant}>
+						<span>Staggered</span>
+						<ChevronDown size={16} />
+					</Button>
+					<StaggeredDropdown placement='bottom-center'>
+						<Demo />
+					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>
 

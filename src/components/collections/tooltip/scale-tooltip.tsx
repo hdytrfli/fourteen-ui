@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE } from '@/libs/constants';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { TooltipContent } from '@/components/primitive/tooltip-content';
 import { useTooltip } from '@/hooks/use-tooltip';
 
@@ -11,39 +11,32 @@ interface Props extends Omit<React.ComponentProps<typeof TooltipContent>, 'child
 
 /**
  * Tooltip variant that scales up from center on open.
+ * Extends TooltipContent with scale effect.
  */
 export const ScaleTooltip = ({ children, className, ...rest }: Props) => {
 	const { open } = useTooltip();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el) return;
+		const container = contentRef.current;
+		if (!container) return;
 
-		if (open) {
-			gsap.set(el, { scale: 0.8, opacity: 0 });
-			gsap.to(el, {
-				scale: 1,
-				opacity: 1,
-				duration: DURATION.base,
-				ease: EASE.default,
-			});
-		} else {
-			gsap.to(el, {
-				scale: 0.8,
-				opacity: 0,
-				duration: DURATION.base,
-				ease: EASE.default,
-			});
-		}
+		const states = {
+			open: { scale: VALUES.one, opacity: VALUES.visible },
+			closed: { scale: 0.8, opacity: VALUES.hidden },
+		} as const;
 
-		return () => {
-			gsap.killTweensOf(el);
-		};
+		const state = open ? 'open' : 'closed';
+
+		gsap.to(container, {
+			...states[state],
+			duration: DURATION.base,
+			ease: EASE.default,
+		});
 	}, [open]);
 
 	return (
-		<TooltipContent ref={ref} className={cn(className)} {...rest}>
+		<TooltipContent ref={contentRef} className={cn(className)} {...rest}>
 			{children}
 		</TooltipContent>
 	);

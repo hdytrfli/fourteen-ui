@@ -31,16 +31,20 @@ export const FlyinButton = ({
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
 	const iconRef = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
+		const button = buttonRef.current;
 		const iconElement = iconRef.current;
-		if (!element || !iconElement) return;
+		if (!button || !iconElement) return;
 
-		const from = position === 'start' ? -16 : 16;
-		const padding = position === 'start' ? 'paddingLeft' : 'paddingRight';
+		const states = {
+			start: { from: -16, padding: 'paddingLeft' },
+			end: { from: 16, padding: 'paddingRight' },
+		} as const;
+
+		const { from, padding } = states[position];
 
 		gsap.set(iconElement, { x: from, opacity: 0 });
 
@@ -49,26 +53,26 @@ export const FlyinButton = ({
 			defaults: { duration: DURATION.base, ease: EASE.default },
 		});
 
-		timeline.to(element, { [padding]: 40 }).to(iconElement, { x: 0, opacity: 1 }, 0);
+		timeline.to(button, { [padding]: 42 }).to(iconElement, { x: 0, opacity: 1 }, 0);
 
-		const play = () => timeline.play();
-		const reverse = () => timeline.reverse();
+		const enter = () => timeline.play();
+		const leave = () => timeline.reverse();
 
-		element.addEventListener('mouseenter', play);
-		element.addEventListener('mouseleave', reverse);
+		button.addEventListener('mouseenter', enter);
+		button.addEventListener('mouseleave', leave);
 
 		return () => {
-			element.removeEventListener('mouseenter', play);
-			element.removeEventListener('mouseleave', reverse);
+			button.removeEventListener('mouseenter', enter);
+			button.removeEventListener('mouseleave', leave);
 			timeline.kill();
 		};
 	}, [position]);
 
 	return (
-		<Button ref={ref} aria-label={label} className={className} {...rest}>
+		<Button ref={buttonRef} aria-label={label} className={className} {...rest}>
 			<span
 				className={cn(
-					'flex items-center gap-2 pointer-events-none select-none',
+					'flex items-center gap-5 pointer-events-none select-none',
 					positions[position]
 				)}>
 				<span>{label}</span>

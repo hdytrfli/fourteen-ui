@@ -33,70 +33,64 @@ export const SwapButton = ({
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
-	const text = React.useRef<HTMLSpanElement>(null);
-	const next = React.useRef<HTMLSpanElement>(null);
-	const animating = React.useRef(false);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
+	const textRef = React.useRef<HTMLSpanElement>(null);
+	const nextRef = React.useRef<HTMLSpanElement>(null);
+	const isAnimatingRef = React.useRef(false);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		const nextText = next.current;
-		const currentText = text.current;
-		if (!element || !currentText || !nextText) return;
+		const button = buttonRef.current;
+		const nextElement = nextRef.current;
+		const currentElement = textRef.current;
+		if (!button || !currentElement || !nextElement) return;
+
+		const states = {
+			visible: { yPercent: 0, opacity: 1 },
+			hidden: { yPercent: 150, opacity: 0 },
+			exit: { yPercent: -150, opacity: 0 },
+		} as const;
+
+		gsap.set(currentElement, states.visible);
+		gsap.set(nextElement, states.hidden);
 
 		const animate = () => {
-			if (animating.current) return;
-			animating.current = true;
+			if (isAnimatingRef.current) return;
+			isAnimatingRef.current = true;
 
 			const timeline = gsap.timeline({
+				defaults: { duration: DURATION.base, ease: EASE.default },
 				onComplete: () => {
-					animating.current = false;
+					isAnimatingRef.current = false;
+					gsap.set(nextElement, states.hidden);
+					gsap.set(currentElement, states.visible);
 				},
 			});
 
 			timeline
-				.fromTo(
-					currentText,
-					{
-						yPercent: 0,
-						opacity: 1,
-					},
-					{
-						opacity: 0,
-						yPercent: -150,
-						duration: DURATION.base,
-						ease: EASE.default,
-					}
-				)
-				.fromTo(
-					nextText,
-					{ yPercent: 150, opacity: 0 },
-					{
-						opacity: 1,
-						yPercent: 0,
-						duration: DURATION.base,
-						ease: EASE.default,
-					},
-					0
-				);
+				.to(currentElement, { yPercent: -150, opacity: 0 })
+				.fromTo(nextElement, { yPercent: 150, opacity: 0 }, { yPercent: 0, opacity: 1 }, 0);
 		};
 
-		element.addEventListener('mouseenter', animate);
+		button.addEventListener('mouseenter', animate);
 
 		return () => {
-			element.removeEventListener('mouseenter', animate);
-			gsap.killTweensOf([currentText, nextText]);
+			button.removeEventListener('mouseenter', animate);
+			gsap.killTweensOf([currentElement, nextElement]);
 		};
 	}, []);
 
 	return (
-		<Button ref={ref} aria-label={label} className={cn('overflow-hidden', className)} {...rest}>
+		<Button
+			ref={buttonRef}
+			aria-label={label}
+			className={cn('overflow-hidden', className)}
+			{...rest}>
 			<span className={cn('flex items-center gap-2', positions[position])}>
 				<span className='relative inline-flex'>
-					<span ref={text} className='block'>
+					<span ref={textRef} className='block'>
 						{label}
 					</span>
-					<span ref={next} className='absolute inset-0 block opacity-0'>
+					<span ref={nextRef} className='absolute inset-0 block opacity-0'>
 						{label}
 					</span>
 				</span>

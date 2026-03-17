@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ArrowUpRight, Trash, TriangleAlert, X } from 'lucide-react';
+import { Download, Trash, TriangleAlert, X } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
 import { Card } from '@/components/primitive/card';
@@ -8,9 +8,9 @@ import { Showcase } from '@/components/primitive/showcase';
 import { CardHeader } from '@/components/primitive/card-header';
 import { CardContent } from '@/components/primitive/card-content';
 import { CardFooter } from '@/components/primitive/card-footer';
-import { TiltButton } from '@/components/collections/button/tilt-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { KineticButton } from '@/components/collections/button/kinetic-button';
+import { RollingButton } from './collections/button/rolling-button';
+import { SwapButton } from './collections/button/swap-button';
 
 interface CardCollectionProps {
 	//
@@ -30,17 +30,10 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 						</p>
 					</CardContent>
 					<CardFooter>
-						<TiltButton
-							icon={X}
-							variant='ghost'
-							position='start'
-							label='Cancel'
-							className='rounded-xl'
-						/>
-						<ScrambleButton
+						<ScrambleButton icon={X} variant='ghost' label='Dismiss' className='rounded-xl' />
+						<RollingButton
 							icon={Trash}
-							position='start'
-							label='Delete content'
+							label='Delete'
 							className='rounded-xl'
 							variant='destructive'
 						/>
@@ -98,20 +91,8 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 						</form>
 					</CardContent>
 					<CardFooter>
-						<TiltButton
-							icon={X}
-							variant='ghost'
-							position='start'
-							label='Cancel update'
-							className='rounded-xl'
-						/>
-						<KineticButton
-							position='end'
-							variant='primary'
-							icon={ArrowUpRight}
-							label='Update content'
-							className='rounded-xl'
-						/>
+						<ScrambleButton icon={X} label='Dismiss' variant='ghost' className='rounded-xl' />
+						<SwapButton label='Subscribe' icon={Download} variant='primary' />
 					</CardFooter>
 				</Card>
 			</Showcase>

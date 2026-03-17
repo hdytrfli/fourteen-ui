@@ -38,7 +38,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 			title='Menu'
 			className='md:grid-cols-2'
 			description='A collection of menu components with submenu support.'>
-			<Showcase className='col-span-full' label='Basic menu'>
+			<Showcase label='Basic menu'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Edit' icon={Pencil} />
 					<MenuItem label='Duplicate' icon={Copy} />
@@ -46,7 +46,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Menu with single submenu'>
+			<Showcase label='Menu with single submenu'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Inbox' icon={Mail} />
 					<MenuItem label='Files' icon={Folder}>
@@ -58,7 +58,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Menu with multiple submenus'>
+			<Showcase label='Menu with multiple submenus'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Dashboard' icon={Box} />
 					<MenuItem label='Projects' icon={Folder}>
@@ -73,7 +73,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Nested submenu with multiple levels'>
+			<Showcase label='Nested submenu with multiple levels'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Root Item 1' icon={File} />
 					<MenuItem label='Root Item 2' icon={Folder}>
@@ -88,7 +88,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Menu with icons at end position'>
+			<Showcase label='Menu with icons at end position'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Edit' icon={Pencil} position='end' />
 					<MenuItem label='Share' icon={Share} position='end' />
@@ -96,7 +96,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Complex application menu'>
+			<Showcase label='Complex application menu'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<MenuItem label='Profile' icon={User} />
 					<MenuItem label='Account Settings' icon={Settings} />
@@ -106,12 +106,12 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 						<MenuItem label='Shared' icon={Share} />
 					</MenuItem>
 					<MenuItem label='Notifications' icon={TriangleAlert} />
-					<hr className='border-b border-border border-dashed my-1' />
+					<hr className='border-b border-border border-dashed' />
 					<MenuItem label='Logout' icon={LogOut} variant='destructive' />
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Fade menu - submenu animation'>
+			<Showcase label='Fade menu submenu animation'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<FadeMenuItem label='Inbox' icon={Mail} />
 					<FadeMenuItem label='Files' icon={Folder}>
@@ -123,7 +123,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Scale menu - submenu animation'>
+			<Showcase label='Scale menu submenu animation'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<ScaleMenuItem label='Inbox' icon={Mail} />
 					<ScaleMenuItem label='Files' icon={Folder}>
@@ -135,7 +135,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Slide menu - submenu animation'>
+			<Showcase label='Slide menu submenu animation'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<SlideMenuItem label='Inbox' icon={Mail} />
 					<SlideMenuItem label='Files' icon={Folder}>
@@ -147,7 +147,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 				</Menu>
 			</Showcase>
 
-			<Showcase className='col-span-full' label='Stagger menu - submenu animation'>
+			<Showcase label='Stagger menu submenu animation'>
 				<Menu className='max-w-60 bg-background rounded-xl p-1'>
 					<StaggerMenuItem label='Inbox' icon={Mail} />
 					<StaggerMenuItem label='Files' icon={Folder}>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
-
 import { useModal } from '@/hooks/use-modal';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { ModalContent } from '@/components/primitive/modal-content';
@@ -14,24 +13,11 @@ interface Props extends React.ComponentProps<typeof ModalContent> {}
  */
 export const NewspaperModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
-
-		gsap.set(element, {
-			opacity: 0,
-			scaleX: 0,
-			scaleY: 0,
-			rotate: -10,
-			transformOrigin: 'center center',
-		});
-	}, []);
-
-	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
 		const states = {
 			open: {
@@ -39,6 +25,7 @@ export const NewspaperModal = ({ children, ...rest }: Props) => {
 				scaleX: VALUES.one,
 				scaleY: VALUES.one,
 				rotate: VALUES.zero,
+				transformOrigin: 'center center',
 				ease: EASE.default,
 			},
 			closed: {
@@ -46,20 +33,23 @@ export const NewspaperModal = ({ children, ...rest }: Props) => {
 				scaleX: VALUES.zero,
 				scaleY: VALUES.zero,
 				rotate: -10,
+				transformOrigin: 'center center',
 				ease: EASE.default,
 			},
 		} as const;
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.to(element, {
+		gsap.fromTo(container, states.closed, {
 			...states[state],
 			duration: DURATION.base,
 		});
+
+		return () => gsap.killTweensOf(container);
 	}, [open]);
 
 	return (
-		<div ref={ref}>
+		<div ref={contentRef}>
 			<ModalContent {...rest}>{children}</ModalContent>
 		</div>
 	);

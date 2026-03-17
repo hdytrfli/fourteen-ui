@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE, STAGGER, DISTANCE_DROPDOWN } from '@/libs/constants';
+import { DURATION, STAGGER, VALUES } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -15,49 +15,37 @@ interface Props extends React.ComponentProps<typeof DropdownContent> {
  */
 export const StaggeredDropdown = ({ children, className, ...rest }: Props) => {
 	const { open } = useDropdown();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
-		gsap.set(element.children, { opacity: 0, y: DISTANCE_DROPDOWN });
-	}, []);
+		const container = contentRef.current;
+		if (!container) return;
 
-	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const states = {
+			open: { opacity: VALUES.visible, filter: 'blur(0px)' },
+			closed: { opacity: VALUES.hidden, filter: 'blur(4px)' },
+		} as const;
 
 		if (open) {
-			gsap.fromTo(
-				element.children,
-				{ opacity: 0, y: DISTANCE_DROPDOWN },
-				{
-					opacity: 1,
-					y: 0,
-					ease: EASE.default,
-					stagger: STAGGER.base,
-					duration: DURATION.base,
-				}
-			);
-		}
-
-		if (!open) {
-			gsap.to(element.children, {
-				opacity: 0,
-				y: DISTANCE_DROPDOWN,
-				ease: EASE.default,
-				stagger: {
-					each: STAGGER.base,
-					from: 'start',
-				},
+			gsap.fromTo(container.children, states.closed, {
+				...states.open,
+				stagger: STAGGER.base,
+				duration: DURATION.base,
+			});
+		} else {
+			gsap.to(container.children, {
+				...states.closed,
+				stagger: STAGGER.base,
 				duration: DURATION.base,
 			});
 		}
+
+		return () => gsap.killTweensOf(container.children);
 	}, [open]);
 
 	return (
 		<DropdownContent className={cn(className)} {...rest}>
-			<div ref={ref}>{children}</div>
+			<div ref={contentRef}>{children}</div>
 		</DropdownContent>
 	);
 };

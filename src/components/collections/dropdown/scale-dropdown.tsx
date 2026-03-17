@@ -15,11 +15,11 @@ interface Props extends React.ComponentProps<typeof DropdownContent> {
  */
 export const ScaleDropdown = ({ children, className, ...rest }: Props) => {
 	const { open } = useDropdown();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
 		const states = {
 			open: {
@@ -38,16 +38,17 @@ export const ScaleDropdown = ({ children, className, ...rest }: Props) => {
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.set(element, { scale: 0.9, opacity: VALUES.hidden });
-		gsap.to(element, {
+		gsap.to(container, {
 			...states[state],
 			duration: DURATION.base,
 		});
+
+		return () => gsap.killTweensOf(container);
 	}, [open]);
 
 	return (
 		<DropdownContent className={cn(className)} {...rest}>
-			<div ref={ref} className='opacity-0 scale-[0.9]'>
+			<div ref={contentRef} className='opacity-0 scale-[0.9]'>
 				{children}
 			</div>
 		</DropdownContent>

@@ -4,15 +4,15 @@ import { SplitText } from 'gsap/SplitText';
 import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
+import type { IconPosition } from '@/libs/types';
 import { DURATION, EASE, STAGGER } from '@/libs/constants';
-import type { IconPosition, RollingDirection } from '@/libs/types';
 import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
 	icon?: LucideIcon;
 	position?: IconPosition;
-	direction?: RollingDirection;
+	reversed?: boolean;
 }
 
 const positions = {
@@ -20,9 +20,11 @@ const positions = {
 	end: 'flex-row',
 } as const;
 
+const OFFSET = 150;
+
 /**
  * Button with staggered character roll animation on hover.
- * Same text rolls on each hover. Icon (if provided) stays static.
+ * Text rolls in one direction on each hover. Icon (if provided) stays static.
  * @param label - Button text
  * @param icon - Optional Lucide icon
  * @param position - Icon position 'start' or 'end' (default: 'start')
@@ -31,81 +33,91 @@ const positions = {
 export const RollingButton = ({
 	label,
 	icon: Icon,
+	reversed = false,
 	position = 'start',
-	direction = 'left',
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
-	const next = React.useRef<HTMLSpanElement>(null);
-	const current = React.useRef<HTMLSpanElement>(null);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
+	const textRef = React.useRef<HTMLSpanElement>(null);
+	const nextRef = React.useRef<HTMLSpanElement>(null);
+	const isAnimatingRef = React.useRef(false);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		const nextText = next.current;
-		const currentText = current.current;
-		if (!element || !currentText || !nextText) return;
+		const button = buttonRef.current;
+		const nextElement = nextRef.current;
+		const currentElement = textRef.current;
+		if (!button || !currentElement || !nextElement) return;
 
-		const initial = SplitText.create(currentText, { type: 'words, chars' });
-		const replaced = SplitText.create(nextText, { type: 'words, chars' });
-		gsap.set(replaced.chars, {
-			yPercent: 150,
-			opacity: 0,
-		});
+		const initial = SplitText.create(currentElement, { type: 'chars' });
+		const replaced = SplitText.create(nextElement, { type: 'chars' });
 
-		const timeline = gsap.timeline({
-			paused: true,
-			defaults: {
-				opacity: 0,
-				ease: EASE.default,
-				duration: DURATION.base,
-			},
-		});
+		const DIRECTION = reversed ? -1 : 1;
+		const states = {
+			enter: { yPercent: 0, opacity: 1 },
+			exit: { yPercent: -1 * OFFSET * DIRECTION, opacity: 0 },
+		} as const;
 
-		timeline
-			.to(initial.chars, {
-				opacity: 0,
-				yPercent: -150,
-				stagger: STAGGER.base,
-				reversed: direction === 'left',
-			})
-			.to(
-				replaced.chars,
-				{
-					opacity: 1,
-					yPercent: 0,
-					reversed: direction === 'left',
-					stagger: STAGGER.base,
+		gsap.set(initial.chars, states.enter);
+		gsap.set(replaced.chars, { yPercent: OFFSET * DIRECTION, opacity: 0 });
+
+		const animate = () => {
+			if (isAnimatingRef.current) return;
+			isAnimatingRef.current = true;
+
+			const timeline = gsap.timeline({
+				defaults: {
+					ease: EASE.default,
+					duration: DURATION.base,
 				},
-				0
-			);
+				onComplete: () => {
+					isAnimatingRef.current = false;
+					gsap.set(initial.chars, states.enter);
+					gsap.set(replaced.chars, { yPercent: OFFSET * DIRECTION, opacity: 0 });
+				},
+			});
 
-		const play = () => timeline.play();
-		const reverse = () => timeline.reverse();
+			timeline
+				.to(initial.chars, {
+					opacity: 0,
+					yPercent: -1 * OFFSET * DIRECTION,
+					stagger: STAGGER.tight,
+				})
+				.to(
+					replaced.chars,
+					{
+						opacity: 1,
+						yPercent: 0,
+						stagger: STAGGER.tight,
+					},
+					0
+				);
+		};
 
-		element.addEventListener('mouseenter', play);
-		element.addEventListener('mouseleave', reverse);
+		button.addEventListener('mouseenter', animate);
 
 		return () => {
-			element.removeEventListener('mouseenter', play);
-			element.removeEventListener('mouseleave', reverse);
+			button.removeEventListener('mouseenter', animate);
 			initial.revert();
 			replaced.revert();
-			timeline.kill();
 		};
-	}, [direction]);
+	}, [reversed]);
 
 	return (
-		<Button ref={ref} aria-label={label} className={cn('overflow-hidden', className)} {...rest}>
+		<Button
+			ref={buttonRef}
+			aria-label={label}
+			className={cn('overflow-hidden', className)}
+			{...rest}>
 			<span className={cn('flex items-center gap-2', positions[position])}>
 				<span className='relative inline-flex px-1'>
 					<span aria-hidden className='invisible'>
 						{label}
 					</span>
-					<span ref={current} className='absolute inset-0 block'>
+					<span ref={textRef} className='absolute inset-0 block'>
 						{label}
 					</span>
-					<span ref={next} className='absolute inset-0 block'>
+					<span ref={nextRef} className='absolute inset-0 block'>
 						{label}
 					</span>
 				</span>

@@ -34,77 +34,66 @@ export const KineticButton = ({
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
-	const text = React.useRef<HTMLSpanElement>(null);
-	const icon = React.useRef<HTMLSpanElement>(null);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
+	const textRef = React.useRef<HTMLSpanElement>(null);
+	const iconRef = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		const textElement = text.current;
-		const iconElement = icon.current;
-		if (!element || !textElement) return;
+		const button = buttonRef.current;
+		const textElement = textRef.current;
+		const iconElement = iconRef.current;
+		if (!button || !textElement) return;
 
 		const split = SplitText.create(textElement, { type: 'words, chars' });
 		gsap.set(split.chars, { y: VALUES.zero });
 		if (iconElement) gsap.set(iconElement, { y: VALUES.zero });
 
-		const timeline = gsap.timeline({
-			paused: true,
-			defaults: { duration: DURATION.base, ease: EASE.default },
-		});
+		const animate = () => {
+			const first = position === 'start';
+			const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
 
-		const first = position === 'start';
-		const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
+			const state = {
+				y: JUMP_HEIGHT,
+				duration: DURATION.fast,
+				ease: EASE.out,
+				yoyo: true,
+				repeat: 1,
+				repeatDelay: 0.1,
+			} as const;
 
-		if (iconElement) {
-			timeline.to(
-				iconElement,
-				{ y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default },
-				delay
-			);
-			timeline.to(
-				iconElement,
-				{ y: VALUES.zero, duration: DURATION.base, ease: EASE.default },
-				delay + DURATION.base
-			);
-		}
+			if (iconElement) gsap.to(iconElement, { ...state, delay: delay });
+			split.chars.forEach((char, index) => {
+				gsap.to(char, {
+					...state,
+					delay: index * STAGGER.base,
+				});
+			});
+		};
 
-		split.chars.forEach((char, index) => {
-			const delay = index * STAGGER.base;
-			timeline.to(char, { y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default }, delay);
-			timeline.to(
-				char,
-				{ y: VALUES.zero, duration: DURATION.base, ease: EASE.default },
-				delay + DURATION.base
-			);
-		});
-
-		const play = () => timeline.play();
-		const reverse = () => timeline.reverse();
-
-		element.addEventListener('mouseenter', play);
-		element.addEventListener('mouseleave', reverse);
+		button.addEventListener('mouseenter', animate);
 
 		return () => {
-			element.removeEventListener('mouseenter', play);
-			element.removeEventListener('mouseleave', reverse);
+			button.removeEventListener('mouseenter', animate);
 			split.revert();
-			timeline.kill();
 		};
 	}, [position]);
 
 	return (
-		<Button ref={ref} aria-label={label} className={cn('overflow-visible', className)} {...rest}>
+		<Button
+			ref={buttonRef}
+			aria-label={label}
+			className={cn('overflow-visible', className)}
+			{...rest}>
 			<span
 				className={cn(
 					'relative flex items-center gap-2 pointer-events-none select-none',
 					Icon && positions[position]
 				)}>
-				<span ref={text} className='flex gap-1'>
+				<span ref={textRef} className='flex gap-1'>
 					{label}
 				</span>
 				{Icon && (
-					<span ref={icon} aria-hidden className='flex items-center'>
+					<span ref={iconRef} aria-hidden className='flex items-center'>
 						<Icon size={16} />
 					</span>
 				)}

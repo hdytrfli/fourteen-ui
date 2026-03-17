@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
-import { DURATION, EASE, STAGGER } from '@/libs/constants';
+import { DURATION, EASE, STAGGER, VALUES } from '@/libs/constants';
 import { DropdownContent } from '@/components/primitive/dropdown-content';
 import { useDropdown } from '@/hooks/use-dropdown';
 
@@ -15,46 +15,33 @@ interface Props extends React.ComponentProps<typeof DropdownContent> {
  */
 export const AccordionDropdown = ({ children, className, ...rest }: Props) => {
 	const { open } = useDropdown();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
-		const items = Array.from(element.children) as HTMLElement[];
+		const items = Array.from(container.children) as HTMLElement[];
 
-		if (open) {
-			gsap.fromTo(
-				items,
-				{ height: 0, opacity: 0 },
-				{
-					height: 'auto',
-					opacity: 1,
-					ease: EASE.default,
-					stagger: STAGGER.base,
-					duration: DURATION.base,
-				}
-			);
-		}
+		const states = {
+			open: { height: 'auto', opacity: VALUES.visible, ease: EASE.default },
+			closed: { height: 0, opacity: VALUES.hidden, ease: EASE.default },
+		} as const;
 
-		if (!open) {
-			gsap.to(items, {
-				height: 0,
-				opacity: 0,
-				ease: EASE.default,
-				stagger: STAGGER.base,
-				duration: DURATION.base,
-			});
-		}
+		const state = open ? 'open' : 'closed';
 
-		return () => {
-			gsap.killTweensOf(items);
-		};
+		gsap.fromTo(items, states.closed, {
+			...states[state],
+			stagger: STAGGER.base,
+			duration: DURATION.base,
+		});
+
+		return () => gsap.killTweensOf(items);
 	}, [open]);
 
 	return (
 		<DropdownContent className={cn(className)} {...rest}>
-			<div ref={ref} className='overflow-hidden'>
+			<div ref={contentRef} className='overflow-hidden'>
 				{children}
 			</div>
 		</DropdownContent>

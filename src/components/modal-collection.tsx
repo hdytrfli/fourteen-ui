@@ -158,12 +158,7 @@ export const ModalCollection = () => {
 						</ModalBody>
 						<ModalFooter>
 							<TiltButton icon={X} label='Dismiss' variant='ghost' onClick={avatar.onClose} />
-							<ScrambleButton
-								icon={Save}
-								position='start'
-								variant='primary'
-								label='Update profile'
-							/>
+							<ScrambleButton icon={Save} variant='primary' label='Update profile' />
 						</ModalFooter>
 					</ModalContent>
 				</Modal>

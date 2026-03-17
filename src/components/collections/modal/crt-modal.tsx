@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
-
 import { useModal } from '@/hooks/use-modal';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { ModalContent } from '@/components/primitive/modal-content';
@@ -13,13 +12,13 @@ interface Props extends React.ComponentProps<typeof ModalContent> {}
  */
 export const CrtModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
-		gsap.set(element, {
+		gsap.set(container, {
 			opacity: 0,
 			scaleY: 0,
 			transformOrigin: 'center center',
@@ -27,8 +26,8 @@ export const CrtModal = ({ children, ...rest }: Props) => {
 	}, []);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
 		const states = {
 			open: { opacity: VALUES.visible, scaleY: VALUES.one, ease: EASE.crt },
@@ -37,14 +36,16 @@ export const CrtModal = ({ children, ...rest }: Props) => {
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.to(element, {
+		gsap.to(container, {
 			...states[state],
 			duration: DURATION.base,
 		});
+
+		return () => gsap.killTweensOf(container);
 	}, [open]);
 
 	return (
-		<div ref={ref}>
+		<div ref={contentRef}>
 			<ModalContent {...rest}>{children}</ModalContent>
 		</div>
 	);

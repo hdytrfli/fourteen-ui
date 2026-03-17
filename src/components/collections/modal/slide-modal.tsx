@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
-
 import { useModal } from '@/hooks/use-modal';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
 import { ModalContent } from '@/components/primitive/modal-content';
@@ -13,21 +12,11 @@ interface Props extends React.ComponentProps<typeof ModalContent> {}
  */
 export const SlideModal = ({ children, ...rest }: Props) => {
 	const { open } = useModal();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
-
-		gsap.set(element, {
-			opacity: 0,
-			y: 40,
-		});
-	}, []);
-
-	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
 		const states = {
 			open: { opacity: VALUES.visible, y: VALUES.zero, ease: EASE.default },
@@ -36,14 +25,16 @@ export const SlideModal = ({ children, ...rest }: Props) => {
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.to(element, {
+		gsap.fromTo(container, states.closed, {
 			...states[state],
 			duration: DURATION.base,
 		});
+
+		return () => gsap.killTweensOf(container);
 	}, [open]);
 
 	return (
-		<div ref={ref}>
+		<div ref={contentRef}>
 			<ModalContent {...rest}>{children}</ModalContent>
 		</div>
 	);

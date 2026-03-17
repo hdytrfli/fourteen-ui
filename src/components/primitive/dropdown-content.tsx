@@ -95,7 +95,13 @@ export const DropdownContent = ({
 				className
 			)}
 			{...rest}>
-			<div className='w-fit p-1 min-w-48 overflow-hidden rounded-xl bg-background border border-border'>
+			<div
+				className={cn(
+					'p-1 w-fit min-w-48',
+					'flex flex-col gap-1',
+					'border border-border',
+					'overflow-hidden rounded-xl bg-background'
+				)}>
 				{children}
 			</div>
 		</div>,

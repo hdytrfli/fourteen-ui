@@ -15,11 +15,11 @@ interface Props extends React.ComponentProps<typeof DropdownContent> {
  */
 export const BlurDropdown = ({ children, className, ...rest }: Props) => {
 	const { open } = useDropdown();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		if (!element) return;
+		const container = contentRef.current;
+		if (!container) return;
 
 		const states = {
 			open: { opacity: VALUES.visible, y: VALUES.zero, filter: 'blur(0px)', ease: EASE.default },
@@ -28,15 +28,17 @@ export const BlurDropdown = ({ children, className, ...rest }: Props) => {
 
 		const state = open ? 'open' : 'closed';
 
-		gsap.to(element, {
+		gsap.to(container, {
 			...states[state],
 			duration: DURATION.base,
 		});
+
+		return () => gsap.killTweensOf(container);
 	}, [open]);
 
 	return (
 		<DropdownContent className={cn(className)} {...rest}>
-			<div ref={ref} className='opacity-0 blur-sm'>
+			<div ref={contentRef} className='opacity-0 blur-sm'>
 				{children}
 			</div>
 		</DropdownContent>

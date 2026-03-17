@@ -27,6 +27,7 @@ const positions = {
 } as const;
 
 const SCRAMBLE_CHARS = CHARS.flat().join('');
+
 gsap.registerPlugin(ScrambleTextPlugin);
 
 /**
@@ -42,48 +43,41 @@ export const ScrambleButton = ({
 	className,
 	...rest
 }: Props) => {
-	const ref = React.useRef<HTMLButtonElement>(null);
-	const text = React.useRef<HTMLSpanElement>(null);
+	const buttonRef = React.useRef<HTMLButtonElement>(null);
+	const textRef = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		const textElement = text.current;
-		if (!element || !textElement) return;
+		const button = buttonRef.current;
+		const textElement = textRef.current;
+		if (!button || !textElement) return;
 
-		const timeline = gsap.timeline({
-			paused: true,
-			defaults: { duration: DURATION.base, ease: EASE.default },
-		});
+		const animate = () => {
+			gsap.to(textElement, {
+				scrambleText: {
+					text: label,
+					chars: SCRAMBLE_CHARS,
+					speed: 0.3,
+				},
+				duration: DURATION.base,
+				ease: EASE.default,
+			});
+		};
 
-		timeline.to(textElement, {
-			scrambleText: {
-				text: label,
-				chars: SCRAMBLE_CHARS,
-				speed: 0.3,
-			},
-		});
-
-		const play = () => timeline.restart();
-		const reverse = () => timeline.reverse();
-
-		element.addEventListener('mouseenter', play);
-		element.addEventListener('mouseleave', reverse);
+		button.addEventListener('mouseenter', animate);
 
 		return () => {
-			element.removeEventListener('mouseenter', play);
-			element.removeEventListener('mouseleave', reverse);
-			timeline.kill();
+			button.removeEventListener('mouseenter', animate);
 		};
 	}, [label]);
 
 	return (
-		<Button ref={ref} aria-label={label} className={className} {...rest}>
+		<Button ref={buttonRef} aria-label={label} className={className} {...rest}>
 			<span
 				className={cn(
 					'flex items-center gap-2 pointer-events-none select-none',
 					positions[position]
 				)}>
-				<span ref={text}>{label}</span>
+				<span ref={textRef}>{label}</span>
 				{Icon && (
 					<span aria-hidden className='flex items-center'>
 						<Icon size={16} />

@@ -15,7 +15,7 @@ interface TriggerProps extends React.ComponentProps<'div'> {
  */
 export const SharedTooltipTrigger = ({ label, children, className, ...rest }: TriggerProps) => {
 	const { register, unregister, show, hide } = React.useContext(TooltipContext)!;
-	const ref = React.useRef<HTMLDivElement>(null);
+	const triggerRef = React.useRef<HTMLDivElement>(null);
 	const id = React.useId();
 
 	React.useLayoutEffect(() => {
@@ -25,7 +25,7 @@ export const SharedTooltipTrigger = ({ label, children, className, ...rest }: Tr
 
 	return (
 		<div
-			ref={ref}
+			ref={triggerRef}
 			className={cn('w-fit', className)}
 			onMouseEnter={() => show(id)}
 			onMouseLeave={hide}
@@ -44,24 +44,26 @@ interface ProviderProps {
  */
 export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 	const triggers = React.useRef<Map<string, string>>(new Map());
-	const container = React.useRef<HTMLDivElement>(null);
-	const content = React.useRef<HTMLDivElement>(null);
-	const timer = React.useRef<number | null>(null);
+	const containerRef = React.useRef<HTMLDivElement>(null);
+	const contentRef = React.useRef<HTMLDivElement>(null);
+	const timerRef = React.useRef<number | null>(null);
 	const [label, setLabel] = React.useState('');
 	const { x, y } = useMousePosition();
-	const visible = React.useRef(false);
 
 	React.useLayoutEffect(() => {
-		gsap.set(container.current, { opacity: 0 });
+		const container = containerRef.current;
+		if (!container) return;
+
+		gsap.set(container, { opacity: 0 });
 	}, []);
 
 	React.useLayoutEffect(() => {
-		const containerElement = container.current;
-		if (!containerElement) return;
+		const container = containerRef.current;
+		if (!container) return;
 
 		const gap = 6;
 
-		Object.assign(containerElement.style, {
+		Object.assign(container.style, {
 			left: x + 'px',
 			top: y - gap + 'px',
 			transform: 'translate(-50%, -100%)',
@@ -70,17 +72,17 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 
 	const show = React.useCallback(
 		(id: string) => {
-			if (timer.current) {
-				window.clearTimeout(timer.current);
-				timer.current = null;
+			if (timerRef.current) {
+				window.clearTimeout(timerRef.current);
+				timerRef.current = null;
 			}
 
 			const newLabel = triggers.current.get(id);
 			if (!newLabel) return;
 
-			const containerElement = container.current;
-			const contentElement = content.current;
-			if (!containerElement || !contentElement) return;
+			const container = containerRef.current;
+			const content = contentRef.current;
+			if (!container || !content) return;
 
 			if (label && newLabel !== label) {
 				const states = {
@@ -88,13 +90,13 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 					enter: { yPercent: VALUES.zero, opacity: VALUES.visible, ease: EASE.default },
 				} as const;
 
-				gsap.to(contentElement, {
+				gsap.to(content, {
 					...states.exit,
 					duration: DURATION.base,
 					onComplete: () => {
 						setLabel(newLabel);
 						gsap.fromTo(
-							contentElement,
+							content,
 							{ yPercent: 100, opacity: VALUES.hidden },
 							{
 								...states.enter,
@@ -109,11 +111,10 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 					initial: { yPercent: VALUES.zero, opacity: VALUES.hidden },
 				} as const;
 
-				gsap.set(containerElement, { visibility: 'visible' });
-				gsap.set(contentElement, states.initial);
-				gsap.to(containerElement, { ...states.enter, duration: DURATION.base });
-				gsap.to(contentElement, { ...states.enter, duration: DURATION.base });
-				visible.current = true;
+				gsap.set(container, { visibility: 'visible' });
+				gsap.set(content, states.initial);
+				gsap.to(container, { ...states.enter, duration: DURATION.base });
+				gsap.to(content, { ...states.enter, duration: DURATION.base });
 				setLabel(newLabel);
 			}
 		},
@@ -121,16 +122,15 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 	);
 
 	const hide = React.useCallback(() => {
-		timer.current = window.setTimeout(() => {
-			const containerElement = container.current;
-			if (!containerElement) return;
+		timerRef.current = window.setTimeout(() => {
+			const container = containerRef.current;
+			if (!container) return;
 
-			gsap.to(containerElement, {
+			gsap.to(container, {
 				opacity: VALUES.hidden,
 				duration: DURATION.fast,
 				ease: EASE.default,
 			});
-			visible.current = false;
 			setLabel('');
 		}, 100);
 	}, []);
@@ -148,7 +148,7 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 			{children}
 			{ReactDOM.createPortal(
 				<div
-					ref={container}
+					ref={containerRef}
 					className={cn(
 						'fixed z-50',
 						'pointer-events-none',
@@ -157,7 +157,7 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 						'text-xs font-medium text-center',
 						'px-4 py-2 rounded-2xl border border-border'
 					)}>
-					<div ref={content}>{label}</div>
+					<div ref={contentRef}>{label}</div>
 				</div>,
 				document.body
 			)}
