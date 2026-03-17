@@ -70,12 +70,12 @@ export const KineticButton = ({
 		}
 
 		split.chars.forEach((char, index) => {
-			const charDelay = first ? (index + VALUES.one) * STAGGER.base : index * STAGGER.base;
-			timeline.to(char, { y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default }, charDelay);
+			const delay = index * STAGGER.base;
+			timeline.to(char, { y: JUMP_HEIGHT, duration: DURATION.base, ease: EASE.default }, delay);
 			timeline.to(
 				char,
 				{ y: VALUES.zero, duration: DURATION.base, ease: EASE.default },
-				charDelay + DURATION.base
+				delay + DURATION.base
 			);
 		});
 

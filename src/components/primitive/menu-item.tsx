@@ -4,6 +4,7 @@ import { type LucideIcon } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import type { ClassValue } from 'clsx';
 import type { IconPosition } from '@/libs/types';
+import { AnimatedHeight } from '@/components/primitive/animated-height';
 
 type Variant = 'primary' | 'destructive';
 
@@ -13,6 +14,8 @@ interface Props extends React.ComponentProps<'li'> {
 	variant?: Variant;
 	position?: IconPosition;
 	children?: React.ReactNode;
+	submenuRef?: React.RefObject<HTMLUListElement | null>;
+	onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -23,6 +26,7 @@ interface Props extends React.ComponentProps<'li'> {
  * @param variant - Visual style variant ('primary' or 'destructive')
  * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  * @param children - Optional MenuItem components for submenu
+ * @param submenuRef - Optional ref to attach to the submenu ul for animation
  */
 export const MenuItem = ({
 	label,
@@ -31,13 +35,21 @@ export const MenuItem = ({
 	icon: Icon,
 	children,
 	className,
+	submenuRef,
+	onOpenChange,
 	...rest
 }: Props) => {
 	const [open, setOpen] = React.useState(false);
-	const hasSubmenu = React.Children.count(children) > 0;
+	const submenu = React.Children.count(children) > 0;
 
 	const toggle = () => {
-		if (hasSubmenu) setOpen((prev) => !prev);
+		if (submenu) {
+			setOpen((prev) => {
+				const next = !prev;
+				onOpenChange?.(next);
+				return next;
+			});
+		}
 	};
 
 	const variants: Record<Variant, ClassValue> = {
@@ -54,7 +66,7 @@ export const MenuItem = ({
 		<li className='flex flex-col gap-1' {...rest}>
 			<button
 				onClick={toggle}
-				aria-expanded={hasSubmenu ? open : undefined}
+				aria-expanded={submenu ? open : undefined}
 				className={cn(
 					'gap-3 p-3 w-full',
 					'flex items-center',
@@ -67,7 +79,7 @@ export const MenuItem = ({
 				)}>
 				{Icon && <Icon size={16} aria-hidden />}
 				<span className='flex-1 text-left'>{label}</span>
-				{hasSubmenu && (
+				{submenu && (
 					<ChevronRight
 						size={16}
 						aria-hidden
@@ -77,10 +89,18 @@ export const MenuItem = ({
 					/>
 				)}
 			</button>
-			{hasSubmenu && open && (
-				<ul className='flex flex-col gap-1 ml-4 pl-2 border-l border-border border-dashed'>
-					{children}
-				</ul>
+			{submenu && (
+				<AnimatedHeight open={open}>
+					<ul
+						ref={submenuRef}
+						className={cn(
+							'ml-4 pl-2',
+							'flex flex-col gap-1',
+							'border-l border-border border-dashed'
+						)}>
+						{children}
+					</ul>
+				</AnimatedHeight>
 			)}
 		</li>
 	);

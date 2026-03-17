@@ -40,8 +40,8 @@ export const SwapButton = ({
 
 	React.useLayoutEffect(() => {
 		const element = ref.current;
-		const currentText = text.current;
 		const nextText = next.current;
+		const currentText = text.current;
 		if (!element || !currentText || !nextText) return;
 
 		const animate = () => {
