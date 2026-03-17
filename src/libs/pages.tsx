@@ -4,6 +4,7 @@ import { DropdownCollection } from '@/components/dropdown-collection';
 import { ModalCollection } from '@/components/modal-collection';
 import { CardCollection } from '@/components/card-collection';
 import { TooltipCollection } from '@/components/tooltip-collection';
+import { MenuCollection } from '@/components/menu-collection';
 
 export const PAGES = [
 	{
@@ -24,6 +25,12 @@ export const PAGES = [
 		title: 'Dropdown collections',
 		desciption: 'Dropdown menus with smooth animations and keyboard accessibility.',
 		component: DropdownCollection,
+	},
+	{
+		path: '/menus',
+		title: 'Menu collections',
+		desciption: 'Vertical tree-style menu components with expandable submenus.',
+		component: MenuCollection,
 	},
 	{
 		path: '/modal',

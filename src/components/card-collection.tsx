@@ -24,7 +24,7 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 					<CardHeader title='Confirm delete' onClose={() => console.log('close')} />
 					<CardContent className='text-center flex flex-col items-center gap-2'>
 						<TriangleAlert size={32} />
-						<p className='text-zinc-400'>
+						<p className='text-text'>
 							Are you sure you want to delete this item?, this action is irreversible and cannot be
 							undone, make sure you have a backup of your data.
 						</p>

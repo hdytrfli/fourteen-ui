@@ -31,12 +31,11 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 	return (
 		<article
 			className={cn(
-				'relative',
-				'bg-zinc-800 text-zinc-500',
+				'bg-showcase relative',
 				'flex items-center justify-center',
 				'overflow-visible rounded-xl min-h-48 p-10',
 				'transition-colors duration-500 ease-in-out',
-				'group-hover:text-zinc-600 hover:text-zinc-300',
+				'group-hover:text-muted hover:text-foreground',
 				className
 			)}
 			{...rest}>

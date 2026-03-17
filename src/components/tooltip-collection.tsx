@@ -97,7 +97,7 @@ export const TooltipCollection = () => {
 							/>
 							<div className='flex flex-col flex-none'>
 								<span className='font-semibold'>John Doe</span>
-								<span className='text-zinc-500'>johndoe@example.com</span>
+								<span className='text-text'>johndoe@example.com</span>
 							</div>
 						</div>
 					</TooltipContent>
@@ -185,7 +185,7 @@ export const TooltipCollection = () => {
 						className='w-full max-w-60 text-sm text-start p-3 grid gap-2'>
 						<div>
 							<h5 className='font-medium'>Service status</h5>
-							<p className='text-zinc-500'>Last updated 2 minutes ago</p>
+							<p className='text-text'>Last updated 2 minutes ago</p>
 						</div>
 						<div className='grid gap-1'>
 							<div className='flex items-center gap-2'>

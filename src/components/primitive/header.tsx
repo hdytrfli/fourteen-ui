@@ -19,7 +19,7 @@ export const CollectionHeader: React.FC<CollectionHeaderProps> = ({
 			{...props}>
 			<h2 className='text-lg font-medium'>{title}</h2>
 			<div className='hidden md:flex flex-1 border border-dashed border-border'></div>
-			<p className='text-zinc-500'>{description}</p>
+			<p className='text-text'>{description}</p>
 		</header>
 	);
 };

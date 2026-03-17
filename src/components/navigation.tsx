@@ -4,6 +4,7 @@ import {
 	ArrowUpRight,
 	Box,
 	Home,
+	Layers,
 	Menu,
 	MessageCircle,
 	PanelTopDashed,
@@ -24,6 +25,7 @@ export const Navigation: React.FC = () => {
 		{ label: 'Variant collections', to: '/variants', icon: Box },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
+		{ label: 'Menu collections', to: '/menus', icon: Layers },
 		{ label: 'Card collections', to: '/cards', icon: PanelTopDashed },
 		{ label: 'Modal collections', to: '/modal', icon: PictureInPicture2 },
 	];

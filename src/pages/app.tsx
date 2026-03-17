@@ -8,6 +8,7 @@ import { ButtonCollection } from '@/components/button-collection';
 import { VariantCollection } from '@/components/variant-collection';
 import { DropdownCollection } from '@/components/dropdown-collection';
 import { TooltipCollection } from '@/components/tooltip-collection';
+import { MenuCollection } from '@/components/menu-collection';
 
 export default function App(): React.JSX.Element {
 	return (
@@ -18,7 +19,7 @@ export default function App(): React.JSX.Element {
 					<Navigation />
 				</div>
 
-				<p className='max-w-2xl text-zinc-400'>
+				<p className='max-w-2xl'>
 					Collections of ideas for your next project. Built with{' '}
 					<Link to='https://reactjs.org/'>React</Link> and{' '}
 					<Link to='https://tailwindcss.com/'>Tailwind CSS</Link> and animated using{' '}
@@ -34,6 +35,7 @@ export default function App(): React.JSX.Element {
 				<DropdownCollection />
 				<CardCollection />
 				<ModalCollection />
+				<MenuCollection />
 			</div>
 		</React.Fragment>
 	);
