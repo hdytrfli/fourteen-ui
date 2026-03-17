@@ -15,13 +15,13 @@ import {
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 import type { ButtonVariant } from '@/components/primitive/button';
-import { FlyinButton } from '@/components/collections/button/flyin-button';
 import { TiltButton } from '@/components/collections/button/tilt-button';
+import { SwapButton } from '@/components/collections/button/swap-button';
+import { FlyinButton } from '@/components/collections/button/flyin-button';
 import { KineticButton } from '@/components/collections/button/kinetic-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { MagneticButton } from '@/components/collections/button/magnetic-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { SwapButton } from '@/components/collections/button/swap-button';
 
 interface ButtonCollectionProps {
 	//
@@ -80,11 +80,15 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 				<FlyinButton label='Explore now' icon={ArrowUpRight} position='end' variant={variant} />
 			</Showcase>
 
-			<Showcase label='Tilt icon button start'>
+			<Showcase label='Tilt button without icon'>
+				<TiltButton label='Rotate now' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Tilt button with icon start'>
 				<TiltButton label='Enable feature' icon={FlaskConical} position='start' variant={variant} />
 			</Showcase>
 
-			<Showcase label='Tilt icon button end'>
+			<Showcase label='Tilt button with icon end'>
 				<TiltButton label='Connect database' icon={Database} position='end' variant={variant} />
 			</Showcase>
 

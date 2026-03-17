@@ -37,31 +37,46 @@ export const RollingButton = ({
 	...rest
 }: Props) => {
 	const ref = React.useRef<HTMLButtonElement>(null);
-	const text = React.useRef<HTMLSpanElement>(null);
 	const next = React.useRef<HTMLSpanElement>(null);
+	const current = React.useRef<HTMLSpanElement>(null);
 
 	React.useLayoutEffect(() => {
 		const element = ref.current;
-		if (!element) return;
+		const nextText = next.current;
+		const currentText = current.current;
+		if (!element || !currentText || !nextText) return;
 
-		const initial = SplitText.create(text.current, { type: 'words, chars' });
-		const replaced = SplitText.create(next.current, { type: 'words, chars' });
-		gsap.set(replaced.chars, { yPercent: 150 });
+		const initial = SplitText.create(currentText, { type: 'words, chars' });
+		const replaced = SplitText.create(nextText, { type: 'words, chars' });
+		gsap.set(replaced.chars, {
+			yPercent: 150,
+			opacity: 0,
+		});
 
 		const timeline = gsap.timeline({
 			paused: true,
-			defaults: { duration: DURATION.base, ease: EASE.default },
+			defaults: {
+				opacity: 0,
+				ease: EASE.default,
+				duration: DURATION.base,
+			},
 		});
 
 		timeline
 			.to(initial.chars, {
+				opacity: 0,
 				yPercent: -150,
-				reversed: direction === 'left',
 				stagger: STAGGER.base,
+				reversed: direction === 'left',
 			})
 			.to(
 				replaced.chars,
-				{ yPercent: 0, reversed: direction === 'left', stagger: STAGGER.base },
+				{
+					opacity: 1,
+					yPercent: 0,
+					reversed: direction === 'left',
+					stagger: STAGGER.base,
+				},
 				0
 			);
 
@@ -82,19 +97,15 @@ export const RollingButton = ({
 
 	return (
 		<Button ref={ref} aria-label={label} className={cn('overflow-hidden', className)} {...rest}>
-			<span
-				className={cn(
-					'flex items-center gap-2 pointer-events-none select-none',
-					positions[position]
-				)}>
+			<span className={cn('flex items-center gap-2', positions[position])}>
 				<span className='relative inline-flex px-1'>
 					<span aria-hidden className='invisible'>
 						{label}
 					</span>
-					<span ref={text} className='absolute inset-0 flex overflow-hidden justify-center gap-1'>
+					<span ref={current} className='absolute inset-0 block'>
 						{label}
 					</span>
-					<span ref={next} className='absolute inset-0 flex overflow-hidden justify-center gap-1'>
+					<span ref={next} className='absolute inset-0 block'>
 						{label}
 					</span>
 				</span>

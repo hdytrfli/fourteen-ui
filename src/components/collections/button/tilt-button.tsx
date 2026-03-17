@@ -7,7 +7,7 @@ import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
-	icon: LucideIcon;
+	icon?: LucideIcon;
 	position?: IconPosition;
 }
 
@@ -30,18 +30,17 @@ export const TiltButton = ({
 	...rest
 }: Props) => {
 	return (
-		<Button aria-label={label} className={cn('group/tilt-button', className)} {...rest}>
+		<Button
+			aria-label={label}
+			className={cn('transition-transform duration-300 ease-in-out hover:-rotate-3', className)}
+			{...rest}>
 			<span
 				className={cn(
 					'flex items-center gap-2 pointer-events-none select-none',
 					positions[position]
 				)}>
 				<span>{label}</span>
-				<span
-					aria-hidden
-					className='transition-transform duration-300 ease-in-out group-hover/tilt-button:-rotate-24'>
-					<Icon size={16} />
-				</span>
+				{Icon && <Icon size={16} aria-hidden />}
 			</span>
 		</Button>
 	);

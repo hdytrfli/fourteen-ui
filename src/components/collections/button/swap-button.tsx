@@ -57,10 +57,13 @@ export const SwapButton = ({
 			timeline
 				.fromTo(
 					currentText,
-					{ yPercent: 0, opacity: 1 },
 					{
-						yPercent: -150,
+						yPercent: 0,
+						opacity: 1,
+					},
+					{
 						opacity: 0,
+						yPercent: -150,
 						duration: DURATION.base,
 						ease: EASE.default,
 					}
@@ -69,8 +72,8 @@ export const SwapButton = ({
 					nextText,
 					{ yPercent: 150, opacity: 0 },
 					{
-						yPercent: 0,
 						opacity: 1,
+						yPercent: 0,
 						duration: DURATION.base,
 						ease: EASE.default,
 					},
