@@ -74,7 +74,9 @@ export const ScrambleButton = ({
 		<Button ref={buttonRef} aria-label={label} className={className} {...rest}>
 			<span
 				className={cn(
-					'flex items-center gap-2 pointer-events-none select-none',
+					'flex-none',
+					'flex items-center gap-2',
+					'pointer-events-none select-none',
 					positions[position]
 				)}>
 				<span ref={textRef}>{label}</span>

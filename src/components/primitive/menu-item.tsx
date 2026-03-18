@@ -19,7 +19,7 @@ interface Props extends React.ComponentProps<'li'> {
 
 const variants: Record<Variant, ClassValue> = {
 	primary: 'text-text hover:bg-border hover:text-foreground',
-	destructive: 'text-text hover:bg-rose-700 hover:text-foreground',
+	destructive: 'text-text hover:bg-destructive hover:text-foreground',
 };
 
 const positions: Record<IconPosition, ClassValue> = {

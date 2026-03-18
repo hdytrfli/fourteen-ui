@@ -18,11 +18,11 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 	const { ref, shown } = useInView({ threshold: 0.3 });
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		if (!el || !shown) return;
+		const element = ref.current;
+		if (!element || !shown) return;
 
 		gsap.fromTo(
-			el,
+			element,
 			{ opacity: 0, y: 40, filter: 'blur(10px)' },
 			{ opacity: 1, y: 0, filter: 'blur(0px)', duration: DURATION.slow, ease: EASE.default }
 		);

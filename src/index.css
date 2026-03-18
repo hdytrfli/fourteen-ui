@@ -3,7 +3,6 @@
 :root {
 	--accent: #883dff;
 	--border: #2a2a2e;
-	--showcase: #27272a;
 	--background: #1d1d1f;
 	--foreground: #ffffff;
 
@@ -17,11 +16,13 @@
 
 	--color-border: var(--border);
 	--color-accent: var(--accent);
-	--color-showcase: var(--showcase);
-	--color-text: var(--color-zinc-400);
-	--color-muted: var(--color-zinc-600);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+
+	--color-text: var(--color-zinc-400);
+	--color-muted: var(--color-zinc-600);
+	--color-showcase: var(--color-zinc-800);
+	--color-destructive: var(--color-rose-700);
 }
 
 @utility container {
@@ -33,6 +34,26 @@
 @utility scrollbar-none {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+}
+
+@utility input-appearance-none {
+	appearance: none;
+	&::-webkit-inner-spin-button {
+		appearance: none;
+		margin: 0;
+	}
+	&::-webkit-outer-spin-button {
+		appearance: none;
+		margin: 0;
+	}
+	&::-webkit-calendar-picker-indicator {
+		opacity: 0;
+		position: absolute;
+		inset: 0;
+		cursor: pointer;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 @utility link-accent {

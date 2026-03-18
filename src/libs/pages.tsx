@@ -1,10 +1,12 @@
-import { ButtonCollection } from '@/components/button-collection';
-import { VariantCollection } from '@/components/variant-collection';
-import { DropdownCollection } from '@/components/dropdown-collection';
-import { ModalCollection } from '@/components/modal-collection';
-import { CardCollection } from '@/components/card-collection';
-import { TooltipCollection } from '@/components/tooltip-collection';
-import { MenuCollection } from '@/components/menu-collection';
+import { ButtonCollection } from '@/components/collections/button-collection';
+import { VariantCollection } from '@/components/collections/variant-collection';
+import { DropdownCollection } from '@/components/collections/dropdown-collection';
+import { ModalCollection } from '@/components/collections/modal-collection';
+import { CardCollection } from '@/components/collections/card-collection';
+import { TooltipCollection } from '@/components/collections/tooltip-collection';
+import { MenuCollection } from '@/components/collections/menu-collection';
+import { InputCollection } from '@/components/collections/input-collection';
+import { SelectCollection } from '@/components/collections/select-collection';
 
 export const PAGES = [
 	{
@@ -50,5 +52,17 @@ export const PAGES = [
 		title: 'Tooltip collections',
 		desciption: 'Tooltip components with fade, scale, and blur animation variants.',
 		component: TooltipCollection,
+	},
+	{
+		path: '/inputs',
+		title: 'Input collections',
+		desciption: 'Input components with icon support and grouped input variants.',
+		component: InputCollection,
+	},
+	{
+		path: '/select',
+		title: 'Select collections',
+		desciption: 'Native select components with icon support and error states.',
+		component: SelectCollection,
 	},
 ];

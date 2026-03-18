@@ -2,13 +2,15 @@ import * as React from 'react';
 import { Link } from 'react-router';
 
 import { Navigation } from '@/components/navigation';
-import { CardCollection } from '@/components/card-collection';
-import { ModalCollection } from '@/components/modal-collection';
-import { ButtonCollection } from '@/components/button-collection';
-import { VariantCollection } from '@/components/variant-collection';
-import { DropdownCollection } from '@/components/dropdown-collection';
-import { TooltipCollection } from '@/components/tooltip-collection';
-import { MenuCollection } from '@/components/menu-collection';
+import { CardCollection } from '@/components/collections/card-collection';
+import { ModalCollection } from '@/components/collections/modal-collection';
+import { ButtonCollection } from '@/components/collections/button-collection';
+import { VariantCollection } from '@/components/collections/variant-collection';
+import { DropdownCollection } from '@/components/collections/dropdown-collection';
+import { TooltipCollection } from '@/components/collections/tooltip-collection';
+import { MenuCollection } from '@/components/collections/menu-collection';
+import { InputCollection } from '@/components/collections/input-collection';
+import { SelectCollection } from '@/components/collections/select-collection';
 
 export default function App(): React.JSX.Element {
 	return (
@@ -31,6 +33,8 @@ export default function App(): React.JSX.Element {
 			<div className='grid gap-20'>
 				<ButtonCollection />
 				<VariantCollection />
+				<InputCollection />
+				<SelectCollection />
 				<TooltipCollection />
 				<DropdownCollection />
 				<CardCollection />

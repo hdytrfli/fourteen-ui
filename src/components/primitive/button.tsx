@@ -19,14 +19,15 @@ export const Button: React.FC<ButtonProps> = ({ children, variant, className, ..
 		accent: 'bg-accent text-foreground',
 		secondary: 'bg-background text-foreground',
 		primary: 'bg-foreground text-background',
-		destructive: 'bg-rose-700 text-foreground',
+		destructive: 'bg-destructive text-foreground',
 	};
 
 	return (
 		<button
 			className={cn(
-				'no-underline',
 				'px-4 h-12 select-none',
+				'no-underline flex-none',
+				'transition-all duration-300',
 				'flex items-center gap-2 justify-center',
 				'relative text-sm rounded-xl font-medium cursor-pointer',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',

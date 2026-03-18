@@ -5,10 +5,12 @@ import {
 	Box,
 	Home,
 	Layers,
+	List,
 	Menu,
 	MessageCircle,
 	PanelTopDashed,
 	PictureInPicture2,
+	ScanLine,
 } from 'lucide-react';
 
 import { Button } from '@/components/primitive/button';
@@ -23,6 +25,8 @@ export const Navigation: React.FC = () => {
 		{ label: 'All collections', to: '/', icon: Home },
 		{ label: 'Button collections', to: '/buttons', icon: ArrowUpRight },
 		{ label: 'Variant collections', to: '/variants', icon: Box },
+		{ label: 'Input collections', to: '/inputs', icon: ScanLine },
+		{ label: 'Select collections', to: '/select', icon: List },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
 		{ label: 'Menu collections', to: '/menus', icon: Layers },

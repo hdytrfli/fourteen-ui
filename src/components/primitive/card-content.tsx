@@ -12,12 +12,7 @@ interface Props extends React.ComponentProps<'div'> {
 export const CardContent = ({ children, className, ...rest }: Props) => {
 	return (
 		<div
-			className={cn(
-				'px-6 py-5',
-				'text-foreground',
-				'max-h-96 overflow-y-auto scrollbar-none',
-				className
-			)}
+			className={cn('px-6 py-5', 'text-foreground overflow-y-auto scrollbar-none', className)}
 			{...rest}>
 			{children}
 		</div>

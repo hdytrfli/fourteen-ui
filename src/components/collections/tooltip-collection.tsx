@@ -197,7 +197,7 @@ export const TooltipCollection = () => {
 								<span>Database is up</span>
 							</div>
 							<div className='flex items-center gap-2'>
-								<div className='size-2 rounded-full flex-none bg-rose-600' />
+								<div className='size-2 rounded-full flex-none bg-destructive' />
 								<span>Redis is down</span>
 							</div>
 						</div>
@@ -226,7 +226,7 @@ export const TooltipCollection = () => {
 			</Showcase>
 
 			<Showcase label='Shared tooltip with text swap' className='col-span-full'>
-				<div className='flex flex-col lg:flex-row items-center gap-3'>
+				<div className='flex flex-col md:flex-row items-center gap-3'>
 					<SharedTooltipTrigger label='Edit item'>
 						<Button variant='secondary'>
 							<Pencil size={16} />
