@@ -16,6 +16,7 @@ import { RollingButton } from '@/components/collections/button/rolling-button';
 import { SwapButton } from '@/components/collections/button/swap-button';
 import { FormDemo } from '@/components/demo/shared';
 import { Textarea } from '@/components/primitive/textarea';
+import { Switch } from '../primitive/switch';
 
 interface CardCollectionProps {
 	//
@@ -92,6 +93,13 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 							<Field description='Please enter a valid repository description'>
 								<Label htmlFor='repo-desc'>Repository type</Label>
 								<Textarea id='repo-desc' placeholder='Enter repository description' />
+							</Field>
+
+							<Field description='Include a readme file in the repository'>
+								<div className='flex items-center justify-between'>
+									<Label htmlFor='readme'>Add readme file to repository</Label>
+									<Switch id='readme' defaultChecked />
+								</div>
 							</Field>
 						</form>
 					</CardContent>

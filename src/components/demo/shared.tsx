@@ -4,6 +4,7 @@ import { Lock, Mail, User, X } from 'lucide-react';
 import { Field } from '@/components/primitive/field';
 import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
+import { Switch } from '@/components/primitive/switch';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal-content';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
@@ -31,6 +32,13 @@ export const FormDemo: React.FC = () => {
 					description='We will never share your email with anyone else.'>
 					<Label htmlFor='email'>Email</Label>
 					<Input type='email' placeholder='Enter your email' icon={Mail} />
+				</Field>
+
+				<Field className='col-span-full' description='Allow us to send you emails about updates'>
+					<div className='flex items-center justify-between'>
+						<Label htmlFor='email-notifications'>Email notifications</Label>
+						<Switch id='email-notifications' defaultChecked />
+					</div>
 				</Field>
 			</form>
 		</React.Fragment>

@@ -28,6 +28,7 @@ export const Navigation: React.FC = () => {
 		{ label: 'Variant collections', to: '/variants', icon: Box },
 		{ label: 'Input collections', to: '/inputs', icon: ScanLine },
 		{ label: 'Select collections', to: '/select', icon: List },
+		{ label: 'Switch collections', to: '/switch', icon: List },
 		{ label: 'Textarea collections', to: '/textarea', icon: PenLine },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
@@ -42,7 +43,7 @@ export const Navigation: React.FC = () => {
 				<Menu size={16} />
 			</Button>
 
-			<StaggeredDropdown placement='bottom-right'>
+			<StaggeredDropdown placement='bottom-right' className='min-w-60'>
 				<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
 				<hr className='border-b border-border border-dashed block mb-1'></hr>
 				{links.map(({ to, label, icon }) => (

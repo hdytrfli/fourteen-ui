@@ -7,6 +7,7 @@ import { TooltipCollection } from '@/components/collections/tooltip-collection';
 import { MenuCollection } from '@/components/collections/menu-collection';
 import { InputCollection } from '@/components/collections/input-collection';
 import { SelectCollection } from '@/components/collections/select-collection';
+import { SwitchCollection } from '@/components/collections/switch-collection';
 import { TextareaCollection } from '@/components/collections/textarea-collection';
 
 export const PAGES = [
@@ -65,6 +66,13 @@ export const PAGES = [
 		title: 'Select collections',
 		desciption: 'Native select components with icon support and error states.',
 		component: SelectCollection,
+	},
+	{
+		path: '/switch',
+		title: 'Switch collections',
+		desciption:
+			'Switch toggle components for boolean inputs with smooth transitions and animations.',
+		component: SwitchCollection,
 	},
 	{
 		path: '/textarea',
