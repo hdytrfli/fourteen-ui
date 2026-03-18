@@ -15,6 +15,7 @@ import { ScrambleButton } from '@/components/collections/button/scramble-button'
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { SwapButton } from '@/components/collections/button/swap-button';
 import { FormDemo } from '@/components/demo/shared';
+import { Textarea } from '@/components/primitive/textarea';
 
 interface CardCollectionProps {
 	//
@@ -86,6 +87,11 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 									<option value='private'>Private</option>
 									<option value='internal'>Internal</option>
 								</Select>
+							</Field>
+
+							<Field description='Please enter a valid repository description'>
+								<Label htmlFor='repo-desc'>Repository type</Label>
+								<Textarea id='repo-desc' placeholder='Enter repository description' />
 							</Field>
 						</form>
 					</CardContent>

@@ -48,7 +48,7 @@ export const Input = ({
 					'bg-border text-foreground',
 					'transition-all duration-300',
 					'w-full h-12 px-4 rounded-xl',
-					'placeholder:text-muted-foreground',
+					'disabled:cursor-not-allowed disabled:text-text',
 					'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 					{ 'ring-2 ring-destructive': invalid },
 					Icon && paddings.input[position],

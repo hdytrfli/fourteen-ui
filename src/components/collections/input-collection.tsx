@@ -63,16 +63,14 @@ export const InputCollection: React.FC<InputCollectionProps> = () => {
 				</Field>
 			</Showcase>
 
-			<Showcase label='Input with required label'>
+			<Showcase label='Input with disabled state'>
 				<Field>
-					<Label htmlFor='required' required>
-						Username
-					</Label>
-					<Input id='required' type='text' placeholder='Enter username' icon={User} />
+					<Label htmlFor='required'>Username</Label>
+					<Input id='required' type='text' placeholder='Enter username' icon={User} disabled />
 				</Field>
 			</Showcase>
 
-			<Showcase label='Input with description'>
+			<Showcase label='Input with required label and description'>
 				<Field description='Password must be at least 8 characters'>
 					<Label htmlFor='password' required>
 						Password

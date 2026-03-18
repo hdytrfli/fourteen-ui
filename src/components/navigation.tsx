@@ -9,6 +9,7 @@ import {
 	Menu,
 	MessageCircle,
 	PanelTopDashed,
+	PenLine,
 	PictureInPicture2,
 	ScanLine,
 } from 'lucide-react';
@@ -27,6 +28,7 @@ export const Navigation: React.FC = () => {
 		{ label: 'Variant collections', to: '/variants', icon: Box },
 		{ label: 'Input collections', to: '/inputs', icon: ScanLine },
 		{ label: 'Select collections', to: '/select', icon: List },
+		{ label: 'Textarea collections', to: '/textarea', icon: PenLine },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
 		{ label: 'Menu collections', to: '/menus', icon: Layers },

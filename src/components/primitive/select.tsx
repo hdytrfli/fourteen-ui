@@ -43,13 +43,13 @@ export const Select = ({
 			</span>
 			<select
 				className={cn(
-					'text-sm',
+					'text-sm cursor-pointer',
 					'input-appearance-none',
 					'bg-border text-foreground',
 					'transition-all duration-300',
 					'w-full h-12 px-4 rounded-xl',
+					'disabled:cursor-not-allowed disabled:text-text',
 					'focus-visible:ring-2 focus-visible:ring-accent outline-none',
-					'cursor-pointer',
 					{ 'ring-2 ring-destructive': invalid },
 					paddings.input[position],
 					className

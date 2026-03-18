@@ -7,6 +7,7 @@ import { TooltipCollection } from '@/components/collections/tooltip-collection';
 import { MenuCollection } from '@/components/collections/menu-collection';
 import { InputCollection } from '@/components/collections/input-collection';
 import { SelectCollection } from '@/components/collections/select-collection';
+import { TextareaCollection } from '@/components/collections/textarea-collection';
 
 export const PAGES = [
 	{
@@ -64,5 +65,11 @@ export const PAGES = [
 		title: 'Select collections',
 		desciption: 'Native select components with icon support and error states.',
 		component: SelectCollection,
+	},
+	{
+		path: '/textarea',
+		title: 'Textarea collections',
+		desciption: 'Textarea components for multi-line text input with icon support.',
+		component: TextareaCollection,
 	},
 ];

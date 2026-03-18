@@ -11,6 +11,7 @@ import { TooltipCollection } from '@/components/collections/tooltip-collection';
 import { MenuCollection } from '@/components/collections/menu-collection';
 import { InputCollection } from '@/components/collections/input-collection';
 import { SelectCollection } from '@/components/collections/select-collection';
+import { TextareaCollection } from '@/components/collections/textarea-collection';
 
 export default function App(): React.JSX.Element {
 	return (
@@ -35,6 +36,7 @@ export default function App(): React.JSX.Element {
 				<VariantCollection />
 				<InputCollection />
 				<SelectCollection />
+				<TextareaCollection />
 				<TooltipCollection />
 				<DropdownCollection />
 				<CardCollection />
