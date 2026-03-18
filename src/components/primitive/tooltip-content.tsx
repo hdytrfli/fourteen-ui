@@ -88,7 +88,7 @@ export const TooltipContent = ({
 				'max-w-48 wrap-break-words',
 				'bg-background text-foreground',
 				'text-xs font-medium text-center',
-				'px-4 py-2 rounded-2xl border border-border',
+				'px-4 py-2 rounded-2xl border ',
 				{
 					'opacity-100 visible': open,
 					'opacity-0 invisible': !open,

@@ -50,7 +50,7 @@ export const Switch = ({
 			<div
 				className={cn(
 					"after:content-['']",
-					'after:bg-foreground',
+					'after:bg-light',
 					'w-10 h-6 rounded-full',
 					'peer-checked:bg-accent',
 					'after:size-4 after:rounded-full',
@@ -58,7 +58,7 @@ export const Switch = ({
 					'after:absolute after:top-1 after:left-1',
 					'transition-colors duration-200 ease-in-out',
 					'after:transition-transform after:duration-200 after:ease-in-out',
-					'bg-border peer-focus-visible:ring-2 peer-focus-visible:ring-accent'
+					'bg-ghost peer-focus-visible:ring-2 peer-focus-visible:ring-accent'
 				)}
 			/>
 		</label>

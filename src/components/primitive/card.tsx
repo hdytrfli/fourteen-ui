@@ -15,7 +15,7 @@ export const Card = ({ children, className, ...rest }: Props) => {
 		<div
 			className={cn(
 				'rounded-2xl',
-				'border border-border',
+				'border ',
 				'w-full overflow-hidden',
 				'text-foreground bg-background',
 				className

@@ -34,7 +34,6 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 				'bg-showcase relative',
 				'flex items-center justify-center',
 				'overflow-visible rounded-xl min-h-48 p-10',
-				'transition-colors duration-500 ease-in-out',
 				'group-hover:text-muted hover:text-foreground',
 				className
 			)}
@@ -43,6 +42,7 @@ export const Showcase = ({ label, children, className, ...rest }: Props) => {
 				className={cn(
 					'w-full max-w-10/12 ',
 					'absolute bottom-0 translate-y-full -mb-2',
+					'transition-colors duration-500 ease-in-out',
 					'text-center text-sm line-clamp-1 hover:line-clamp-none'
 				)}>
 				{label}

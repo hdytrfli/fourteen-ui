@@ -19,8 +19,8 @@ interface Props extends React.ComponentProps<'li'> {
 }
 
 const variants: Record<Variant, ClassValue> = {
-	primary: 'text-text hover:bg-border hover:text-foreground',
-	destructive: 'text-text hover:bg-destructive hover:text-foreground',
+	primary: 'text-text hover:bg-ghost hover:text-foreground',
+	destructive: 'text-text hover:bg-destructive hover:text-light',
 } as const;
 
 const positions: Record<IconPosition, ClassValue> = {
@@ -99,11 +99,7 @@ export const MenuItem = ({
 				<AnimatedHeight open={expand}>
 					<ul
 						ref={ref}
-						className={cn(
-							'ml-4 pl-2',
-							'flex flex-col gap-1',
-							'border-l border-border border-dashed'
-						)}>
+						className={cn('ml-4 pl-2', 'flex flex-col gap-1', 'border-l  border-dashed')}>
 						{children}
 					</ul>
 				</AnimatedHeight>

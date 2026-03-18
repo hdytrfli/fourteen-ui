@@ -33,8 +33,8 @@ export const DropdownItem = ({
 	...rest
 }: Props) => {
 	const variants: Record<Variant, ClassValue> = {
-		primary: 'bg-background text-text hover:bg-border hover:text-foreground',
-		destructive: 'bg-background text-text hover:bg-destructive hover:text-foreground',
+		primary: 'bg-background text-text hover:bg-ghost hover:text-foreground',
+		destructive: 'bg-background text-text hover:bg-destructive hover:text-light',
 	};
 
 	return (

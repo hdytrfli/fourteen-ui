@@ -11,16 +11,23 @@ import {
 	PanelTopDashed,
 	PenLine,
 	PictureInPicture2,
+	Power,
 	ScanLine,
 } from 'lucide-react';
 
+import { useTheme } from '@/contexts/theme-context';
 import { Button } from '@/components/primitive/button';
+import { Switch } from '@/components/primitive/switch';
 import { Dropdown } from '@/components/primitive/dropdown';
 import { DropdownItem } from '@/components/primitive/dropdown-item';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 
 export const Navigation: React.FC = () => {
+	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
+
+	const toggle = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+	const dark = theme === 'dark';
 
 	const links = [
 		{ label: 'All collections', to: '/', icon: Home },
@@ -28,7 +35,7 @@ export const Navigation: React.FC = () => {
 		{ label: 'Variant collections', to: '/variants', icon: Box },
 		{ label: 'Input collections', to: '/inputs', icon: ScanLine },
 		{ label: 'Select collections', to: '/select', icon: List },
-		{ label: 'Switch collections', to: '/switch', icon: List },
+		{ label: 'Switch collections', to: '/switch', icon: Power },
 		{ label: 'Textarea collections', to: '/textarea', icon: PenLine },
 		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
 		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
@@ -44,8 +51,12 @@ export const Navigation: React.FC = () => {
 			</Button>
 
 			<StaggeredDropdown placement='bottom-right' className='min-w-60'>
-				<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
-				<hr className='border-b border-border border-dashed block mb-1'></hr>
+				<div className='flex items-center justify-between p-3'>
+					<label className='text-sm font-medium'>Toggle theme</label>
+					<Switch checked={dark} onCheckedChange={toggle} aria-label='Toggle theme' />
+				</div>
+
+				<hr className='border-b  border-dashed block mb-1'></hr>
 				{links.map(({ to, label, icon }) => (
 					<DropdownItem
 						key={to}

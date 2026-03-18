@@ -15,7 +15,7 @@ export const CardFooter = ({ children, className, ...rest }: Props) => {
 			className={cn(
 				'px-6 py-4',
 				'bg-background',
-				'border-t border-border',
+				'border-t ',
 				'grid md:grid-cols-2 gap-4',
 				className
 			)}

@@ -15,7 +15,7 @@ export const Textarea = ({ invalid = false, className, ...rest }: Props) => {
 		<textarea
 			className={cn(
 				'resize-y text-sm',
-				'bg-border text-foreground',
+				'bg-ghost text-foreground',
 				'w-full px-4 py-3 rounded-xl',
 				'disabled:cursor-not-allowed disabled:text-text',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',

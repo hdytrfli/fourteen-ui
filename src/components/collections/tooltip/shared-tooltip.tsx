@@ -155,7 +155,7 @@ export const SharedTooltipProvider = ({ children }: ProviderProps) => {
 						'max-w-48 wrap-break-words',
 						'bg-background text-foreground',
 						'text-xs font-medium text-center',
-						'px-4 py-2 rounded-2xl border border-border'
+						'px-4 py-2 rounded-2xl border '
 					)}>
 					<div ref={contentRef}>{label}</div>
 				</div>,

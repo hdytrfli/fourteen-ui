@@ -107,7 +107,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 						<MenuItem label='Shared' icon={Share} />
 					</MenuItem>
 					<MenuItem label='Notifications' icon={TriangleAlert} />
-					<hr className='border-b border-border border-dashed' />
+					<hr className='border-b  border-dashed' />
 					<MenuItem label='Logout' icon={LogOut} variant='destructive' />
 				</Menu>
 			</Showcase>

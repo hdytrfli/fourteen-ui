@@ -1,28 +1,50 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
+	--light: #ffffff;
 	--accent: #883dff;
-	--border: #2a2a2e;
-	--background: #1d1d1f;
-	--foreground: #ffffff;
+	--background: #fdfdfd;
+	--foreground: #1d1d1f;
+	--destructive: var(--color-rose-600);
+
+	--text: oklch(from var(--foreground) calc(l + 0.4) c h);
+	--muted: oklch(from var(--foreground) calc(l + 0.6) c h);
+	--ghost: oklch(from var(--background) calc(l - 0.04) c h);
+	--showcase: oklch(from var(--background) calc(l - 0.03) c h);
 
 	--font-geist: 'Geist Variable', system-ui, sans-serif;
 	--font-gloock: 'Gloock', system-ui, serif;
+}
+
+.dark {
+	--light: #ffffff;
+	--accent: #883dff;
+	--background: #1d1d1f;
+	--foreground: #fdfdfd;
+	--destructive: var(--color-rose-700);
+
+	--text: oklch(from var(--foreground) calc(l - 0.4) c h);
+	--muted: oklch(from var(--foreground) calc(l - 0.6) c h);
+	--ghost: oklch(from var(--background) calc(l + 0.04) c h);
+	--showcase: oklch(from var(--background) calc(l + 0.03) c h);
 }
 
 @theme inline {
 	--font-sans: var(--font-geist);
 	--font-heading: var(--font-gloock);
 
-	--color-border: var(--border);
+	--color-light: var(--light);
 	--color-accent: var(--accent);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-destructive: var(--destructive);
 
-	--color-text: var(--color-zinc-400);
-	--color-muted: var(--color-zinc-600);
-	--color-showcase: var(--color-zinc-800);
-	--color-destructive: var(--color-rose-700);
+	--color-text: var(--text);
+	--color-muted: var(--muted);
+	--color-showcase: var(--showcase);
+	--color-ghost: var(--ghost);
 }
 
 @utility container {
@@ -63,6 +85,10 @@
 }
 
 @layer components {
+	* {
+		border-color: var(--color-ghost);
+	}
+
 	body {
 		color: var(--color-text);
 		font-family: var(--font-sans);

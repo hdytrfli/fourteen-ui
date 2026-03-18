@@ -41,7 +41,7 @@ const Demo = () => {
 	return (
 		<React.Fragment>
 			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
-			<hr className='border-b border-border border-dashed' />
+			<hr className='border-b  border-dashed' />
 			<DropdownItem position='end' label='Edit data' icon={Pencil} />
 			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
 			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
@@ -93,7 +93,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
 					<DropdownContent placement='bottom-center'>
 						<label className='block px-3 py-3 text-sm font-medium'>John Doe</label>
-						<hr className='border-b border-border border-dashed' />
+						<hr className='border-b  border-dashed' />
 						<DropdownItem label='Profile' icon={User} />
 						<DropdownItem label='Privacy' icon={TriangleAlert} />
 						<DropdownItem label='Settings' icon={Settings} />
@@ -213,7 +213,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 							<MenuItem label='Shared' icon={Share} />
 						</MenuItem>
 						<MenuItem label='Notifications' icon={TriangleAlert} />
-						<hr className='border-b border-border border-dashed' />
+						<hr className='border-b  border-dashed' />
 						<MenuItem label='Logout' icon={LogOut} variant='destructive' />
 					</BlurDropdown>
 				</Dropdown>

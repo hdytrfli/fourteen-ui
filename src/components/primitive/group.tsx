@@ -37,7 +37,7 @@ interface GroupItemProps extends React.ComponentProps<'div'> {
 export const GroupItem = ({ children, className, ...rest }: GroupItemProps) => {
 	return (
 		<div
-			className={cn('px-4 h-12 bg-border', 'flex items-center justify-center', className)}
+			className={cn('px-4 h-12 bg-ghost', 'flex items-center justify-center', className)}
 			{...rest}>
 			{children}
 		</div>

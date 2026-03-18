@@ -15,11 +15,11 @@ interface ButtonProps extends React.ComponentProps<'button'> {
  */
 export const Button: React.FC<ButtonProps> = ({ children, variant, className, ...rest }) => {
 	const variants: Record<ButtonVariant, ClassValue> = {
-		ghost: 'bg-border text-foreground',
-		accent: 'bg-accent text-foreground',
-		secondary: 'bg-background text-foreground',
+		accent: 'bg-accent text-light',
+		ghost: 'bg-ghost text-foreground',
 		primary: 'bg-foreground text-background',
-		destructive: 'bg-destructive text-foreground',
+		secondary: 'bg-background text-foreground',
+		destructive: 'bg-destructive text-light',
 	};
 
 	return (
