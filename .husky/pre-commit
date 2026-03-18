@@ -1,3 +1,14 @@
-pnpm format
+# Get list of staged files (exclude .husky directory)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -v '^\.husky/' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+  # Format only staged files
+  pnpm prettier --write --cache $STAGED_FILES
+  
+  # Re-stage the formatted files
+  git add $STAGED_FILES
+fi
+
+# Run typecheck and lint
 pnpm typecheck
 pnpm lint

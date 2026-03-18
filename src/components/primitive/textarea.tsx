@@ -17,7 +17,6 @@ export const Textarea = ({ invalid = false, className, ...rest }: Props) => {
 				'resize-y text-sm',
 				'bg-border text-foreground',
 				'w-full px-4 py-3 rounded-xl',
-				'transition-colors duration-300',
 				'disabled:cursor-not-allowed disabled:text-text',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				{ 'ring-2 ring-destructive': invalid },

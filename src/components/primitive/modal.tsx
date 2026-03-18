@@ -43,7 +43,6 @@ export const Modal = ({ open, onClose, children, className, ...rest }: Props) =>
 						'fixed inset-0 z-50',
 						'flex items-center justify-center',
 						'bg-black/50 backdrop-blur-sm',
-						'transition-all duration-100 ease-in-out',
 						'opacity-100 visible pointer-events-auto',
 						className
 					)}

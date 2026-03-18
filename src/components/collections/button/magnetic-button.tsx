@@ -38,9 +38,7 @@ export const MagneticButton = ({
 		const button = buttonRef.current;
 		if (!button) return;
 
-		const states = {
-			offset: 0.5,
-		} as const;
+		const OFFSET = 0.5;
 
 		const handleMove = (event: MouseEvent) => {
 			const rect = button.getBoundingClientRect();
@@ -48,8 +46,8 @@ export const MagneticButton = ({
 			const centerY = rect.top + rect.height / 2;
 
 			gsap.to(button, {
-				x: (event.clientX - centerX) * states.offset,
-				y: (event.clientY - centerY) * states.offset,
+				x: (event.clientX - centerX) * OFFSET,
+				y: (event.clientY - centerY) * OFFSET,
 				duration: DURATION.base,
 				ease: EASE.out,
 			});

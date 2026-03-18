@@ -15,17 +15,18 @@ interface Props extends React.ComponentProps<'li'> {
 	position?: IconPosition;
 	children?: React.ReactNode;
 	submenuRef?: React.Ref<HTMLUListElement>;
+	onExpand?: (open: boolean) => void;
 }
 
 const variants: Record<Variant, ClassValue> = {
 	primary: 'text-text hover:bg-border hover:text-foreground',
 	destructive: 'text-text hover:bg-destructive hover:text-foreground',
-};
+} as const;
 
 const positions: Record<IconPosition, ClassValue> = {
 	start: 'flex-row',
 	end: 'flex-row-reverse',
-};
+} as const;
 
 /**
  * A menu item that can optionally contain a submenu.
@@ -36,31 +37,42 @@ const positions: Record<IconPosition, ClassValue> = {
  * @param position - Whether the icon sits at the 'start' or 'end' (default: 'start')
  * @param children - Optional MenuItem components for submenu
  * @param submenuRef - Optional ref to attach to the submenu ul for animation
+ * @param onExpand - Optional callback when submenu open state changes
  */
 export const MenuItem = ({
 	label,
-	variant = 'primary',
-	position = 'start',
-	icon: Icon,
 	children,
 	className,
 	submenuRef,
+	onExpand,
+	icon: Icon,
+	variant = 'primary',
+	position = 'start',
 	...rest
 }: Props) => {
-	const [open, setOpen] = React.useState(false);
+	const [expand, setExpand] = React.useState(false);
+
+	const previous = React.useRef(expand);
 	const submenu = React.Children.count(children) > 0;
-	const localRef = React.useRef<HTMLUListElement>(null);
-	const ref = (submenuRef as React.RefObject<HTMLUListElement>) || localRef;
+	const local = React.useRef<HTMLUListElement>(null);
+	const ref = (submenuRef as React.RefObject<HTMLUListElement>) || local;
 
 	const toggle = () => {
-		if (submenu) setOpen((prev) => !prev);
+		if (submenu) setExpand((prev) => !prev);
 	};
+
+	React.useEffect(() => {
+		if (submenu && previous.current !== expand) {
+			previous.current = expand;
+			onExpand?.(expand);
+		}
+	}, [expand, submenu, onExpand]);
 
 	return (
 		<li className='flex flex-col gap-1' {...rest}>
 			<button
 				onClick={toggle}
-				aria-expanded={submenu ? open : undefined}
+				aria-expanded={submenu ? expand : undefined}
 				className={cn(
 					'gap-3 p-3 w-full',
 					'flex items-center',
@@ -78,13 +90,13 @@ export const MenuItem = ({
 						size={16}
 						aria-hidden
 						className={cn('transition-transform duration-300', {
-							'rotate-90': open,
+							'rotate-90': expand,
 						})}
 					/>
 				)}
 			</button>
 			{submenu && (
-				<AnimatedHeight open={open}>
+				<AnimatedHeight open={expand}>
 					<ul
 						ref={ref}
 						className={cn(

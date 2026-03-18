@@ -48,24 +48,29 @@ export const KineticButton = ({
 		gsap.set(split.chars, { y: VALUES.zero });
 		if (iconElement) gsap.set(iconElement, { y: VALUES.zero });
 
+		let ctx: gsap.Context | null = null;
+
 		const animate = () => {
-			const first = position === 'start';
-			const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
+			if (ctx) ctx.revert();
+			ctx = gsap.context(() => {
+				const first = position === 'start';
+				const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
 
-			const state = {
-				y: JUMP_HEIGHT,
-				duration: DURATION.fast,
-				ease: EASE.out,
-				yoyo: true,
-				repeat: 1,
-				repeatDelay: 0.1,
-			} as const;
+				const state = {
+					y: JUMP_HEIGHT,
+					duration: DURATION.fast,
+					ease: EASE.out,
+					yoyo: true,
+					repeat: 1,
+					repeatDelay: 0.1,
+				} as const;
 
-			if (iconElement) gsap.to(iconElement, { ...state, delay: delay });
-			split.chars.forEach((char, index) => {
-				gsap.to(char, {
-					...state,
-					delay: index * STAGGER.base,
+				if (iconElement) gsap.to(iconElement, { ...state, delay });
+				split.chars.forEach((char, index) => {
+					gsap.to(char, {
+						...state,
+						delay: index * STAGGER.base,
+					});
 				});
 			});
 		};
@@ -74,6 +79,7 @@ export const KineticButton = ({
 
 		return () => {
 			button.removeEventListener('mouseenter', animate);
+			if (ctx) ctx.revert();
 			split.revert();
 		};
 	}, [position]);

@@ -9,35 +9,36 @@ interface Props extends React.ComponentProps<typeof MenuItem> {
 
 /**
  * Menu item with stagger animation on submenu expand.
- * Combines height animation with staggered item animation.
  */
 export const StaggerMenuItem = ({ children, ...rest }: Props) => {
-	const [open, setOpen] = React.useState(false);
 	const submenu = React.Children.count(children) > 0;
 	const submenuRef = React.useRef<HTMLUListElement>(null);
 
-	React.useLayoutEffect(() => {
-		const container = submenuRef.current;
-		if (!container || !submenu) return;
+	const handleExpand = React.useCallback(
+		(open: boolean) => {
+			const container = submenuRef.current;
+			if (!container || !submenu) return;
 
-		const items = Array.from(container.children) as HTMLElement[];
+			const items = Array.from(container.querySelectorAll(':scope > li > button')) as HTMLElement[];
 
-		const states = {
-			open: { x: 0, opacity: VALUES.visible, ease: EASE.default },
-			closed: { x: -8, opacity: VALUES.hidden, ease: EASE.default },
-		} as const;
+			const states = {
+				open: { x: 0, opacity: VALUES.visible, ease: EASE.default },
+				closed: { x: -8, opacity: VALUES.hidden, ease: EASE.default },
+			} as const;
 
-		const state = open ? 'open' : 'closed';
+			const state = open ? 'open' : 'closed';
 
-		gsap.to(items, {
-			...states[state],
-			stagger: STAGGER.base,
-			duration: DURATION.base,
-		});
-	}, [open, submenu]);
+			gsap.to(items, {
+				...states[state],
+				stagger: STAGGER.base,
+				duration: DURATION.base,
+			});
+		},
+		[submenu]
+	);
 
 	return (
-		<MenuItem submenuRef={submenuRef} onClick={() => submenu && setOpen((prev) => !prev)} {...rest}>
+		<MenuItem submenuRef={submenuRef} onExpand={handleExpand} {...rest}>
 			{children}
 		</MenuItem>
 	);

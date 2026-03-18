@@ -3,6 +3,7 @@ import {
 	Archive,
 	ArrowUpRight,
 	Box,
+	Code,
 	Copy,
 	File,
 	Folder,
@@ -117,7 +118,12 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 					<FadeMenuItem label='Files' icon={Folder}>
 						<FadeMenuItem label='Documents' icon={File} />
 						<FadeMenuItem label='Images' icon={Image} />
-						<FadeMenuItem label='Videos' icon={Video} />
+						<FadeMenuItem label='Videos' icon={Video} />{' '}
+						<FadeMenuItem label='Code' icon={Code}>
+							<FadeMenuItem label='Java' icon={Code} />
+							<FadeMenuItem label='Python' icon={Code} />
+							<FadeMenuItem label='C++' icon={Code} />
+						</FadeMenuItem>
 					</FadeMenuItem>
 					<FadeMenuItem label='Settings' icon={Settings} />
 				</Menu>
@@ -155,6 +161,16 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 						<StaggerMenuItem label='Images' icon={Image} />
 						<StaggerMenuItem label='Videos' icon={Video} />
 						<StaggerMenuItem label='Audio' icon={Archive} />
+						<StaggerMenuItem label='Code' icon={Code}>
+							<StaggerMenuItem label='Java' icon={Code} />
+							<StaggerMenuItem label='Python' icon={Code} />
+							<StaggerMenuItem label='C++' icon={Code} />
+							<StaggerMenuItem label='Code' icon={Code}>
+								<StaggerMenuItem label='Java' icon={Code} />
+								<StaggerMenuItem label='Python' icon={Code} />
+								<StaggerMenuItem label='C++' icon={Code} />
+							</StaggerMenuItem>
+						</StaggerMenuItem>
 					</StaggerMenuItem>
 					<StaggerMenuItem label='Settings' icon={Settings} />
 				</Menu>

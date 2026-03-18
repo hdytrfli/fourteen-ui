@@ -57,8 +57,8 @@ export const TextareaCollection: React.FC<TextareaCollectionProps> = () => {
 				</Field>
 			</Showcase>
 
-			<Showcase label='Textarea with custom rows'>
-				<Field>
+			<Showcase label='Textarea with custom rows' className='col-span-full'>
+				<Field className='max-w-md'>
 					<Label htmlFor='notes'>Notes</Label>
 					<Textarea id='notes' rows={4} placeholder='Add your notes here...' />
 				</Field>

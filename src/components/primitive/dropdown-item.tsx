@@ -44,7 +44,6 @@ export const DropdownItem = ({
 				'gap-3 p-3 cursor-pointer',
 				'w-full flex items-center',
 				'text-sm font-medium text-left',
-				'transition-colors duration-300',
 				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
 				variants[variant],
 				positions[position],

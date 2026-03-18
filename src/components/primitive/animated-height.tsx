@@ -16,42 +16,39 @@ interface Props extends React.ComponentProps<'div'> {
 export const AnimatedHeight = ({ children, open, className, ...rest }: Props) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const innerRef = React.useRef<HTMLDivElement>(null);
-	const animating = React.useRef(false);
+	const isInitial = React.useRef(true);
 
 	React.useLayoutEffect(() => {
 		const el = ref.current;
 		const innerElement = innerRef.current;
-		if (!el || !innerElement || animating.current) return;
+		if (!el || !innerElement) return;
 
-		animating.current = true;
+		if (isInitial.current) {
+			isInitial.current = false;
+			gsap.set(el, {
+				height: open ? 'auto' : 0,
+			});
+			return;
+		}
 
 		if (open) {
 			gsap.fromTo(
 				el,
-				{ height: 0, autoAlpha: 0 },
+				{ height: 0 },
 				{
 					height: innerElement.offsetHeight,
-					autoAlpha: 1,
 					duration: DURATION.base,
 					ease: EASE.default,
 					onComplete: () => {
-						animating.current = false;
-						gsap.set(el, {
-							height: 'auto',
-							clearProps: 'autoAlpha',
-						});
+						gsap.set(el, { height: 'auto' });
 					},
 				}
 			);
 		} else {
 			gsap.to(el, {
 				height: 0,
-				autoAlpha: 0,
 				duration: DURATION.base,
 				ease: EASE.default,
-				onComplete: () => {
-					animating.current = false;
-				},
 			});
 		}
 	}, [open]);
