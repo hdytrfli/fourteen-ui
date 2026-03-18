@@ -17,7 +17,7 @@ interface InputCollectionProps {
 export const InputCollection: React.FC<InputCollectionProps> = () => {
 	return (
 		<Gallery
-			title='Input'
+			title='Input collections'
 			className='md:grid-cols-2'
 			description='A collection of input components with icon support and error states.'>
 			<Showcase label='Base input'>

@@ -43,7 +43,7 @@ export const SelectCollection: React.FC<SelectCollectionProps> = () => {
 
 	return (
 		<Gallery
-			title='Select'
+			title='Select collections'
 			className='md:grid-cols-2'
 			description='A collection of native select components.'>
 			<Showcase label='Base select'>

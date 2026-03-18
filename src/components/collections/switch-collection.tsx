@@ -17,7 +17,7 @@ export const SwitchCollection: React.FC<SwitchCollectionProps> = () => {
 
 	return (
 		<Gallery
-			title='Switch'
+			title='Switch collections'
 			className='md:grid-cols-2'
 			description='Switch toggle components for boolean inputs with smooth transitions.'>
 			<Showcase label='Base switch'>

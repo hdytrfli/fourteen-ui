@@ -24,7 +24,7 @@ interface CardCollectionProps {
 
 export const CardCollection: React.FC<CardCollectionProps> = () => {
 	return (
-		<Gallery title='Card' description='A collection of button card components.'>
+		<Gallery title='Card collections' description='A collection of button card components.'>
 			<Showcase label='Example card' className='col-span-full'>
 				<Card className='max-w-md'>
 					<CardHeader title='Confirm delete' onClose={() => console.log('close')} />

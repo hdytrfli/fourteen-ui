@@ -9,7 +9,7 @@ interface BaseLayoutProps {
 export const BaseLayout: React.FC<BaseLayoutProps> = ({ ...props }) => {
 	return (
 		<main className='container min-h-screen' {...props}>
-			<div className='relative py-20 grid gap-8'>
+			<div className='py-20 grid gap-8'>
 				<Outlet />
 			</div>
 			<Footer className='py-16' />

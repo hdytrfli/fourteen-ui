@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 
+import { ContentTable } from '@/components/primitive/content-table';
 import { Navigation } from '@/components/navigation';
 import { CardCollection } from '@/components/collections/card-collection';
 import { ModalCollection } from '@/components/collections/modal-collection';
@@ -15,11 +16,19 @@ import { SwitchCollection } from '@/components/collections/switch-collection';
 import { TextareaCollection } from '@/components/collections/textarea-collection';
 
 export default function App(): React.JSX.Element {
+	const ref = React.useRef<HTMLDivElement>(null);
+
 	return (
 		<React.Fragment>
+			<div className='hidden 2xl:block fixed top-1/2 left-8 -translate-y-1/2'>
+				<ContentTable container={ref} selector='h1, h2, h3' />
+			</div>
+
 			<header className='grid gap-2'>
-				<div className='flex items-center justify-between'>
-					<h1 className='text-5xl font-heading'>Idea collections</h1>
+				<div className='flex sitems-center justify-between'>
+					<h1 id='idea' className='text-5xl font-heading'>
+						Idea collections
+					</h1>
 					<Navigation />
 				</div>
 
@@ -32,7 +41,7 @@ export default function App(): React.JSX.Element {
 				</p>
 			</header>
 
-			<div className='grid gap-20'>
+			<div ref={ref} className='grid gap-20'>
 				<ButtonCollection />
 				<VariantCollection />
 				<InputCollection />

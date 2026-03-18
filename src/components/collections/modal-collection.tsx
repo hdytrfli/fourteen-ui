@@ -35,7 +35,7 @@ export const ModalCollection = () => {
 	const newspaper = useModalState();
 
 	return (
-		<Gallery title='Modal' description='A collection of modal components.'>
+		<Gallery title='Modal collections' description='A collection of modal components.'>
 			<Showcase label='Simple modal with button trigger'>
 				<Button variant='secondary' onClick={simple.onOpen}>
 					Open modal

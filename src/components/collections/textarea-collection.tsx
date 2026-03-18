@@ -13,7 +13,7 @@ interface TextareaCollectionProps {
 export const TextareaCollection: React.FC<TextareaCollectionProps> = () => {
 	return (
 		<Gallery
-			title='Textarea'
+			title='Textarea collections'
 			className='md:grid-cols-2'
 			description='A collection of textarea components for multi-line text input.'>
 			<Showcase label='Base textarea'>

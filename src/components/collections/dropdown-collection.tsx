@@ -54,7 +54,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 	const variant: ButtonVariant = 'secondary';
 
 	return (
-		<Gallery title='Dropdown' description='A collection of button dropdown components.'>
+		<Gallery title='Dropdown collections' description='A collection of button dropdown components.'>
 			<Showcase label='Plain dropdown with button click'>
 				<Dropdown>
 					<Button variant={variant}>

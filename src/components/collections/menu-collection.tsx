@@ -36,7 +36,7 @@ interface MenuCollectionProps {
 export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 	return (
 		<Gallery
-			title='Menu'
+			title='Menu collections'
 			className='md:grid-cols-2'
 			description='A collection of menu components with submenu support.'>
 			<Showcase label='Basic menu'>

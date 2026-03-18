@@ -15,7 +15,7 @@ interface VariantCollectionProps {
 
 export const VariantCollection: React.FC<VariantCollectionProps> = () => {
 	return (
-		<Gallery title='Variant' description='A collection of button variant components.'>
+		<Gallery title='Variant collections' description='A collection of button variant components.'>
 			<Showcase label='Primary variant button'>
 				<RollingButton label='Primary' icon={Send} variant='primary' />
 			</Showcase>

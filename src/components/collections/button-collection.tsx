@@ -41,7 +41,7 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 	const variant: ButtonVariant = 'secondary';
 
 	return (
-		<Gallery title='Buttons' description='A collection of button components.'>
+		<Gallery title='Button collections' description='A collection of button components.'>
 			<Showcase label='Plain button'>
 				<Button variant={variant}>
 					<span>Get started</span>

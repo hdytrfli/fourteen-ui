@@ -27,7 +27,7 @@ import { SharedTooltipTrigger } from '@/components/collections/tooltip/shared-to
 
 export const TooltipCollection = () => {
 	return (
-		<Gallery title='Tooltip' description='A collection of tooltip components.'>
+		<Gallery title='Tooltip collections' description='A collection of tooltip components.'>
 			<Showcase label='Plain tooltip'>
 				<div className='flex gap-3'>
 					<Tooltip>

@@ -15,7 +15,7 @@ interface Props extends React.ComponentProps<'header'> {
 export const CardHeader = ({ title, onClose, className, ...rest }: Props) => {
 	return (
 		<header className={cn('p-6 relative', 'flex items-center', 'border-b ', className)} {...rest}>
-			<h2 className='line-clamp-1 truncate max-w-[90%] text-base font-medium'>{title}</h2>
+			<h5 className='line-clamp-1 truncate max-w-[90%] text-base font-medium'>{title}</h5>
 			{onClose && (
 				<button
 					aria-label='Close'
