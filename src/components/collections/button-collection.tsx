@@ -15,6 +15,10 @@ import {
 	Play,
 	Square,
 	Users,
+	Club,
+	Heart,
+	Spade,
+	Diamond,
 } from 'lucide-react';
 
 import { Gallery } from '@/components/primitive/gallery';
@@ -27,6 +31,7 @@ import { KineticButton } from '@/components/collections/button/kinetic-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { MagneticButton } from '@/components/collections/button/magnetic-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
+import { Group } from '../primitive/group';
 
 interface ButtonCollectionProps {
 	//
@@ -139,6 +144,27 @@ export const ButtonCollection: React.FC<ButtonCollectionProps> = () => {
 
 			<Showcase label='Kinetic button with icon end'>
 				<KineticButton label='Lets go' icon={Activity} position='end' variant={variant} />
+			</Showcase>
+
+			<Showcase label='Grouped plain buttons' className='col-span-full'>
+				<Group className='grid grid-cols-4' focusable={false}>
+					<Button variant={variant}>
+						<Diamond size={16} />
+						<span className='sr-only md:not-sr-only'>Diamond</span>
+					</Button>
+					<Button variant={variant}>
+						<Spade size={16} />
+						<span className='sr-only md:not-sr-only'>Spade</span>
+					</Button>
+					<Button variant={variant}>
+						<Heart size={16} />
+						<span className='sr-only md:not-sr-only'>Heart</span>
+					</Button>
+					<Button variant={variant}>
+						<Club size={16} />
+						<span className='sr-only md:not-sr-only'>Club</span>
+					</Button>
+				</Group>
 			</Showcase>
 		</Gallery>
 	);
