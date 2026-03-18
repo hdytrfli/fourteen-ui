@@ -85,7 +85,7 @@ export const DropdownContent = ({
 			role='menu'
 			aria-modal='false'
 			className={cn(
-				'absolute z-50',
+				'absolute z-50 min-w-48',
 				{
 					'px-2': horizontal,
 					'py-2': !horizontal,
@@ -97,7 +97,7 @@ export const DropdownContent = ({
 			{...rest}>
 			<div
 				className={cn(
-					'p-1 w-fit min-w-48',
+					'p-1 w-full',
 					'flex flex-col gap-1',
 					'border border-border',
 					'overflow-hidden rounded-xl bg-background'

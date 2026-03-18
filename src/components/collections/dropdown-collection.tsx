@@ -5,9 +5,13 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	Copy,
+	File,
+	Folder,
 	LogOut,
+	Menu,
 	Pencil,
 	Settings,
+	Share,
 	Trash,
 	TriangleAlert,
 	User,
@@ -27,6 +31,7 @@ import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown'
 import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
+import { MenuItem } from '../primitive/menu-item';
 
 interface DropdownCollectionProps {
 	//
@@ -190,6 +195,27 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					<AccordionDropdown placement='bottom-center'>
 						<Demo />
 					</AccordionDropdown>
+				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Dropdown with menu content'>
+				<Dropdown variant='hover'>
+					<Button variant={variant}>
+						<Menu size={16} />
+						<span>Open Menu</span>
+					</Button>
+					<BlurDropdown placement='right-bottom' className='min-w-72'>
+						<MenuItem label='Profile' icon={User} />
+						<MenuItem label='Account Settings' icon={Settings} />
+						<MenuItem label='Files' icon={Folder}>
+							<MenuItem label='Recent' icon={File} />
+							<MenuItem label='Starred' icon={ArrowUpRight} />
+							<MenuItem label='Shared' icon={Share} />
+						</MenuItem>
+						<MenuItem label='Notifications' icon={TriangleAlert} />
+						<hr className='border-b border-border border-dashed' />
+						<MenuItem label='Logout' icon={LogOut} variant='destructive' />
+					</BlurDropdown>
 				</Dropdown>
 			</Showcase>
 		</Gallery>
