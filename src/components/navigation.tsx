@@ -18,8 +18,7 @@ import {
 import { useTheme } from '@/contexts/theme-context';
 import { Button } from '@/components/primitive/button';
 import { Switch } from '@/components/primitive/switch';
-import { Dropdown } from '@/components/primitive/dropdown';
-import { DropdownItem } from '@/components/primitive/dropdown-item';
+import { Dropdown, DropdownItem } from '@/components/primitive/dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 
 export const Navigation: React.FC = () => {

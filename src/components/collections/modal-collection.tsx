@@ -6,9 +6,8 @@ import { Avatar } from '@/components/primitive/avatar';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 
-import { Modal } from '@/components/primitive/modal';
+import { Modal, ModalContent, ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { ModalContent, ModalBody, ModalFooter } from '@/components/primitive/modal-content';
 
 import { CrtModal } from '@/components/collections/modal/crt-modal';
 import { BlurModal } from '@/components/collections/modal/blur-modal';

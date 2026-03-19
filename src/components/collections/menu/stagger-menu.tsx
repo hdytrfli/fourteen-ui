@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
 import { DURATION, EASE, STAGGER, VALUES } from '@/libs/constants';
-import { MenuItem } from '@/components/primitive/menu-item';
+import { MenuItem } from '@/components/primitive/menu';
 
 interface Props extends React.ComponentProps<typeof MenuItem> {
 	//

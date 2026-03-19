@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { Trash, TriangleAlert, X, Github, Globe, ArrowUpRight, Check } from 'lucide-react';
 
-import { Card } from '@/components/primitive/card';
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/primitive/card';
 import { Label } from '@/components/primitive/label';
 import { Field } from '@/components/primitive/field';
 import { Input } from '@/components/primitive/input';
 import { Select } from '@/components/primitive/select';
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
-import { CardHeader } from '@/components/primitive/card-header';
-import { CardContent } from '@/components/primitive/card-content';
-import { CardFooter } from '@/components/primitive/card-footer';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
 import { RollingButton } from '@/components/collections/button/rolling-button';
 import { SwapButton } from '@/components/collections/button/swap-button';

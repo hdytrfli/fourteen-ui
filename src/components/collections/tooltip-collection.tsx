@@ -17,9 +17,8 @@ import {
 import { Avatar } from '@/components/primitive/avatar';
 import { Button } from '@/components/primitive/button';
 import { Gallery } from '@/components/primitive/gallery';
-import { Tooltip } from '@/components/primitive/tooltip';
+import { Tooltip, TooltipContent } from '@/components/primitive/tooltip';
 import { Showcase } from '@/components/primitive/showcase';
-import { TooltipContent } from '@/components/primitive/tooltip-content';
 import { FadeTooltip } from '@/components/collections/tooltip/fade-tooltip';
 import { ScaleTooltip } from '@/components/collections/tooltip/scale-tooltip';
 import { BlurTooltip } from '@/components/collections/tooltip/blur-tooltip';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
-import { TooltipContent } from '@/components/primitive/tooltip-content';
+import { TooltipContent } from '@/components/primitive/tooltip';
 import { useTooltip } from '@/hooks/use-tooltip';
 
 interface Props extends Omit<React.ComponentProps<typeof TooltipContent>, 'children'> {

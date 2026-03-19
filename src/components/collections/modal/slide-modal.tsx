@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gsap } from 'gsap';
 import { useModal } from '@/hooks/use-modal';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
-import { ModalContent } from '@/components/primitive/modal-content';
+import { ModalContent } from '@/components/primitive/modal';
 
 interface Props extends React.ComponentProps<typeof ModalContent> {}
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gsap } from 'gsap';
 import { cn } from '@/libs/utils';
 import { DURATION, STAGGER, VALUES } from '@/libs/constants';
-import { DropdownContent } from '@/components/primitive/dropdown-content';
+import { DropdownContent } from '@/components/primitive/dropdown';
 import { useDropdown } from '@/hooks/use-dropdown';
 
 interface Props extends React.ComponentProps<typeof DropdownContent> {

@@ -22,16 +22,14 @@ import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 import { Button, type ButtonVariant } from '@/components/primitive/button';
 
-import { Dropdown } from '@/components/primitive/dropdown';
-import { DropdownItem } from '@/components/primitive/dropdown-item';
-import { DropdownContent } from '@/components/primitive/dropdown-content';
+import { MenuItem } from '@/components/primitive/menu';
 import { BlurDropdown } from '@/components/collections/dropdown/blur-dropdown';
 import { FadeDropdown } from '@/components/collections/dropdown/fade-dropdown';
 import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown';
 import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
-import { MenuItem } from '../primitive/menu-item';
+import { Dropdown, DropdownContent, DropdownItem } from '@/components/primitive/dropdown';
 
 interface DropdownCollectionProps {
 	//

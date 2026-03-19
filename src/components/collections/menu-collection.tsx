@@ -22,8 +22,7 @@ import {
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 
-import { Menu } from '@/components/primitive/menu';
-import { MenuItem } from '@/components/primitive/menu-item';
+import { Menu, MenuItem } from '@/components/primitive/menu';
 import { FadeMenuItem } from '@/components/collections/menu/fade-menu';
 import { ScaleMenuItem } from '@/components/collections/menu/scale-menu';
 import { SlideMenuItem } from '@/components/collections/menu/slide-menu';

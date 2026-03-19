@@ -6,7 +6,7 @@ import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
 import { Switch } from '@/components/primitive/switch';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
-import { ModalBody, ModalFooter } from '@/components/primitive/modal-content';
+import { ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
 
 export const FormDemo: React.FC = () => {
