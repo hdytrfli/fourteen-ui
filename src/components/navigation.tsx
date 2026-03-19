@@ -26,7 +26,7 @@ export const Navigation: React.FC = () => {
 		<div className='flex items-center gap-4'>
 			{config.theme && (
 				<Button variant='transparent' onClick={rotate}>
-					<span key={theme} className='animate-in fade-in spin-in-90 duration-300'>
+					<span key={theme} className='animate-in fade-in spin-in-90 duration-300 ease-in-out'>
 						<ThemeIcon size={16} />
 					</span>
 				</Button>

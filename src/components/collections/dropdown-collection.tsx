@@ -5,7 +5,6 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	File,
-	Folder,
 	LogOut,
 	Menu,
 	Settings,
@@ -30,7 +29,14 @@ import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown'
 import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
-import { Dropdown, DropdownContent, DropdownAction } from '@/components/primitive/dropdown';
+import {
+	Dropdown,
+	DropdownContent,
+	DropdownAction,
+	DropdownItem,
+	DropdownDivider,
+} from '@/components/primitive/dropdown';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 interface DropdownCollectionProps {
 	//
@@ -38,7 +44,7 @@ interface DropdownCollectionProps {
 
 export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 	const variant: ButtonVariant = 'secondary';
-	const [placement, setPlacement] = React.useState<Placement>('bottom-left');
+	const [placement, setPlacement] = useLocalStorage<Placement>('dropdown', 'left-center');
 
 	return (
 		<Gallery title='Dropdown collections' description='A collection of button dropdown components.'>
@@ -79,8 +85,8 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				<Dropdown variant='hover'>
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
 					<DropdownContent placement='bottom-center'>
-						<label className='block px-3 py-3 text-sm font-medium'>John Doe</label>
-						<hr className='border-b  border-dashed' />
+						<DropdownItem label='Edit data' />
+						<DropdownDivider />
 						<DropdownAction label='Profile' icon={User} />
 						<DropdownAction label='Privacy' icon={TriangleAlert} />
 						<DropdownAction label='Settings' icon={Settings} />
@@ -191,17 +197,17 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<Menu size={16} />
 						<span>Open Menu</span>
 					</Button>
-					<BlurDropdown placement='right-center' className='min-w-72'>
-						<MenuItem label='Profile' icon={User} />
-						<MenuItem label='Account Settings' icon={Settings} />
-						<MenuItem label='Files' icon={Folder}>
-							<MenuItem label='Recent' icon={File} />
-							<MenuItem label='Starred' icon={ArrowUpRight} />
-							<MenuItem label='Shared' icon={Share} />
+					<BlurDropdown placement='right-center' className='min-w-60'>
+						<MenuItem position='end' label='Profile' icon={User} />
+						<MenuItem position='end' label='Account Settings' icon={Settings} />
+						<MenuItem label='Files'>
+							<MenuItem position='end' label='Recent' icon={File} />
+							<MenuItem position='end' label='Starred' icon={ArrowUpRight} />
+							<MenuItem position='end' label='Shared' icon={Share} />
 						</MenuItem>
-						<MenuItem label='Notifications' icon={TriangleAlert} />
-						<hr className='border-b  border-dashed' />
-						<MenuItem label='Logout' icon={LogOut} variant='destructive' />
+						<MenuItem position='end' label='Notifications' icon={TriangleAlert} />
+						<DropdownDivider />
+						<MenuItem position='end' label='Logout' icon={LogOut} variant='destructive' />
 					</BlurDropdown>
 				</Dropdown>
 			</Showcase>
@@ -215,7 +221,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 							</option>
 						))}
 					</Select>
-					<Dropdown variant='hover'>
+					<Dropdown>
 						<Button variant={variant}>
 							<span>Accordion</span>
 							<ChevronDown size={16} />

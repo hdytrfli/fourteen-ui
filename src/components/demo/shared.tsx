@@ -5,7 +5,7 @@ import { Field } from '@/components/primitive/field';
 import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
 import { Switch } from '@/components/primitive/switch';
-import { DropdownAction } from '@/components/primitive/dropdown';
+import { DropdownAction, DropdownDivider, DropdownItem } from '@/components/primitive/dropdown';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { SwapButton } from '@/components/collections/button/swap-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
@@ -68,8 +68,8 @@ export const ModalDemo = ({ description, onClose }: ModalContentProps) => {
 export const DropdownDemo = () => {
 	return (
 		<React.Fragment>
-			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
-			<hr className='border-b  border-dashed' />
+			<DropdownItem label='Edit data' />
+			<DropdownDivider />
 			<DropdownAction label='Edit data' icon={Pencil} />
 			<DropdownAction label='Duplicate data' icon={Copy} />
 			<DropdownAction label='Open dashboard' icon={ArrowUpRight} />

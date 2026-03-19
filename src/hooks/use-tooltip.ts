@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface ContextValue {
 	open: boolean;
-	anchor: React.RefObject<HTMLDivElement | null>;
+	trigger: React.RefObject<HTMLDivElement | null>;
 	content: React.RefObject<HTMLDivElement | null>;
 }
 

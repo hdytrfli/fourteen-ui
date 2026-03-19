@@ -16,21 +16,21 @@ interface TooltipProps extends React.ComponentProps<'div'> {
  */
 export const Tooltip = ({ children, className, delay = 100, ...rest }: TooltipProps) => {
 	const ref = React.useRef<HTMLDivElement>(null);
-	const anchor = React.useRef<HTMLDivElement>(null);
+	const trigger = React.useRef<HTMLDivElement>(null);
 	const content = React.useRef<HTMLDivElement>(null);
 
 	const [open, setOpen] = useDelayedState(false, delay);
-	const [trigger, ...childrens] = React.Children.toArray(children);
+	const [first, ...childrens] = React.Children.toArray(children);
 
 	return (
-		<TooltipContext.Provider value={{ open, anchor, content }}>
+		<TooltipContext.Provider value={{ open, trigger, content }}>
 			<div
 				ref={ref}
 				className={cn('relative w-fit', className)}
 				onMouseEnter={() => setOpen(true)}
 				onMouseLeave={() => setOpen(false)}
 				{...rest}>
-				<div ref={anchor}>{trigger}</div>
+				<div ref={trigger}>{first}</div>
 				{childrens}
 			</div>
 		</TooltipContext.Provider>
@@ -52,20 +52,22 @@ export const TooltipContent = ({
 	placement = 'top-center',
 	...rest
 }: TooltipContentProps) => {
-	const { open, anchor, content } = useTooltip();
+	const { open, trigger, content } = useTooltip();
 
 	React.useLayoutEffect(() => {
 		const element = content.current;
-		const trigger = anchor.current;
-		if (!element || !trigger) return;
+		const anchor = trigger.current;
+		if (!element || !anchor) return;
 
 		setPosition({
 			gap: 6,
+			anchor,
 			element,
 			placement,
-			anchor: trigger.getBoundingClientRect(),
 		});
-	}, [open, content, anchor, placement]);
+	}, [open, content, trigger, placement]);
+
+	if (!open) return null;
 
 	return ReactDOM.createPortal(
 		<div
@@ -81,7 +83,6 @@ export const TooltipContent = ({
 			{...rest}>
 			<div
 				className={cn(
-					'wrap-break-words',
 					'rounded-2xl border',
 					'px-4 py-2 max-w-48',
 					'bg-background text-foreground',

@@ -96,7 +96,7 @@ export const MenuItem = ({
 					<ChevronRight
 						size={16}
 						aria-hidden
-						className={cn('transition-transform duration-300', {
+						className={cn('transition-transform duration-300 ease-in-out', {
 							'rotate-90': expand,
 						})}
 					/>

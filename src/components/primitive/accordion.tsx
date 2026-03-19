@@ -88,7 +88,9 @@ export const AccordionItem = ({
 				<ChevronDown
 					size={16}
 					aria-hidden
-					className={cn('transition-transform duration-300', { 'rotate-180': open })}
+					className={cn('transition-transform duration-300 ease-in-out', {
+						'rotate-180': open,
+					})}
 				/>
 			</button>
 			<AnimatedHeight open={open || false}>

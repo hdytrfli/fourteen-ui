@@ -10,17 +10,28 @@ import { DropdownContext, useDropdown } from '@/hooks/use-dropdown';
 type Variant = 'click' | 'hover';
 
 interface DropdownProps extends React.ComponentProps<'div'> {
-	children: React.ReactNode;
 	variant?: Variant;
+	defaultOpen?: boolean;
+	children: React.ReactNode;
 }
 
 /**
  * Dropdown root that manages open state and wires the trigger child.
+ * @param variant - Variant of the dropdown 'click' or 'hover' (default: click)
+ * @param children - Children to render inside the dropdown
+ * @param defaultOpen - Whether the dropdown should open by default
  */
-export const Dropdown = ({ children, variant = 'click', className, ...rest }: DropdownProps) => {
-	const [open, setOpen] = React.useState(false);
+export const Dropdown = ({
+	children,
+	variant = 'click',
+	defaultOpen = false,
+	className,
+	...rest
+}: DropdownProps) => {
+	const [open, setOpen] = React.useState(defaultOpen);
+
 	const ref = React.useRef<HTMLDivElement>(null);
-	const anchor = React.useRef<HTMLDivElement>(null);
+	const trigger = React.useRef<HTMLDivElement>(null);
 	const content = React.useRef<HTMLDivElement>(null);
 
 	const toggle = () => setOpen((prev) => !prev);
@@ -31,29 +42,27 @@ export const Dropdown = ({ children, variant = 'click', className, ...rest }: Dr
 		if (variant !== 'click') return;
 
 		const handleClickOutside = (e: MouseEvent) => {
-			const target = e.target as Node;
-			const insideTrigger = ref.current?.contains(target);
-			const insideContent = content.current?.contains(target);
-			if (!insideTrigger && !insideContent) {
-				closeMenu();
-			}
+			if (!ref.current || !content.current) return;
+			if (ref.current.contains(e.target as Node)) return;
+			if (content.current.contains(e.target as Node)) return;
+			closeMenu();
 		};
 
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, [variant]);
 
-	const [trigger, ...childrens] = React.Children.toArray(children);
+	const [first, ...childrens] = React.Children.toArray(children);
 	const props = variant === 'click' ? { onClick: toggle } : { onMouseEnter: openMenu };
 
 	return (
-		<DropdownContext.Provider value={{ open, toggle, anchor, content }}>
+		<DropdownContext.Provider value={{ open, toggle, trigger, content }}>
 			<div
 				ref={ref}
 				className={cn('relative w-fit', className)}
 				onMouseLeave={variant === 'hover' ? closeMenu : undefined}
 				{...rest}>
-				<div ref={anchor}>{React.cloneElement(trigger as React.ReactElement, props)}</div>
+				<div ref={trigger}>{React.cloneElement(first as React.ReactElement, props)}</div>
 				{childrens}
 			</div>
 		</DropdownContext.Provider>
@@ -67,8 +76,8 @@ interface DropdownContentProps extends React.ComponentProps<'div'> {
 
 /**
  * Dropdown panel that portals to document.body to escape stacking context issues.
- * @param placement - Placement of the dropdown panel
  * @param children - Children to render inside the panel
+ * @param placement - Placement of the dropdown panel
  */
 export const DropdownContent: React.FC<DropdownContentProps> = ({
 	children,
@@ -76,20 +85,20 @@ export const DropdownContent: React.FC<DropdownContentProps> = ({
 	placement = 'bottom-left',
 	...rest
 }) => {
-	const { open, anchor, content } = useDropdown();
+	const { open, trigger, content } = useDropdown();
 
 	React.useLayoutEffect(() => {
 		const element = content.current;
-		const trigger = anchor.current;
-		if (!element || !trigger) return;
+		const anchor = trigger.current;
+		if (!element || !anchor) return;
 
 		setPosition({
 			gap: 6,
+			anchor,
 			element,
 			placement,
-			anchor: trigger.getBoundingClientRect(),
 		});
-	}, [open, content, anchor, placement]);
+	}, [open, content, trigger, placement]);
 
 	if (!open) return null;
 
@@ -98,14 +107,14 @@ export const DropdownContent: React.FC<DropdownContentProps> = ({
 			role='menu'
 			ref={content}
 			aria-modal='false'
-			className={cn('absolute z-50', 'pointer-events-auto')}
+			className='absolute z-50 pointer-events-auto'
 			{...rest}>
 			<div
 				className={cn(
 					'border p-1',
-					'w-full min-w-48',
-					'flex flex-col gap-1',
-					'overflow-hidden rounded-xl bg-background',
+					'flex flex-col',
+					'rounded-xl bg-background',
+					'w-full min-w-60 overflow-hidden',
 					className
 				)}>
 				{children}
@@ -138,10 +147,10 @@ const styles = cn(
 
 /**
  * A single action inside a DropdownContent.
+ * @param icon - Icon to display
  * @param label - Label to display
  * @param variant - Variant of the action
  * @param position - Position of the action
- * @param icon - Icon to display
  * @param children - Children to render inside the action
  */
 export const DropdownAction: React.FC<DropdownActionProps> = ({

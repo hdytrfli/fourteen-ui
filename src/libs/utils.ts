@@ -11,13 +11,13 @@ export const cn = (...inputs: ClassValue[]) => {
 
 interface getPositionProps {
 	gap?: number;
-	anchor: DOMRect;
-	placement: Placement;
+	anchor: HTMLDivElement;
 	element: HTMLDivElement;
+	placement: Placement;
 }
 
 /**
- * Calculate absolute position for an element relative to an anchor.
+ * Calculate absolute position for an element relative to an target.
  * @param element - The element to position
  * @param gap - Space between anchor and target in pixels
  * @param anchor - The reference element's bounding rect
@@ -25,21 +25,23 @@ interface getPositionProps {
  * @param placement - Where to position the target relative to anchor
  */
 export const setPosition = ({ anchor, element, gap = 0, placement }: getPositionProps): void => {
+	const target = anchor.getBoundingClientRect();
+
 	const size = {
 		width: element.offsetWidth,
 		height: element.offsetHeight,
 	};
 
 	const x = {
-		left: anchor.left,
-		right: anchor.right - size.width,
-		center: anchor.left + (anchor.width - size.width) / 2,
+		left: target.left,
+		right: target.right - size.width,
+		center: target.left + (target.width - size.width) / 2,
 	};
 
 	const y = {
-		top: anchor.top,
-		bottom: anchor.bottom,
-		center: anchor.top + (anchor.height - size.height) / 2,
+		top: target.top,
+		bottom: target.bottom,
+		center: target.top + (target.height - size.height) / 2,
 	};
 
 	const positions: Record<Placement, Position> = {
@@ -52,19 +54,22 @@ export const setPosition = ({ anchor, element, gap = 0, placement }: getPosition
 		'left-top': { top: y.top, left: x.left - size.width },
 		'left-center': { top: y.center, left: x.left - size.width },
 		'left-bottom': { top: y.bottom - size.height, left: x.left - size.width },
-		'right-top': { top: y.top, left: anchor.right },
-		'right-center': { top: y.center, left: anchor.right },
-		'right-bottom': { top: y.bottom - size.height, left: anchor.right },
+		'right-top': { top: y.top, left: target.right },
+		'right-center': { top: y.center, left: target.right },
+		'right-bottom': { top: y.bottom - size.height, left: target.right },
 	};
 
 	const { top, left } = positions[placement];
-	const horizontal = placement.startsWith('left') || placement.startsWith('right');
 
 	Object.assign(element.style, {
 		position: 'absolute',
 		top: top + window.scrollY + 'px',
 		left: left + window.scrollX + 'px',
-		paddingBlock: horizontal ? 0 : gap + 'px',
-		paddingInline: horizontal ? gap + 'px' : 0,
-	});
+		marginTop: placement.startsWith('top') && -gap + 'px',
+		marginLeft: placement.startsWith('left') && -gap + 'px',
+		paddingLeft: placement.startsWith('right') && gap + 'px',
+		paddingRight: placement.startsWith('left') && gap + 'px',
+		paddingBottom: placement.startsWith('top') && gap + 'px',
+		paddingTop: placement.startsWith('bottom') && gap + 'px',
+	} as React.CSSProperties);
 };

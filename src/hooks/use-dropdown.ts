@@ -3,7 +3,7 @@ import * as React from 'react';
 interface ContextValue {
 	open: boolean;
 	toggle: () => void;
-	anchor: React.RefObject<HTMLDivElement | null>;
+	trigger: React.RefObject<HTMLDivElement | null>;
 	content: React.RefObject<HTMLDivElement | null>;
 }
 
