@@ -51,10 +51,10 @@ export const setPosition = ({ anchor, element, gap = 0, placement }: getPosition
 		'bottom-right': { top: y.bottom, left: x.right },
 		'left-top': { top: y.top, left: x.left - size.width },
 		'left-center': { top: y.center, left: x.left - size.width },
-		'left-bottom': { top: y.bottom, left: x.left - size.width },
+		'left-bottom': { top: y.bottom - size.height, left: x.left - size.width },
 		'right-top': { top: y.top, left: anchor.right },
 		'right-center': { top: y.center, left: anchor.right },
-		'right-bottom': { top: y.bottom, left: anchor.right },
+		'right-bottom': { top: y.bottom - size.height, left: anchor.right },
 	};
 
 	const { top, left } = positions[placement];

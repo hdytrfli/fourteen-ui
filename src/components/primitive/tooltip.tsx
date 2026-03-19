@@ -14,15 +14,16 @@ interface TooltipProps extends React.ComponentProps<'div'> {
 /**
  * Tooltip root that manages open state and wires the trigger child.
  */
-export const Tooltip = ({ children, className, delay = 300, ...rest }: TooltipProps) => {
+export const Tooltip = ({ children, className, delay = 100, ...rest }: TooltipProps) => {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const anchor = React.useRef<HTMLDivElement>(null);
+	const content = React.useRef<HTMLDivElement>(null);
 
 	const [open, setOpen] = useDelayedState(false, delay);
-	const [trigger, ...content] = React.Children.toArray(children);
+	const [trigger, ...childrens] = React.Children.toArray(children);
 
 	return (
-		<TooltipContext.Provider value={{ open, setOpen, anchor }}>
+		<TooltipContext.Provider value={{ open, anchor, content }}>
 			<div
 				ref={ref}
 				className={cn('relative w-fit', className)}
@@ -30,7 +31,7 @@ export const Tooltip = ({ children, className, delay = 300, ...rest }: TooltipPr
 				onMouseLeave={() => setOpen(false)}
 				{...rest}>
 				<div ref={anchor}>{trigger}</div>
-				{content}
+				{childrens}
 			</div>
 		</TooltipContext.Provider>
 	);
@@ -46,36 +47,37 @@ interface TooltipContentProps extends React.ComponentProps<'div'> {
  * Tooltip content that portals to document.body.
  */
 export const TooltipContent = ({
-	ref,
 	children,
 	className,
 	placement = 'top-center',
 	...rest
 }: TooltipContentProps) => {
-	const { open, anchor } = useTooltip();
-	const local = React.useRef<HTMLDivElement>(null);
-	const external = (ref as React.RefObject<HTMLDivElement>) || local;
+	const { open, anchor, content } = useTooltip();
 
 	React.useLayoutEffect(() => {
-		const element = external.current;
-		const tooltip = anchor.current;
-		if (!element || !tooltip) return;
+		const element = content.current;
+		const trigger = anchor.current;
+		if (!element || !trigger) return;
 
 		setPosition({
 			gap: 6,
 			element,
 			placement,
-			anchor: tooltip.getBoundingClientRect(),
+			anchor: trigger.getBoundingClientRect(),
 		});
-	}, [anchor, placement, external]);
+	}, [open, content, anchor, placement]);
 
 	return ReactDOM.createPortal(
 		<div
-			ref={external}
-			className={cn('absolute z-50 pointer-events-none', {
-				'opacity-100 visible': open,
-				'opacity-0 invisible': !open,
-			})}
+			ref={content}
+			className={cn(
+				'absolute z-50 pointer-events-none',
+				'transition-opacity duration-300 ease-in-out',
+				{
+					'opacity-100 visible': open,
+					'opacity-0 invisible': !open,
+				}
+			)}
 			{...rest}>
 			<div
 				className={cn(

@@ -2,8 +2,8 @@ import * as React from 'react';
 
 interface ContextValue {
 	open: boolean;
-	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	anchor: React.RefObject<HTMLDivElement | null>;
+	content: React.RefObject<HTMLDivElement | null>;
 }
 
 export const TooltipContext = React.createContext<ContextValue | null>(null);

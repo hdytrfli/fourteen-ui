@@ -21,34 +21,40 @@ export const Dropdown = ({ children, variant = 'click', className, ...rest }: Dr
 	const [open, setOpen] = React.useState(false);
 	const ref = React.useRef<HTMLDivElement>(null);
 	const anchor = React.useRef<HTMLDivElement>(null);
+	const content = React.useRef<HTMLDivElement>(null);
 
 	const toggle = () => setOpen((prev) => !prev);
 	const openMenu = () => setOpen(true);
 	const closeMenu = () => setOpen(false);
 
-	React.useLayoutEffect(() => {
-		const handleClick = (e: MouseEvent) => {
-			if (ref.current && !ref.current.contains(e.target as Node)) closeMenu();
+	React.useEffect(() => {
+		if (variant !== 'click') return;
+
+		const handleClickOutside = (e: MouseEvent) => {
+			const target = e.target as Node;
+			const insideTrigger = ref.current?.contains(target);
+			const insideContent = content.current?.contains(target);
+			if (!insideTrigger && !insideContent) {
+				closeMenu();
+			}
 		};
 
-		if (variant === 'click') document.addEventListener('mousedown', handleClick);
-		return () => document.removeEventListener('mousedown', handleClick);
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, [variant]);
 
-	const [trigger, ...content] = React.Children.toArray(children);
+	const [trigger, ...childrens] = React.Children.toArray(children);
 	const props = variant === 'click' ? { onClick: toggle } : { onMouseEnter: openMenu };
 
 	return (
-		<DropdownContext.Provider value={{ open, toggle, anchor }}>
+		<DropdownContext.Provider value={{ open, toggle, anchor, content }}>
 			<div
 				ref={ref}
 				className={cn('relative w-fit', className)}
 				onMouseLeave={variant === 'hover' ? closeMenu : undefined}
 				{...rest}>
-				<div ref={anchor}>
-					{React.cloneElement(trigger as React.ReactElement<Record<string, unknown>>, props)}
-				</div>
-				{content}
+				<div ref={anchor}>{React.cloneElement(trigger as React.ReactElement, props)}</div>
+				{childrens}
 			</div>
 		</DropdownContext.Provider>
 	);
@@ -64,41 +70,41 @@ interface DropdownContentProps extends React.ComponentProps<'div'> {
  */
 export const DropdownContent = ({
 	children,
-	placement = 'bottom-left',
 	className,
+	placement = 'bottom-left',
 	...rest
 }: DropdownContentProps) => {
-	const { open, anchor } = useDropdown();
-	const ref = React.useRef<HTMLDivElement>(null);
+	const { open, anchor, content } = useDropdown();
 
 	React.useLayoutEffect(() => {
-		const element = ref.current;
-		const dropdown = anchor.current;
-		if (!element || !dropdown || !open) return;
+		const element = content.current;
+		const trigger = anchor.current;
+		if (!element || !trigger) return;
 
 		setPosition({
 			gap: 6,
 			element,
 			placement,
-			anchor: dropdown.getBoundingClientRect(),
+			anchor: trigger.getBoundingClientRect(),
 		});
-	}, [open, anchor, placement]);
+	}, [open, content, anchor, placement]);
 
 	if (!open) return null;
 
 	return ReactDOM.createPortal(
 		<div
-			ref={ref}
 			role='menu'
+			ref={content}
 			aria-modal='false'
-			className={cn('absolute z-50 min-w-48', 'p-1', 'visible pointer-events-auto', className)}
+			className={cn('absolute z-50', 'pointer-events-auto')}
 			{...rest}>
 			<div
 				className={cn(
-					'w-full',
-					'border',
+					'border p-1',
+					'w-full min-w-48',
 					'flex flex-col gap-1',
-					'overflow-hidden rounded-xl bg-background'
+					'overflow-hidden rounded-xl bg-background',
+					className
 				)}>
 				{children}
 			</div>

@@ -1,18 +1,7 @@
-export type IconPosition = 'start' | 'end';
+import { PLACEMENTS } from '@/libs/constants';
 
-export type Placement =
-	| 'top-left'
-	| 'top-center'
-	| 'top-right'
-	| 'bottom-left'
-	| 'bottom-center'
-	| 'bottom-right'
-	| 'left-top'
-	| 'left-center'
-	| 'left-bottom'
-	| 'right-top'
-	| 'right-center'
-	| 'right-bottom';
+export type IconPosition = 'start' | 'end';
+export type Placement = (typeof PLACEMENTS)[number]['id'];
 
 export interface Position {
 	top: number;

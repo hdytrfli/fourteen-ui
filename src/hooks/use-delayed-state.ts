@@ -9,14 +9,14 @@ export function useDelayedState<T>(
 	initial: T,
 	delay: number
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
-	const [state, setState] = React.useState(initial);
+	const [state, _setState] = React.useState(initial);
 	const timer = React.useRef<number | null>(null);
 
-	const delayed = React.useCallback(
+	const setState = React.useCallback(
 		(value: React.SetStateAction<T>) => {
 			if (timer.current) window.clearTimeout(timer.current);
 			timer.current = window.setTimeout(() => {
-				setState(value);
+				_setState(value);
 			}, delay);
 		},
 		[delay]
@@ -28,5 +28,5 @@ export function useDelayedState<T>(
 		};
 	}, []);
 
-	return [state, delayed];
+	return [state, setState];
 }

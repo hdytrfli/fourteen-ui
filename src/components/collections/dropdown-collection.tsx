@@ -4,15 +4,12 @@ import {
 	ChevronDown,
 	ChevronLeft,
 	ChevronRight,
-	Copy,
 	File,
 	Folder,
 	LogOut,
 	Menu,
-	Pencil,
 	Settings,
 	Share,
-	Trash,
 	TriangleAlert,
 	User,
 } from 'lucide-react';
@@ -22,7 +19,11 @@ import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 import { Button, type ButtonVariant } from '@/components/primitive/button';
 
+import { type Placement } from '@/libs/types';
+import { PLACEMENTS } from '@/libs/constants';
+import { Select } from '@/components/primitive/select';
 import { MenuItem } from '@/components/primitive/menu';
+import { DropdownDemo } from '@/components/demo/shared';
 import { BlurDropdown } from '@/components/collections/dropdown/blur-dropdown';
 import { FadeDropdown } from '@/components/collections/dropdown/fade-dropdown';
 import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown';
@@ -35,21 +36,9 @@ interface DropdownCollectionProps {
 	//
 }
 
-const Demo = () => {
-	return (
-		<React.Fragment>
-			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
-			<hr className='border-b  border-dashed' />
-			<DropdownItem position='end' label='Edit data' icon={Pencil} />
-			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
-			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
-			<DropdownItem position='end' label='Delete data' icon={Trash} variant='destructive' />
-		</React.Fragment>
-	);
-};
-
 export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 	const variant: ButtonVariant = 'secondary';
+	const [placement, setPlacement] = React.useState<Placement>('bottom-left');
 
 	return (
 		<Gallery title='Dropdown collections' description='A collection of button dropdown components.'>
@@ -60,7 +49,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<DropdownContent>
-						<Demo />
+						<DropdownDemo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -72,7 +61,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<DropdownContent placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -81,7 +70,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 				<Dropdown variant='hover'>
 					<label className='text-foreground link-accent cursor-pointer'>Dropdown</label>
 					<DropdownContent placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>
@@ -107,7 +96,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<span>Open left</span>
 					</Button>
 					<FadeDropdown placement='left-top'>
-						<Demo />
+						<DropdownDemo />
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
@@ -119,7 +108,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronRight size={16} />
 					</Button>
 					<FadeDropdown placement='right-top'>
-						<Demo />
+						<DropdownDemo />
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
@@ -131,7 +120,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<FadeDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</FadeDropdown>
 				</Dropdown>
 			</Showcase>
@@ -143,7 +132,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<BlurDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</BlurDropdown>
 				</Dropdown>
 			</Showcase>
@@ -155,7 +144,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<ScaleDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</ScaleDropdown>
 				</Dropdown>
 			</Showcase>
@@ -167,7 +156,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<StaggeredDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</StaggeredDropdown>
 				</Dropdown>
 			</Showcase>
@@ -179,7 +168,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<TypewriterDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</TypewriterDropdown>
 				</Dropdown>
 			</Showcase>
@@ -191,18 +180,18 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<ChevronDown size={16} />
 					</Button>
 					<AccordionDropdown placement='bottom-center'>
-						<Demo />
+						<DropdownDemo />
 					</AccordionDropdown>
 				</Dropdown>
 			</Showcase>
 
 			<Showcase label='Dropdown with menu content'>
-				<Dropdown variant='hover'>
+				<Dropdown>
 					<Button variant={variant}>
 						<Menu size={16} />
 						<span>Open Menu</span>
 					</Button>
-					<BlurDropdown placement='right-bottom' className='min-w-72'>
+					<BlurDropdown placement='right-center' className='min-w-72'>
 						<MenuItem label='Profile' icon={User} />
 						<MenuItem label='Account Settings' icon={Settings} />
 						<MenuItem label='Files' icon={Folder}>
@@ -215,6 +204,27 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 						<MenuItem label='Logout' icon={LogOut} variant='destructive' />
 					</BlurDropdown>
 				</Dropdown>
+			</Showcase>
+
+			<Showcase label='Accordion with controller placements' className='col-span-2'>
+				<div className='flex items-center gap-4'>
+					<Select value={placement} onChange={(e) => setPlacement(e.target.value as Placement)}>
+						{PLACEMENTS.map((placement) => (
+							<option key={placement.id} value={placement.id}>
+								{placement.label}
+							</option>
+						))}
+					</Select>
+					<Dropdown variant='hover'>
+						<Button variant={variant}>
+							<span>Accordion</span>
+							<ChevronDown size={16} />
+						</Button>
+						<FadeDropdown placement={placement}>
+							<DropdownDemo />
+						</FadeDropdown>
+					</Dropdown>
+				</div>
 			</Showcase>
 		</Gallery>
 	);

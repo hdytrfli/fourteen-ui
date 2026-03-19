@@ -36,8 +36,10 @@ export const ScaleTooltip = ({ children, className, ...rest }: Props) => {
 	}, [open]);
 
 	return (
-		<TooltipContent ref={contentRef} className={cn(className)} {...rest}>
-			{children}
+		<TooltipContent className={cn(className)} {...rest}>
+			<div ref={contentRef} className='opacity-0'>
+				{children}
+			</div>
 		</TooltipContent>
 	);
 };

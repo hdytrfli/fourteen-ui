@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
+
 import { cn } from '@/libs/utils';
 import { DURATION, EASE, VALUES } from '@/libs/constants';
-import { TooltipContent } from '@/components/primitive/tooltip';
 import { useTooltip } from '@/hooks/use-tooltip';
+import { TooltipContent } from '@/components/primitive/tooltip';
 
-interface Props extends Omit<React.ComponentProps<typeof TooltipContent>, 'children'> {
+interface Props extends React.ComponentProps<typeof TooltipContent> {
 	children: React.ReactNode;
 }
 
@@ -36,8 +37,10 @@ export const FadeTooltip = ({ children, className, ...rest }: Props) => {
 	}, [open]);
 
 	return (
-		<TooltipContent ref={contentRef} className={cn(className)} {...rest}>
-			{children}
+		<TooltipContent className={cn(className)} {...rest}>
+			<div ref={contentRef} className='opacity-0'>
+				{children}
+			</div>
 		</TooltipContent>
 	);
 };

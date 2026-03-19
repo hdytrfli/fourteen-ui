@@ -8,6 +8,8 @@ import { Switch } from '@/components/primitive/switch';
 import { FlyinButton } from '@/components/collections/button/flyin-button';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
+import { DropdownItem } from '../primitive/dropdown';
+import { ArrowUpRight, Copy, Pencil, Trash } from 'lucide-react';
 
 export const FormDemo: React.FC = () => {
 	return (
@@ -60,6 +62,19 @@ export const ModalDemo = ({ description, onClose }: ModalContentProps) => {
 				<ScrambleButton icon={X} label='Dismiss' variant='ghost' onClick={onClose} />
 				<FlyinButton icon={User} variant='primary' label='Go to dashboard' />
 			</ModalFooter>
+		</React.Fragment>
+	);
+};
+
+export const DropdownDemo = () => {
+	return (
+		<React.Fragment>
+			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
+			<hr className='border-b  border-dashed' />
+			<DropdownItem position='end' label='Edit data' icon={Pencil} />
+			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
+			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
+			<DropdownItem position='end' label='Delete data' icon={Trash} variant='destructive' />
 		</React.Fragment>
 	);
 };
