@@ -47,7 +47,7 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 			<Showcase label='Update user card' className='col-span-full'>
 				<Card className='max-w-xl'>
 					<CardHeader title='Update user card' />
-					<CardContent className='grid gap-4'>
+					<CardContent>
 						<FormDemo />
 					</CardContent>
 					<CardFooter>
@@ -60,7 +60,7 @@ export const CardCollection: React.FC<CardCollectionProps> = () => {
 			<Showcase label='Form with error state' className='col-span-full'>
 				<Card className='max-w-lg'>
 					<CardHeader title='Repository setting' />
-					<CardContent className='grid gap-4'>
+					<CardContent>
 						<form className='grid gap-4'>
 							<Field
 								error='Repository title is required'

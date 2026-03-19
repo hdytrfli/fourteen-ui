@@ -1,20 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
-import {
-	ArrowUpRight,
-	Box,
-	Home,
-	Layers,
-	List,
-	Menu,
-	MessageCircle,
-	PanelTopDashed,
-	PenLine,
-	PictureInPicture2,
-	Power,
-	ScanLine,
-} from 'lucide-react';
+import { Home, Menu } from 'lucide-react';
 
+import { PAGES } from '@/libs/pages';
 import { useTheme } from '@/contexts/theme-context';
 import { Button } from '@/components/primitive/button';
 import { Switch } from '@/components/primitive/switch';
@@ -27,21 +15,6 @@ export const Navigation: React.FC = () => {
 
 	const toggle = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 	const dark = theme === 'dark';
-
-	const links = [
-		{ label: 'All collections', to: '/', icon: Home },
-		{ label: 'Button collections', to: '/buttons', icon: ArrowUpRight },
-		{ label: 'Variant collections', to: '/variants', icon: Box },
-		{ label: 'Input collections', to: '/inputs', icon: ScanLine },
-		{ label: 'Select collections', to: '/select', icon: List },
-		{ label: 'Switch collections', to: '/switch', icon: Power },
-		{ label: 'Textarea collections', to: '/textarea', icon: PenLine },
-		{ label: 'Tooltip collections', to: '/tooltips', icon: MessageCircle },
-		{ label: 'Dropdown collections', to: '/dropdowns', icon: Menu },
-		{ label: 'Menu collections', to: '/menus', icon: Layers },
-		{ label: 'Card collections', to: '/cards', icon: PanelTopDashed },
-		{ label: 'Modal collections', to: '/modal', icon: PictureInPicture2 },
-	];
 
 	return (
 		<Dropdown variant='hover'>
@@ -56,13 +29,20 @@ export const Navigation: React.FC = () => {
 				</div>
 
 				<hr className='border-b  border-dashed block mb-1'></hr>
-				{links.map(({ to, label, icon }) => (
+				<DropdownItem
+					icon={Home}
+					position='end'
+					label='All collections'
+					onClick={() => navigate('/')}
+				/>
+
+				{PAGES.map(({ path, label, icon }) => (
 					<DropdownItem
-						key={to}
+						key={path}
 						icon={icon}
 						label={label}
 						position='end'
-						onClick={() => navigate(to, { viewTransition: true })}
+						onClick={() => navigate(path)}
 					/>
 				))}
 			</StaggeredDropdown>

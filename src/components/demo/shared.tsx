@@ -11,10 +11,10 @@ import { ScrambleButton } from '@/components/collections/button/scramble-button'
 
 export const FormDemo: React.FC = () => {
 	return (
-		<React.Fragment>
+		<div className='grid gap-4'>
 			<p>
-				Hello, John Doe. This is your account page. You can manage your account settings here or
-				delete your account if you want.
+				Hello, John Doe. This is your account setting, you can manage your preference here including
+				your notification configuration.
 			</p>
 			<form className='grid md:grid-cols-2 gap-4'>
 				<Field description='Your username must be at least 3 characters'>
@@ -41,7 +41,7 @@ export const FormDemo: React.FC = () => {
 					</div>
 				</Field>
 			</form>
-		</React.Fragment>
+		</div>
 	);
 };
 

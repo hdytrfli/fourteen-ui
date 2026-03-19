@@ -36,8 +36,8 @@ export const FlyinButton = ({
 
 	React.useLayoutEffect(() => {
 		const button = buttonRef.current;
-		const iconElement = iconRef.current;
-		if (!button || !iconElement) return;
+		const icon = iconRef.current;
+		if (!button || !icon) return;
 
 		const states = {
 			start: { from: -16, padding: 'paddingLeft' },
@@ -46,14 +46,14 @@ export const FlyinButton = ({
 
 		const { from, padding } = states[position];
 
-		gsap.set(iconElement, { x: from, opacity: 0 });
+		gsap.set(icon, { x: from, opacity: 0 });
 
 		const timeline = gsap.timeline({
 			paused: true,
 			defaults: { duration: DURATION.base, ease: EASE.default },
 		});
 
-		timeline.to(button, { [padding]: 42 }).to(iconElement, { x: 0, opacity: 1 }, 0);
+		timeline.to(button, { [padding]: 42 }).to(icon, { x: 0, opacity: 1 }, 0);
 
 		const enter = () => timeline.play();
 		const leave = () => timeline.reverse();

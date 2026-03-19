@@ -91,7 +91,7 @@ export const ModalCollection = () => {
 				/>
 				<Modal open={avatar.open} onClose={avatar.onClose}>
 					<ModalContent title='Account' size='lg' closeable>
-						<ModalBody className='grid gap-4'>
+						<ModalBody>
 							<FormDemo />
 						</ModalBody>
 						<ModalFooter>

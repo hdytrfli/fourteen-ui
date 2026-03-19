@@ -14,6 +14,7 @@ import { InputCollection } from '@/components/collections/input-collection';
 import { SelectCollection } from '@/components/collections/select-collection';
 import { SwitchCollection } from '@/components/collections/switch-collection';
 import { TextareaCollection } from '@/components/collections/textarea-collection';
+import { AccordionCollection } from '@/components/collections/accordion-collection';
 
 export default function App(): React.JSX.Element {
 	const ref = React.useRef<HTMLDivElement>(null);
@@ -48,6 +49,7 @@ export default function App(): React.JSX.Element {
 				<SelectCollection />
 				<SwitchCollection />
 				<TextareaCollection />
+				<AccordionCollection />
 				<TooltipCollection />
 				<DropdownCollection />
 				<CardCollection />
