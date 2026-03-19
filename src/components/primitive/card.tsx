@@ -1,17 +1,28 @@
 import * as React from 'react';
 import { X } from 'lucide-react';
+
 import { cn } from '@/libs/utils';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 
 interface CardProps extends React.ComponentProps<'div'> {
 	children: React.ReactNode;
+	trapFocus?: boolean;
 }
 
 /**
  * Card root container with consistent border, background, and sizing.
  */
-export const Card = ({ children, className, ...rest }: CardProps) => {
+export const Card = ({ children, trapFocus = false, className, ...rest }: CardProps) => {
+	const ref = React.useRef<HTMLDivElement>(null);
+
+	useFocusTrap({
+		ref,
+		active: trapFocus,
+	});
+
 	return (
 		<div
+			ref={ref}
 			className={cn(
 				'rounded-2xl',
 				'border ',

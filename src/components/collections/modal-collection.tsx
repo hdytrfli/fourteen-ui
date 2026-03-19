@@ -1,6 +1,6 @@
+import * as React from 'react';
 import { Trash, TriangleAlert, X, ArrowUpRight } from 'lucide-react';
 
-import { useModalState } from '@/hooks/use-modal-state';
 import { Button } from '@/components/primitive/button';
 import { Avatar } from '@/components/primitive/avatar';
 import { Gallery } from '@/components/primitive/gallery';
@@ -19,6 +19,19 @@ import { ElasticModal } from '@/components/collections/modal/elastic-modal';
 import { NewspaperModal } from '@/components/collections/modal/newspaper-modal';
 import { FormDemo, ModalDemo } from '@/components/demo/shared';
 
+const useModalState = () => {
+	const [open, setOpen] = React.useState(false);
+
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
+	return {
+		open,
+		handleOpen,
+		handleClose,
+	};
+};
+
 export const ModalCollection = () => {
 	const simple = useModalState();
 	const footer = useModalState();
@@ -36,15 +49,16 @@ export const ModalCollection = () => {
 	return (
 		<Gallery title='Modal collections' description='A collection of modal components.'>
 			<Showcase label='Simple modal with button trigger'>
-				<Button variant='secondary' onClick={simple.onOpen}>
+				<Button variant='secondary' onClick={simple.handleOpen}>
 					Open modal
 				</Button>
-				<Modal open={simple.open} onClose={simple.onClose}>
+				<Modal open={simple.open} onClick={simple.handleClose}>
 					<ModalContent title='Welcome back'>
 						<ModalBody>
 							<p>
-								You have 3 unread notifications and 2 pending tasks. Head to your dashboard to
-								review them or dismiss this message.
+								This is a simple modal with a button trigger, which opens the modal on click. You
+								can close the modal by clicking the close button or by clicking outside of the
+								modal.
 							</p>
 						</ModalBody>
 					</ModalContent>
@@ -52,32 +66,34 @@ export const ModalCollection = () => {
 			</Showcase>
 
 			<Showcase label='Simple modal with footer'>
-				<Button variant='secondary' onClick={footer.onOpen}>
+				<Button variant='secondary' onClick={footer.handleOpen}>
 					Open modal
 				</Button>
-				<Modal open={footer.open} onClose={footer.onClose}>
+				<Modal open={footer.open} onClick={footer.handleClose}>
 					<ModalContent title='Welcome back'>
 						<ModalDemo
-							onClose={footer.onClose}
-							description='This permanent footer with two buttons.'
+							onClose={footer.handleClose}
+							description='This is a simple modal with a footer, which opens the modal on click. You
+								can close the modal by clicking the close button or by clicking outside of the
+								modal.'
 						/>
 					</ModalContent>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with label trigger and size large'>
-				<label onClick={label.onOpen} className='text-foreground link-accent cursor-pointer'>
+				<label onClick={label.handleOpen} className='text-foreground link-accent cursor-pointer'>
 					Read terms
 				</label>
-				<Modal open={label.open} onClose={label.onClose}>
+				<Modal open={label.open} onClick={label.handleClose}>
 					<ModalContent title='Terms of service' size='lg'>
 						<ModalDemo
+							onClose={label.handleClose}
 							description={`
 								By using this service you agree to our terms and conditions.
 								We collect minimal data necessary to provide the service, and we will never sell your data to third parties.
 								You can request deletion of your account and associated data at any time by contacting support.
 							`}
-							onClose={label.onClose}
 						/>
 					</ModalContent>
 				</Modal>
@@ -87,15 +103,20 @@ export const ModalCollection = () => {
 				<Avatar
 					src='https://picsum.photos/seed/img1/400/300'
 					alt='Avatar'
-					onClick={avatar.onOpen}
+					onClick={avatar.handleOpen}
 				/>
-				<Modal open={avatar.open} onClose={avatar.onClose}>
+				<Modal open={avatar.open} onClick={avatar.handleClose}>
 					<ModalContent title='Account' size='lg' closeable>
 						<ModalBody>
 							<FormDemo />
 						</ModalBody>
 						<ModalFooter>
-							<ScrambleButton icon={X} label='Dismiss' variant='ghost' onClick={avatar.onClose} />
+							<ScrambleButton
+								icon={X}
+								label='Dismiss'
+								variant='ghost'
+								onClick={avatar.handleClose}
+							/>
 							<SwapButton
 								position='end'
 								variant='primary'
@@ -108,10 +129,10 @@ export const ModalCollection = () => {
 			</Showcase>
 
 			<Showcase label='Confirm destructive action'>
-				<Button variant='destructive' onClick={confirm.onOpen}>
+				<Button variant='destructive' onClick={confirm.handleOpen}>
 					Delete account
 				</Button>
-				<Modal open={confirm.open} onClose={confirm.onClose}>
+				<Modal open={confirm.open} onClick={confirm.handleClose}>
 					<ModalContent title='Delete account' closeable={false}>
 						<ModalBody className='flex flex-col items-center gap-3 text-center'>
 							<TriangleAlert size={32} />
@@ -121,106 +142,111 @@ export const ModalCollection = () => {
 							</p>
 						</ModalBody>
 						<ModalFooter>
-							<SwapButton icon={X} label='Dismiss' variant='ghost' onClick={confirm.onClose} />
-							<ScrambleButton icon={Trash} label='Delete account' variant='destructive' />
+							<ScrambleButton
+								icon={X}
+								label='Dismiss'
+								variant='ghost'
+								onClick={confirm.handleClose}
+							/>
+							<SwapButton icon={Trash} label='Delete account' variant='destructive' />
 						</ModalFooter>
 					</ModalContent>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with blur variant'>
-				<Button variant='secondary' onClick={blur.onOpen}>
+				<Button variant='secondary' onClick={blur.handleOpen}>
 					Open blur modal
 				</Button>
-				<Modal open={blur.open} onClose={blur.onClose}>
+				<Modal open={blur.open} onClick={blur.handleClose}>
 					<BlurModal title='Welcome back'>
 						<ModalDemo
 							description='This will temporarily blur the background and fade in on open. This is useful for modals that require user interaction.'
-							onClose={blur.onClose}
+							onClose={blur.handleClose}
 						/>
 					</BlurModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with slide variant'>
-				<Button variant='secondary' onClick={slide.onOpen}>
+				<Button variant='secondary' onClick={slide.handleOpen}>
 					Open slide modal
 				</Button>
-				<Modal open={slide.open} onClose={slide.onClose}>
+				<Modal open={slide.open} onClick={slide.handleClose}>
 					<SlideModal title='Welcome back'>
 						<ModalDemo
 							description='This will slide up from the bottom of the screen on open. This is useful for modals that require user interaction.'
-							onClose={slide.onClose}
+							onClose={slide.handleClose}
 						/>
 					</SlideModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with scale variant'>
-				<Button variant='secondary' onClick={scale.onOpen}>
+				<Button variant='secondary' onClick={scale.handleOpen}>
 					Open scale modal
 				</Button>
-				<Modal open={scale.open} onClose={scale.onClose}>
+				<Modal open={scale.open} onClick={scale.handleClose}>
 					<ScaleModal title='Welcome back'>
 						<ModalDemo
 							description='This will scale down from 110% to 100% on open. This creates a subtle pop-in effect that draws attention to the modal content.'
-							onClose={scale.onClose}
+							onClose={scale.handleClose}
 						/>
 					</ScaleModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with rotate variant'>
-				<Button variant='secondary' onClick={rotate.onOpen}>
+				<Button variant='secondary' onClick={rotate.handleOpen}>
 					Open rotate modal
 				</Button>
-				<Modal open={rotate.open} onClose={rotate.onClose}>
+				<Modal open={rotate.open} onClick={rotate.handleClose}>
 					<RotateModal title='Welcome back'>
 						<ModalDemo
 							description='This rotates in from the left side like a door swinging open. Uses 3D transform with perspective for a realistic door-swing effect.'
-							onClose={rotate.onClose}
+							onClose={rotate.handleClose}
 						/>
 					</RotateModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with crt variant'>
-				<Button variant='secondary' onClick={crt.onOpen}>
+				<Button variant='secondary' onClick={crt.handleOpen}>
 					Open crt modal
 				</Button>
-				<Modal open={crt.open} onClose={crt.onClose}>
+				<Modal open={crt.open} onClick={crt.handleClose}>
 					<CrtModal title='Welcome back'>
 						<ModalDemo
 							description='This expands from the center like an old CRT TV turning on. Uses expo.out easing for a sharp, snappy animation.'
-							onClose={crt.onClose}
+							onClose={crt.handleClose}
 						/>
 					</CrtModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with elastic variant'>
-				<Button variant='secondary' onClick={elastic.onOpen}>
+				<Button variant='secondary' onClick={elastic.handleOpen}>
 					Open elastic modal
 				</Button>
-				<Modal open={elastic.open} onClose={elastic.onClose}>
+				<Modal open={elastic.open} onClick={elastic.handleClose}>
 					<ElasticModal title='Welcome back'>
 						<ModalDemo
 							description='This bounces with an elastic overshoot effect. Uses GSAPs elastic ease to create a playful, springy animation that overshoots before settling.'
-							onClose={elastic.onClose}
+							onClose={elastic.handleClose}
 						/>
 					</ElasticModal>
 				</Modal>
 			</Showcase>
 
 			<Showcase label='Modal with newspaper variant'>
-				<Button variant='secondary' onClick={newspaper.onOpen}>
+				<Button variant='secondary' onClick={newspaper.handleOpen}>
 					Open newspaper modal
 				</Button>
-				<Modal open={newspaper.open} onClose={newspaper.onClose}>
+				<Modal open={newspaper.open} onClick={newspaper.handleClose}>
 					<NewspaperModal title='Welcome back'>
 						<ModalDemo
 							description='This unfolds like a newspaper being opened. Combines scale on both axes with a subtle rotation for a paper-unfolding effect.'
-							onClose={newspaper.onClose}
+							onClose={newspaper.handleClose}
 						/>
 					</NewspaperModal>
 				</Modal>

@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Lock, Mail, User, X } from 'lucide-react';
+import { ArrowUpRight, Copy, Pencil, Trash, Lock, Mail, User, X } from 'lucide-react';
 
 import { Field } from '@/components/primitive/field';
 import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
 import { Switch } from '@/components/primitive/switch';
-import { FlyinButton } from '@/components/collections/button/flyin-button';
+import { DropdownItem } from '@/components/primitive/dropdown';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal';
+import { SwapButton } from '@/components/collections/button/swap-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
-import { DropdownItem } from '../primitive/dropdown';
-import { ArrowUpRight, Copy, Pencil, Trash } from 'lucide-react';
 
 export const FormDemo: React.FC = () => {
 	return (
@@ -60,7 +59,7 @@ export const ModalDemo = ({ description, onClose }: ModalContentProps) => {
 			</ModalBody>
 			<ModalFooter>
 				<ScrambleButton icon={X} label='Dismiss' variant='ghost' onClick={onClose} />
-				<FlyinButton icon={User} variant='primary' label='Go to dashboard' />
+				<SwapButton icon={User} variant='primary' label='Go to dashboard' />
 			</ModalFooter>
 		</React.Fragment>
 	);

@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+interface FocusTrapProps {
+	ref: React.RefObject<HTMLElement | null>;
+	active: boolean;
+	onEscape?: () => void;
+}
+
 const FOCUSABLE_SELECTORS = [
 	'a[href]',
 	'button:not([disabled])',
@@ -16,11 +22,7 @@ const FOCUSABLE_SELECTORS = [
  * @param active - Whether the focus trap is enabled
  * @param onEscape - Optional callback when Escape is pressed
  */
-export const useFocusTrap = (
-	ref: React.RefObject<HTMLElement | null>,
-	active: boolean,
-	onEscape?: () => void
-) => {
+export const useFocusTrap = ({ ref, active, onEscape }: FocusTrapProps) => {
 	const prev = React.useRef<HTMLElement | null>(null);
 
 	React.useLayoutEffect(() => {
