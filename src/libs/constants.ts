@@ -1,3 +1,6 @@
+import type { ThemeItem } from '@/libs/types';
+import { Eclipse, Moon, Sun } from 'lucide-react';
+
 /**
  * Shared GSAP timing and easing tokens.
  */
@@ -23,9 +26,8 @@ export const VALUES = {
 } as const;
 
 /**
- * All availabel placements for anchored items
+ * All available placements for anchored items
  */
-// export const PLACEMENTS = [
 export const PLACEMENTS = [
 	{ id: 'top-left', label: 'Top left' },
 	{ id: 'top-center', label: 'Top center' },
@@ -40,3 +42,12 @@ export const PLACEMENTS = [
 	{ id: 'right-center', label: 'Right center' },
 	{ id: 'right-bottom', label: 'Right bottom' },
 ] as const;
+
+/**
+ * All available themes for the theme provider
+ */
+export const THEMES: ThemeItem[] = [
+	{ label: 'Light', value: 'light', icon: Sun },
+	{ label: 'Dark', value: 'dark', icon: Moon },
+	{ label: 'System', value: 'system', icon: Eclipse },
+];

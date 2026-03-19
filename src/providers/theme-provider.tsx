@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ThemeProviderContext } from '../contexts/theme-context';
-import type { Theme } from '../contexts/theme-context';
+
+import type { Theme } from '@/libs/types';
+import { THEMES } from '@/libs/constants';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { ThemeProviderContext } from '@/contexts/theme-context';
 
 interface ThemeProviderProps {
-	key?: string;
-	initial?: Theme;
 	children: React.ReactNode;
 }
 
@@ -12,44 +13,39 @@ interface ThemeProviderProps {
  * Theme provider that manages light/dark/system theme preference.
  * Persists to localStorage and respects system preference via prefers-color-scheme.
  */
-export function ThemeProvider({
-	children,
-	key = 'theme',
-	initial = 'system',
-	...props
-}: ThemeProviderProps) {
-	const [theme, setTheme] = React.useState<Theme>(() => {
-		const stored = localStorage.getItem(key) as Theme;
-		if (stored) return stored;
-		return initial;
-	});
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+	const [theme, setTheme] = useLocalStorage<Theme>('theme', 'system');
 
 	React.useEffect(() => {
 		const root = window.document.documentElement;
 		root.classList.remove('light', 'dark');
 
 		if (theme === 'system') {
-			const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-				? 'dark'
-				: 'light';
-			root.classList.add(systemTheme);
+			const media = window.matchMedia('(prefers-color-scheme: dark)');
+			const system = media.matches ? 'dark' : 'light';
+			root.classList.add(system);
 			return;
 		}
 
 		root.classList.add(theme);
 	}, [theme]);
 
-	const value = {
-		theme,
-		setTheme: (theme: Theme) => {
-			localStorage.setItem(key, theme);
-			setTheme(theme);
-		},
+	const current = THEMES.findIndex((item) => item.value === theme);
+
+	const rotate = () => {
+		const next = THEMES[(current + 1) % THEMES.length];
+		setTheme(next.value);
 	};
 
 	return (
-		<ThemeProviderContext.Provider {...props} value={value}>
+		<ThemeProviderContext.Provider
+			value={{
+				rotate,
+				setTheme,
+				theme: theme,
+				icon: THEMES[current].icon,
+			}}>
 			{children}
 		</ThemeProviderContext.Provider>
 	);
-}
+};

@@ -30,7 +30,7 @@ import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown'
 import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
-import { Dropdown, DropdownContent, DropdownItem } from '@/components/primitive/dropdown';
+import { Dropdown, DropdownContent, DropdownAction } from '@/components/primitive/dropdown';
 
 interface DropdownCollectionProps {
 	//
@@ -81,10 +81,10 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					<DropdownContent placement='bottom-center'>
 						<label className='block px-3 py-3 text-sm font-medium'>John Doe</label>
 						<hr className='border-b  border-dashed' />
-						<DropdownItem label='Profile' icon={User} />
-						<DropdownItem label='Privacy' icon={TriangleAlert} />
-						<DropdownItem label='Settings' icon={Settings} />
-						<DropdownItem label='Logout' icon={LogOut} variant='destructive' />
+						<DropdownAction label='Profile' icon={User} />
+						<DropdownAction label='Privacy' icon={TriangleAlert} />
+						<DropdownAction label='Settings' icon={Settings} />
+						<DropdownAction label='Logout' icon={LogOut} variant='destructive' />
 					</DropdownContent>
 				</Dropdown>
 			</Showcase>

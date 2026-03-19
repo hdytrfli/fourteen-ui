@@ -3,7 +3,13 @@ import * as React from 'react';
 import { cn } from '@/libs/utils';
 import type { ClassValue } from 'clsx';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'destructive' | 'ghost';
+export type ButtonVariant =
+	| 'primary'
+	| 'secondary'
+	| 'accent'
+	| 'destructive'
+	| 'ghost'
+	| 'transparent';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
 	variant: ButtonVariant;
@@ -20,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({ children, variant, className, ..
 		primary: 'bg-foreground text-background',
 		secondary: 'bg-background text-foreground',
 		destructive: 'bg-destructive text-light',
+		transparent: 'bg-transparent hover:bg-ghost text-foreground',
 	};
 
 	return (

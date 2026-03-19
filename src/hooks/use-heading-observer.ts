@@ -1,39 +1,59 @@
 import * as React from 'react';
 
-interface UseTocActiveIdOptions {
+interface HeadingObserverProps {
 	margin?: string;
 	headings: string[];
 }
+
+type ElementID = string;
+type SetElementID = Set<ElementID>;
+const initial = new Set<ElementID>();
 
 /**
  * Hook to track which heading is currently in view.
  * @param headings - Array of heading ids to observe
  * @param margin - Margin around the root element for intersection detection
  */
-export function useHeadingObserver({
+export const useHeadingObserver = ({
 	headings,
-	margin = '-20% 0% -35% 0%',
-}: UseTocActiveIdOptions): string {
-	const [active, setActive] = React.useState<string>('');
+	margin = '0% 0% 0% 0%',
+}: HeadingObserverProps): string => {
+	const [active, setActive] = React.useState<ElementID>('');
+	const intersecting = React.useRef<SetElementID>(initial);
 
 	React.useEffect(() => {
+		const current = intersecting.current;
 		if (headings.length === 0) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => entries.forEach((entry) => entry.isIntersecting && setActive(entry.target.id)),
-			{ rootMargin: margin }
-		);
 
 		const [first] = headings;
 		if (!active) setActive(first);
 
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						intersecting.current.add(entry.target.id);
+					} else {
+						intersecting.current.delete(entry.target.id);
+					}
+				});
+
+				const topmost = headings.find((id) => intersecting.current.has(id));
+				if (topmost) setActive(topmost);
+			},
+			{ rootMargin: margin }
+		);
+
 		headings.forEach((id) => {
-			const el = document.getElementById(id);
-			if (el) observer.observe(el);
+			const element = document.getElementById(id);
+			if (element) observer.observe(element);
 		});
 
-		return () => observer.disconnect();
+		return () => {
+			observer.disconnect();
+			current.clear();
+		};
 	}, [active, headings, margin]);
 
 	return active;
-}
+};

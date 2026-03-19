@@ -67,13 +67,15 @@ interface DropdownContentProps extends React.ComponentProps<'div'> {
 
 /**
  * Dropdown panel that portals to document.body to escape stacking context issues.
+ * @param placement - Placement of the dropdown panel
+ * @param children - Children to render inside the panel
  */
-export const DropdownContent = ({
+export const DropdownContent: React.FC<DropdownContentProps> = ({
 	children,
 	className,
 	placement = 'bottom-left',
 	...rest
-}: DropdownContentProps) => {
+}) => {
 	const { open, anchor, content } = useDropdown();
 
 	React.useLayoutEffect(() => {
@@ -115,7 +117,7 @@ export const DropdownContent = ({
 
 type ItemVariant = 'primary' | 'destructive';
 
-interface DropdownItemProps extends React.ComponentProps<'button'> {
+interface DropdownActionProps extends React.ComponentProps<'button'> {
 	label: string;
 	icon?: LucideIcon;
 	variant?: ItemVariant;
@@ -127,17 +129,29 @@ const positions: Record<IconPosition, ClassValue> = {
 	end: 'flex-row justify-between',
 } as const;
 
+const styles = cn(
+	'gap-3 p-3',
+	'rounded-lg',
+	'w-full flex items-center',
+	'text-sm font-medium text-left'
+);
+
 /**
- * A single item inside a DropdownContent.
+ * A single action inside a DropdownContent.
+ * @param label - Label to display
+ * @param variant - Variant of the action
+ * @param position - Position of the action
+ * @param icon - Icon to display
+ * @param children - Children to render inside the action
  */
-export const DropdownItem = ({
+export const DropdownAction: React.FC<DropdownActionProps> = ({
 	label,
 	variant = 'primary',
-	position = 'start',
+	position = 'end',
 	icon: Icon,
 	className,
 	...rest
-}: DropdownItemProps) => {
+}) => {
 	const variants: Record<ItemVariant, ClassValue> = {
 		primary: 'bg-background text-text hover:bg-ghost hover:text-foreground',
 		destructive: 'bg-background text-text hover:bg-destructive hover:text-light',
@@ -146,13 +160,11 @@ export const DropdownItem = ({
 	return (
 		<button
 			className={cn(
-				'rounded-lg',
-				'gap-3 p-3 cursor-pointer',
-				'w-full flex items-center',
-				'text-sm font-medium text-left',
-				'focus-visible:ring-2 focus-visible:ring-accent outline-none',
+				styles,
 				variants[variant],
 				positions[position],
+				'cursor-pointer outline-none',
+				'focus-visible:ring-2 focus-visible:ring-accent',
 				className
 			)}
 			{...rest}>
@@ -160,4 +172,36 @@ export const DropdownItem = ({
 			{Icon && <Icon size={14} aria-hidden />}
 		</button>
 	);
+};
+
+interface DropdownItemProps extends React.ComponentProps<'div'> {
+	label: string;
+}
+
+/**
+ * A non button item inside a DropdownContent.
+ */
+export const DropdownItem: React.FC<DropdownItemProps> = ({
+	label,
+	children,
+	className,
+	...rest
+}) => {
+	return (
+		<div className={cn(styles, 'flex items-center justify-between gap-3', className)} {...rest}>
+			<span>{label}</span>
+			{children}
+		</div>
+	);
+};
+
+interface DropdownDividerProps extends React.ComponentProps<'hr'> {
+	//
+}
+
+/**
+ * A divider inside a DropdownContent.
+ */
+export const DropdownDivider: React.FC<DropdownDividerProps> = ({ className, ...rest }) => {
+	return <hr className={cn('border-b border-dashed my-1', className)} {...rest} />;
 };

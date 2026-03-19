@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Navigation } from '@/components/navigation';
+import { Navbar } from '@/components/navbar';
 
 interface CollectionPageProps extends React.ComponentProps<'div'> {
 	title: string;
@@ -13,14 +13,7 @@ export default function CollectionPage({
 }: CollectionPageProps): React.JSX.Element {
 	return (
 		<React.Fragment>
-			<header className='grid gap-2'>
-				<div className='flex items-center justify-between'>
-					<h1 className='text-4xl font-heading'>{title}</h1>
-					<Navigation />
-				</div>
-				<p className='max-w-2xl'>{description}</p>
-			</header>
-
+			<Navbar title={title}>{description}</Navbar>
 			<div className='grid gap-20'>{children}</div>
 		</React.Fragment>
 	);

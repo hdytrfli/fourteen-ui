@@ -4,9 +4,10 @@ import '@/libs/fonts';
 import '@/index.css';
 
 import Router from '@/router';
-import { SharedTooltipProvider } from '@/components/collections/tooltip/shared-tooltip';
 import { LenisProvider } from '@/providers/lenis-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { ConfigProvider } from '@/providers/config-provider';
+import { SharedTooltipProvider } from '@/components/collections/tooltip/shared-tooltip';
 
 const element = document.getElementById('root');
 if (!element) throw new Error('Root element not found');
@@ -14,12 +15,14 @@ if (!element) throw new Error('Root element not found');
 const root = createRoot(element);
 root.render(
 	<StrictMode>
-		<ThemeProvider>
-			<LenisProvider>
-				<SharedTooltipProvider>
-					<Router />
-				</SharedTooltipProvider>
-			</LenisProvider>
-		</ThemeProvider>
+		<ConfigProvider>
+			<ThemeProvider>
+				<LenisProvider>
+					<SharedTooltipProvider>
+						<Router />
+					</SharedTooltipProvider>
+				</LenisProvider>
+			</ThemeProvider>
+		</ConfigProvider>
 	</StrictMode>
 );

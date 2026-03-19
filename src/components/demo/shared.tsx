@@ -5,7 +5,7 @@ import { Field } from '@/components/primitive/field';
 import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
 import { Switch } from '@/components/primitive/switch';
-import { DropdownItem } from '@/components/primitive/dropdown';
+import { DropdownAction } from '@/components/primitive/dropdown';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { SwapButton } from '@/components/collections/button/swap-button';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
@@ -70,10 +70,10 @@ export const DropdownDemo = () => {
 		<React.Fragment>
 			<label className='block px-3 py-3 text-sm font-medium'>Application menu</label>
 			<hr className='border-b  border-dashed' />
-			<DropdownItem position='end' label='Edit data' icon={Pencil} />
-			<DropdownItem position='end' label='Duplicate data' icon={Copy} />
-			<DropdownItem position='end' label='Open dashboard' icon={ArrowUpRight} />
-			<DropdownItem position='end' label='Delete data' icon={Trash} variant='destructive' />
+			<DropdownAction label='Edit data' icon={Pencil} />
+			<DropdownAction label='Duplicate data' icon={Copy} />
+			<DropdownAction label='Open dashboard' icon={ArrowUpRight} />
+			<DropdownAction label='Delete data' icon={Trash} variant='destructive' />
 		</React.Fragment>
 	);
 };

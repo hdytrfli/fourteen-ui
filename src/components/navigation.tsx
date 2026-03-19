@@ -1,51 +1,70 @@
 import * as React from 'react';
+import { Bolt, Home, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router';
-import { Home, Menu } from 'lucide-react';
 
 import { PAGES } from '@/libs/pages';
 import { useTheme } from '@/contexts/theme-context';
 import { Button } from '@/components/primitive/button';
-import { Switch } from '@/components/primitive/switch';
-import { Dropdown, DropdownItem } from '@/components/primitive/dropdown';
+import {
+	DropdownItem,
+	Dropdown,
+	DropdownDivider,
+	DropdownAction,
+} from '@/components/primitive/dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
+import { useConfig } from '@/contexts/config-context';
+import { Switch } from './primitive/switch';
 
 export const Navigation: React.FC = () => {
-	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
+	const { config, toggle } = useConfig();
+	const { theme, icon, rotate } = useTheme();
 
-	const toggle = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-	const dark = theme === 'dark';
+	const ThemeIcon = icon;
 
 	return (
-		<Dropdown variant='hover'>
-			<Button variant='ghost'>
-				<Menu size={16} />
-			</Button>
+		<div className='flex items-center gap-4'>
+			{config.theme && (
+				<Button variant='transparent' onClick={rotate}>
+					<span key={theme} className='animate-in fade-in spin-in-90 duration-300'>
+						<ThemeIcon size={16} />
+					</span>
+				</Button>
+			)}
 
-			<StaggeredDropdown placement='bottom-right' className='min-w-60'>
-				<div className='flex items-center justify-between p-3'>
-					<label className='text-sm font-medium'>Toggle theme</label>
-					<Switch checked={dark} onCheckedChange={toggle} aria-label='Toggle theme' />
-				</div>
+			<Dropdown variant='hover'>
+				<Button variant='ghost'>
+					<Bolt size={16} />
+				</Button>
 
-				<hr className='border-b  border-dashed block mb-1'></hr>
-				<DropdownItem
-					icon={Home}
-					position='end'
-					label='All collections'
-					onClick={() => navigate('/')}
-				/>
+				<StaggeredDropdown placement='bottom-right' className='min-w-60'>
+					<DropdownItem label='Configuration' />
+					<DropdownDivider />
+					<DropdownItem label='Table of contents'>
+						<Switch checked={config.toc} onChange={() => toggle('toc')} />
+					</DropdownItem>
+					<DropdownItem label='Scroll to top'>
+						<Switch checked={config.scrolltop} onChange={() => toggle('scrolltop')} />
+					</DropdownItem>
+					<DropdownItem label='Theme toggle'>
+						<Switch checked={config.theme} onChange={() => toggle('theme')} />
+					</DropdownItem>
+				</StaggeredDropdown>
+			</Dropdown>
 
-				{PAGES.map(({ path, label, icon }) => (
-					<DropdownItem
-						key={path}
-						icon={icon}
-						label={label}
-						position='end'
-						onClick={() => navigate(path)}
-					/>
-				))}
-			</StaggeredDropdown>
-		</Dropdown>
+			<Dropdown variant='hover'>
+				<Button variant='ghost'>
+					<Menu size={16} />
+				</Button>
+				<StaggeredDropdown placement='bottom-right' className='min-w-60'>
+					<DropdownItem label='Navigations' />
+					<DropdownDivider />
+					<DropdownAction icon={Home} label='All collections' onClick={() => navigate('/')} />
+					{PAGES.map(({ path, label, icon }) => (
+						<DropdownAction key={path} icon={icon} label={label} onClick={() => navigate(path)} />
+					))}
+				</StaggeredDropdown>
+			</Dropdown>
+		</div>
 	);
 };
