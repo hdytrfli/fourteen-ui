@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '@/libs/utils';
+import { Divider } from '@/components/primitive/divider';
 
 interface CollectionHeaderProps extends React.ComponentProps<'header'> {
 	title: string;
@@ -22,7 +23,7 @@ export const CollectionHeader: React.FC<CollectionHeaderProps> = ({
 			<h2 id={id} className='text-lg font-medium'>
 				{title}
 			</h2>
-			<div className='hidden md:flex flex-1 border border-dashed '></div>
+			<Divider className='hidden md:block' />
 			<p className='text-text'>{description}</p>
 		</header>
 	);

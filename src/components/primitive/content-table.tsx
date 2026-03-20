@@ -1,28 +1,40 @@
 import * as React from 'react';
 import { Link } from 'react-router';
+import type { ClassValue } from 'clsx';
 
 import { cn } from '@/libs/utils';
+import type { TOCPosition } from '@/libs/types';
 import { useHeadingObserver } from '@/hooks/use-heading-observer';
 
 type TOCLevel = 1 | 2 | 3 | 4 | 5 | 6;
-
-interface ContentItem {
+type ContentItem = {
 	id: string;
 	text: string;
 	level: TOCLevel;
-}
+};
 
 interface Props extends React.ComponentProps<'nav'> {
 	selector?: string;
+	position?: TOCPosition;
 	container: React.RefObject<HTMLElement | null>;
 }
+
+const positions: Record<TOCPosition, ClassValue> = {
+	start: 'flex-row',
+	end: 'flex-row-reverse',
+};
 
 /**
  * Table of Contents component that extracts headings from a container ref.
  * @param container - Ref to the container element to scan for headings
  * @param selector - CSS selector for headings to include (default: 'h2, h3')
  */
-export const ContentTable = ({ container, selector = 'h2, h3', ...rest }: Props) => {
+export const ContentTable = ({
+	container,
+	position = 'start',
+	selector = 'h2, h3',
+	...rest
+}: Props) => {
 	const [headings, setHeadings] = React.useState<ContentItem[]>([]);
 
 	const active = useHeadingObserver({
@@ -58,11 +70,13 @@ export const ContentTable = ({ container, selector = 'h2, h3', ...rest }: Props)
 					<li key={item.id} className='text-sm group/item'>
 						<ContentItem
 							item={item}
+							position={position}
 							active={active === item.id}
 							className={cn(
-								'py-0 group-hover:py-2',
-								'transition-discrete duration-300 ease-in-out',
-								'no-underline flex items-center gap-4'
+								'py-0 group-hover:py-1.5',
+								'no-underline flex items-center gap-4',
+								'transition-normal duration-300 ease-in-out',
+								positions[position]
 							)}
 						/>
 					</li>
@@ -76,6 +90,7 @@ type OmittedLink = Omit<React.ComponentProps<typeof Link>, 'to'>;
 interface ItemProps extends OmittedLink {
 	active: boolean;
 	item: ContentItem;
+	position: TOCPosition;
 }
 
 /**
@@ -105,7 +120,7 @@ const ContentItem: React.FC<ItemProps> = ({ item, active, ...props }) => {
 					'transition-discrete duration-300 ease-in-out',
 					{
 						'bg-muted w-4': !active,
-						'bg-foreground w-10': active,
+						'bg-foreground w-8': active,
 					}
 				)}
 			/>

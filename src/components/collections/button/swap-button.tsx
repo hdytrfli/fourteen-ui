@@ -3,8 +3,9 @@ import { gsap } from 'gsap';
 import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
-import { DURATION, EASE } from '@/libs/constants';
 import type { IconPosition } from '@/libs/types';
+import { DURATION, EASE, VALUES } from '@/libs/constants';
+
 import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
@@ -33,69 +34,70 @@ export const SwapButton = ({
 	className,
 	...rest
 }: Props) => {
-	const buttonRef = React.useRef<HTMLButtonElement>(null);
-	const textRef = React.useRef<HTMLSpanElement>(null);
-	const nextRef = React.useRef<HTMLSpanElement>(null);
-	const isAnimatingRef = React.useRef(false);
+	const animating = React.useRef(false);
+	const next = React.useRef<HTMLSpanElement>(null);
+	const current = React.useRef<HTMLSpanElement>(null);
+	const button = React.useRef<HTMLButtonElement>(null);
 
 	React.useLayoutEffect(() => {
-		const button = buttonRef.current;
-		const nextElement = nextRef.current;
-		const currentElement = textRef.current;
-		if (!button || !currentElement || !nextElement) return;
+		const buttonElement = button.current;
+		const nextElement = next.current;
+		const currentElement = current.current;
+		if (!buttonElement || !currentElement || !nextElement) return;
+
+		const OFFSET = 150;
 
 		const states = {
-			visible: { yPercent: 0, opacity: 1 },
-			hidden: { yPercent: 150, opacity: 0 },
-			exit: { yPercent: -150, opacity: 0 },
+			visible: { yPercent: VALUES.zero, opacity: VALUES.visible },
+			hidden: { yPercent: OFFSET, opacity: VALUES.hidden },
 		} as const;
 
 		gsap.set(currentElement, states.visible);
 		gsap.set(nextElement, states.hidden);
 
 		const animate = () => {
-			if (isAnimatingRef.current) return;
-			isAnimatingRef.current = true;
+			if (animating.current) return;
+			animating.current = true;
 
 			const timeline = gsap.timeline({
 				defaults: { duration: DURATION.base, ease: EASE.default },
 				onComplete: () => {
-					isAnimatingRef.current = false;
-					gsap.set(nextElement, states.hidden);
+					animating.current = false;
 					gsap.set(currentElement, states.visible);
+					gsap.set(nextElement, states.hidden);
 				},
 			});
 
 			timeline
-				.to(currentElement, { yPercent: -150, opacity: 0 })
-				.fromTo(nextElement, { yPercent: 150, opacity: 0 }, { yPercent: 0, opacity: 1 }, 0);
+				.to(currentElement, { yPercent: -OFFSET, opacity: VALUES.hidden })
+				.fromTo(
+					nextElement,
+					{ yPercent: OFFSET, opacity: VALUES.hidden },
+					{ yPercent: VALUES.zero, opacity: VALUES.visible },
+					0
+				);
 		};
 
-		button.addEventListener('mouseenter', animate);
+		buttonElement.addEventListener('mouseenter', animate);
 
 		return () => {
-			button.removeEventListener('mouseenter', animate);
-			gsap.killTweensOf([currentElement, nextElement]);
+			buttonElement.removeEventListener('mouseenter', animate);
 		};
 	}, []);
 
 	return (
 		<Button
-			ref={buttonRef}
+			ref={button}
 			aria-label={label}
-			className={cn('overflow-hidden', className)}
+			className={cn('overflow-hidden', positions[position], className)}
 			{...rest}>
-			<span className={cn('flex items-center gap-2', positions[position])}>
-				<span className='relative inline-flex'>
-					<span ref={textRef} className='block'>
-						{label}
-					</span>
-					<span ref={nextRef} className='absolute inset-0 block opacity-0'>
-						{label}
-					</span>
+			<span className='relative *:block'>
+				<span ref={current}>{label}</span>
+				<span ref={next} className='absolute inset-0'>
+					{label}
 				</span>
-				{Icon && <Icon size={16} aria-hidden />}
 			</span>
+			{Icon && <Icon size={16} aria-hidden />}
 		</Button>
 	);
 };

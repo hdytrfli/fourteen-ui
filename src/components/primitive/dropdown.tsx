@@ -203,14 +203,3 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
 		</div>
 	);
 };
-
-interface DropdownDividerProps extends React.ComponentProps<'hr'> {
-	//
-}
-
-/**
- * A divider inside a DropdownContent.
- */
-export const DropdownDivider: React.FC<DropdownDividerProps> = ({ className, ...rest }) => {
-	return <hr className={cn('border-b border-dashed my-1', className)} {...rest} />;
-};

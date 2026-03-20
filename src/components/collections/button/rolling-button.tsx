@@ -5,7 +5,8 @@ import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
 import type { IconPosition } from '@/libs/types';
-import { DURATION, EASE, STAGGER } from '@/libs/constants';
+import { DURATION, EASE, STAGGER, VALUES } from '@/libs/constants';
+
 import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
@@ -19,8 +20,6 @@ const positions = {
 	start: 'flex-row-reverse',
 	end: 'flex-row',
 } as const;
-
-const OFFSET = 150;
 
 /**
  * Button with staggered character roll animation on hover.
@@ -38,66 +37,57 @@ export const RollingButton = ({
 	className,
 	...rest
 }: Props) => {
-	const buttonRef = React.useRef<HTMLButtonElement>(null);
-	const textRef = React.useRef<HTMLSpanElement>(null);
-	const nextRef = React.useRef<HTMLSpanElement>(null);
-	const isAnimatingRef = React.useRef(false);
+	const animating = React.useRef(false);
+	const next = React.useRef<HTMLSpanElement>(null);
+	const current = React.useRef<HTMLSpanElement>(null);
+	const button = React.useRef<HTMLButtonElement>(null);
 
 	React.useLayoutEffect(() => {
-		const button = buttonRef.current;
-		const nextElement = nextRef.current;
-		const currentElement = textRef.current;
-		if (!button || !currentElement || !nextElement) return;
+		const nextElement = next.current;
+		const currentElement = current.current;
+		const buttonElement = button.current;
+		if (!buttonElement || !currentElement || !nextElement) return;
 
 		const initial = SplitText.create(currentElement, { type: 'chars' });
 		const replaced = SplitText.create(nextElement, { type: 'chars' });
 
-		const DIRECTION = reversed ? -1 : 1;
+		const OFFSET = reversed ? -150 : 150;
+
 		const states = {
-			enter: { yPercent: 0, opacity: 1 },
-			exit: { yPercent: -1 * OFFSET * DIRECTION, opacity: 0 },
+			visible: { yPercent: VALUES.zero, opacity: VALUES.visible },
+			hidden: { yPercent: OFFSET, opacity: VALUES.hidden },
 		} as const;
 
-		gsap.set(initial.chars, states.enter);
-		gsap.set(replaced.chars, { yPercent: OFFSET * DIRECTION, opacity: 0 });
+		gsap.set(initial.chars, states.visible);
+		gsap.set(replaced.chars, states.hidden);
 
 		const animate = () => {
-			if (isAnimatingRef.current) return;
-			isAnimatingRef.current = true;
+			if (animating.current) return;
+			animating.current = true;
 
 			const timeline = gsap.timeline({
-				defaults: {
-					ease: EASE.default,
-					duration: DURATION.base,
-				},
+				defaults: { ease: EASE.default, duration: DURATION.base, stagger: STAGGER.tight },
 				onComplete: () => {
-					isAnimatingRef.current = false;
-					gsap.set(initial.chars, states.enter);
-					gsap.set(replaced.chars, { yPercent: OFFSET * DIRECTION, opacity: 0 });
+					animating.current = false;
+					gsap.set(initial.chars, states.visible);
+					gsap.set(replaced.chars, states.hidden);
 				},
 			});
 
 			timeline
-				.to(initial.chars, {
-					opacity: 0,
-					yPercent: -1 * OFFSET * DIRECTION,
-					stagger: STAGGER.tight,
-				})
-				.to(
+				.to(initial.chars, { yPercent: -OFFSET, opacity: VALUES.hidden })
+				.fromTo(
 					replaced.chars,
-					{
-						opacity: 1,
-						yPercent: 0,
-						stagger: STAGGER.tight,
-					},
+					{ yPercent: OFFSET, opacity: VALUES.hidden },
+					{ yPercent: VALUES.zero, opacity: VALUES.visible },
 					0
 				);
 		};
 
-		button.addEventListener('mouseenter', animate);
+		buttonElement.addEventListener('mouseenter', animate);
 
 		return () => {
-			button.removeEventListener('mouseenter', animate);
+			buttonElement.removeEventListener('mouseenter', animate);
 			initial.revert();
 			replaced.revert();
 		};
@@ -105,24 +95,17 @@ export const RollingButton = ({
 
 	return (
 		<Button
-			ref={buttonRef}
+			ref={button}
 			aria-label={label}
-			className={cn('overflow-hidden', className)}
+			className={cn('overflow-hidden', positions[position], className)}
 			{...rest}>
-			<span className={cn('flex items-center gap-2', positions[position])}>
-				<span className='relative inline-flex px-1'>
-					<span aria-hidden className='invisible'>
-						{label}
-					</span>
-					<span ref={textRef} className='absolute inset-0 block'>
-						{label}
-					</span>
-					<span ref={nextRef} className='absolute inset-0 block'>
-						{label}
-					</span>
+			<span className='relative *:block'>
+				<span ref={current}>{label}</span>
+				<span ref={next} className='absolute inset-0'>
+					{label}
 				</span>
-				{Icon && <Icon size={16} aria-hidden />}
 			</span>
+			{Icon && <Icon size={16} aria-hidden />}
 		</Button>
 	);
 };

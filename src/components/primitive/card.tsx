@@ -24,8 +24,7 @@ export const Card = ({ children, trapFocus = false, className, ...rest }: CardPr
 		<div
 			ref={ref}
 			className={cn(
-				'rounded-2xl',
-				'border ',
+				'border rounded-2xl',
 				'w-full overflow-hidden',
 				'text-foreground bg-background',
 				className
@@ -94,13 +93,7 @@ interface CardFooterProps extends React.ComponentProps<'footer'> {
 export const CardFooter = ({ children, className, ...rest }: CardFooterProps) => {
 	return (
 		<footer
-			className={cn(
-				'px-6 py-4',
-				'bg-background',
-				'border-t ',
-				'grid md:grid-cols-2 gap-4',
-				className
-			)}
+			className={cn('px-6 py-4', 'border-t bg-background', 'grid md:grid-cols-2 gap-4', className)}
 			{...rest}>
 			{children}
 		</footer>

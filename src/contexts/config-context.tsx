@@ -1,17 +1,21 @@
-import type { Config, Navigation } from '@/libs/types';
 import * as React from 'react';
+
+export const APPLICATION = {
+	toc: true,
+	theme: true,
+	position: false,
+	scrolltop: true,
+};
+
+export type Config = typeof APPLICATION;
 
 interface ConfigContextProps {
 	config: Config;
-	toggle: (navigation: Navigation) => void;
+	toggle: (key: keyof Config) => void;
 }
 
 export const ConfigContext = React.createContext<ConfigContextProps>({
-	config: {
-		toc: true,
-		theme: true,
-		scrolltop: true,
-	},
+	config: APPLICATION,
 	toggle: () => null,
 });
 

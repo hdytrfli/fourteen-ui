@@ -4,16 +4,15 @@ import { useNavigate } from 'react-router';
 
 import { PAGES } from '@/libs/pages';
 import { useTheme } from '@/contexts/theme-context';
-import { Button } from '@/components/primitive/button';
-import {
-	DropdownItem,
-	Dropdown,
-	DropdownDivider,
-	DropdownAction,
-} from '@/components/primitive/dropdown';
-import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { useConfig } from '@/contexts/config-context';
-import { Switch } from './primitive/switch';
+
+import { Divider } from '@/components/primitive/divider';
+import { DropdownItem, Dropdown, DropdownAction } from '@/components/primitive/dropdown';
+
+import { Button } from '@/components/primitive/button';
+import { Switch } from '@/components/primitive/switch';
+import { MenuItem } from '@/components/primitive/menu';
+import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 
 export const Navigation: React.FC = () => {
 	const navigate = useNavigate();
@@ -21,6 +20,9 @@ export const Navigation: React.FC = () => {
 	const { theme, icon, rotate } = useTheme();
 
 	const ThemeIcon = icon;
+
+	const input = PAGES.filter((item) => item.type === 'form');
+	const other = PAGES.filter((item) => item.type === 'other');
 
 	return (
 		<div className='flex items-center gap-4'>
@@ -39,15 +41,18 @@ export const Navigation: React.FC = () => {
 
 				<StaggeredDropdown placement='bottom-right' className='min-w-60'>
 					<DropdownItem label='Configuration' />
-					<DropdownDivider />
-					<DropdownItem label='Table of contents'>
-						<Switch checked={config.toc} onChange={() => toggle('toc')} />
+					<Divider />
+					<DropdownItem label='Theme toggle'>
+						<Switch checked={config.theme} onChange={() => toggle('theme')} />
 					</DropdownItem>
 					<DropdownItem label='Scroll to top'>
 						<Switch checked={config.scrolltop} onChange={() => toggle('scrolltop')} />
 					</DropdownItem>
-					<DropdownItem label='Theme toggle'>
-						<Switch checked={config.theme} onChange={() => toggle('theme')} />
+					<DropdownItem label='Table of contents'>
+						<Switch checked={config.toc} onChange={() => toggle('toc')} />
+					</DropdownItem>
+					<DropdownItem label='Table of contents position'>
+						<Switch checked={config.position} onChange={() => toggle('position')} />
 					</DropdownItem>
 				</StaggeredDropdown>
 			</Dropdown>
@@ -56,12 +61,30 @@ export const Navigation: React.FC = () => {
 				<Button variant='ghost'>
 					<Menu size={16} />
 				</Button>
-				<StaggeredDropdown placement='bottom-right' className='min-w-60'>
+
+				<StaggeredDropdown placement='bottom-right' className='min-w-72'>
 					<DropdownItem label='Navigations' />
-					<DropdownDivider />
+					<Divider />
 					<DropdownAction icon={Home} label='All collections' onClick={() => navigate('/')} />
-					{PAGES.map(({ path, label, icon }) => (
-						<DropdownAction key={path} icon={icon} label={label} onClick={() => navigate(path)} />
+					<MenuItem label='Form collections'>
+						{input.map(({ path, label, icon }) => (
+							<MenuItem
+								key={path}
+								position='end'
+								label={label}
+								icon={icon}
+								onClick={() => navigate(path)}
+							/>
+						))}
+					</MenuItem>
+					{other.map(({ path, label, icon }) => (
+						<DropdownAction
+							key={path}
+							icon={icon}
+							position='end'
+							label={label}
+							onClick={() => navigate(path)}
+						/>
 					))}
 				</StaggeredDropdown>
 			</Dropdown>

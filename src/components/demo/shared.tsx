@@ -5,9 +5,10 @@ import { Field } from '@/components/primitive/field';
 import { Label } from '@/components/primitive/label';
 import { Input } from '@/components/primitive/input';
 import { Switch } from '@/components/primitive/switch';
-import { DropdownAction, DropdownDivider, DropdownItem } from '@/components/primitive/dropdown';
+import { Divider } from '@/components/primitive/divider';
 import { ModalBody, ModalFooter } from '@/components/primitive/modal';
 import { SwapButton } from '@/components/collections/button/swap-button';
+import { DropdownAction, DropdownItem } from '@/components/primitive/dropdown';
 import { ScrambleButton } from '@/components/collections/button/scramble-button';
 
 export const FormDemo: React.FC = () => {
@@ -69,7 +70,7 @@ export const DropdownDemo = () => {
 	return (
 		<React.Fragment>
 			<DropdownItem label='Edit data' />
-			<DropdownDivider />
+			<Divider />
 			<DropdownAction label='Edit data' icon={Pencil} />
 			<DropdownAction label='Duplicate data' icon={Copy} />
 			<DropdownAction label='Open dashboard' icon={ArrowUpRight} />

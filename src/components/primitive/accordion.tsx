@@ -22,7 +22,7 @@ export const Accordion = ({ initial, children, type, className, ...rest }: Accor
 	};
 
 	return (
-		<div className={cn('w-full divide-y', className)} {...rest}>
+		<div className={cn('w-full divide-y divide-dashed', className)} {...rest}>
 			{React.Children.map(children, (child) => {
 				if (!React.isValidElement<AccordionItemProps>(child)) return child;
 				return React.cloneElement(child, {

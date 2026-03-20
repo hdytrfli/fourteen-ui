@@ -22,6 +22,7 @@ import {
 import { Gallery } from '@/components/primitive/gallery';
 import { Showcase } from '@/components/primitive/showcase';
 
+import { Divider } from '@/components/primitive/divider';
 import { Menu, MenuItem } from '@/components/primitive/menu';
 import { FadeMenuItem } from '@/components/collections/menu/fade-menu';
 import { ScaleMenuItem } from '@/components/collections/menu/scale-menu';
@@ -106,7 +107,7 @@ export const MenuCollection: React.FC<MenuCollectionProps> = () => {
 						<MenuItem label='Shared' icon={Share} />
 					</MenuItem>
 					<MenuItem label='Notifications' icon={TriangleAlert} />
-					<hr className='border-b  border-dashed' />
+					<Divider />
 					<MenuItem label='Logout' icon={LogOut} variant='destructive' />
 				</Menu>
 			</Showcase>

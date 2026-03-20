@@ -31,11 +31,13 @@ type PageItem = {
 	label: string;
 	icon: LucideIcon;
 	desciption: string;
+	type: 'form' | 'other';
 	component: React.ComponentType;
 };
 
 export const PAGES: PageItem[] = [
 	{
+		type: 'form',
 		path: '/buttons',
 		label: 'Button collections',
 		desciption:
@@ -44,6 +46,7 @@ export const PAGES: PageItem[] = [
 		icon: ArrowUpRight,
 	},
 	{
+		type: 'other',
 		path: '/variants',
 		label: 'Variant collections',
 		desciption: 'Button variant components showcasing different styles, sizes, and states.',
@@ -51,6 +54,7 @@ export const PAGES: PageItem[] = [
 		icon: Box,
 	},
 	{
+		type: 'form',
 		path: '/inputs',
 		label: 'Input collections',
 		desciption: 'Input components with icon support and grouped input variants.',
@@ -58,6 +62,7 @@ export const PAGES: PageItem[] = [
 		icon: ScanLine,
 	},
 	{
+		type: 'form',
 		path: '/select',
 		label: 'Select collections',
 		desciption: 'Native select components with icon support and error states.',
@@ -65,6 +70,7 @@ export const PAGES: PageItem[] = [
 		icon: List,
 	},
 	{
+		type: 'form',
 		path: '/switch',
 		label: 'Switch collections',
 		desciption:
@@ -73,6 +79,7 @@ export const PAGES: PageItem[] = [
 		icon: Power,
 	},
 	{
+		type: 'form',
 		path: '/textarea',
 		label: 'Textarea collections',
 		desciption: 'Textarea components for multi-line text input with icon support.',
@@ -80,6 +87,7 @@ export const PAGES: PageItem[] = [
 		icon: PenLine,
 	},
 	{
+		type: 'other',
 		path: '/tooltips',
 		label: 'Tooltip collections',
 		desciption: 'Tooltip components with fade, scale, and blur animation variants.',
@@ -87,6 +95,7 @@ export const PAGES: PageItem[] = [
 		icon: MessageCircle,
 	},
 	{
+		type: 'other',
 		path: '/dropdowns',
 		label: 'Dropdown collections',
 		desciption: 'Dropdown menus with smooth animations and keyboard accessibility.',
@@ -94,6 +103,7 @@ export const PAGES: PageItem[] = [
 		icon: Menu,
 	},
 	{
+		type: 'other',
 		path: '/menus',
 		label: 'Menu collections',
 		desciption: 'Vertical tree-style menu components with expandable submenus.',
@@ -101,6 +111,7 @@ export const PAGES: PageItem[] = [
 		icon: Layers,
 	},
 	{
+		type: 'other',
 		path: '/cards',
 		label: 'Card collections',
 		desciption: 'Card components with hover effects, shadows, and interactive elements.',
@@ -108,6 +119,7 @@ export const PAGES: PageItem[] = [
 		icon: PanelTopDashed,
 	},
 	{
+		type: 'other',
 		path: '/modal',
 		label: 'Modal collections',
 		desciption:
@@ -116,6 +128,7 @@ export const PAGES: PageItem[] = [
 		icon: PictureInPicture2,
 	},
 	{
+		type: 'other',
 		path: '/accordion',
 		label: 'Accordion collections',
 		desciption: 'Accordion components with multiple item support and animations.',

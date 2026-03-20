@@ -85,9 +85,19 @@
 	text-decoration-color: var(--color-accent);
 }
 
-@layer components {
+@layer base {
 	* {
 		border-color: var(--color-ghost);
+	}
+
+	html {
+		overflow: -moz-scrollbars-none;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 
 	body {

@@ -20,23 +20,25 @@ import { Button, type ButtonVariant } from '@/components/primitive/button';
 
 import { type Placement } from '@/libs/types';
 import { PLACEMENTS } from '@/libs/constants';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+
+import {
+	Dropdown,
+	DropdownContent,
+	DropdownAction,
+	DropdownItem,
+} from '@/components/primitive/dropdown';
+
 import { Select } from '@/components/primitive/select';
 import { MenuItem } from '@/components/primitive/menu';
 import { DropdownDemo } from '@/components/demo/shared';
+import { Divider } from '@/components/primitive/divider';
 import { BlurDropdown } from '@/components/collections/dropdown/blur-dropdown';
 import { FadeDropdown } from '@/components/collections/dropdown/fade-dropdown';
 import { ScaleDropdown } from '@/components/collections/dropdown/scale-dropdown';
 import { AccordionDropdown } from '@/components/collections/dropdown/accordion-dropdown';
 import { StaggeredDropdown } from '@/components/collections/dropdown/staggered-dropdown';
 import { TypewriterDropdown } from '@/components/collections/dropdown/typewriter-dropdown';
-import {
-	Dropdown,
-	DropdownContent,
-	DropdownAction,
-	DropdownItem,
-	DropdownDivider,
-} from '@/components/primitive/dropdown';
-import { useLocalStorage } from '@/hooks/use-local-storage';
 
 interface DropdownCollectionProps {
 	//
@@ -86,7 +88,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 					<Avatar src='https://picsum.photos/seed/img1/400/300' alt='Avatar' />
 					<DropdownContent placement='bottom-center'>
 						<DropdownItem label='Edit data' />
-						<DropdownDivider />
+						<Divider />
 						<DropdownAction label='Profile' icon={User} />
 						<DropdownAction label='Privacy' icon={TriangleAlert} />
 						<DropdownAction label='Settings' icon={Settings} />
@@ -206,7 +208,7 @@ export const DropdownCollection: React.FC<DropdownCollectionProps> = () => {
 							<MenuItem position='end' label='Shared' icon={Share} />
 						</MenuItem>
 						<MenuItem position='end' label='Notifications' icon={TriangleAlert} />
-						<DropdownDivider />
+						<Divider />
 						<MenuItem position='end' label='Logout' icon={LogOut} variant='destructive' />
 					</BlurDropdown>
 				</Dropdown>

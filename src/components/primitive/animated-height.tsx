@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { gsap } from 'gsap';
+
 import { cn } from '@/libs/utils';
 import { DURATION, EASE } from '@/libs/constants';
 
@@ -14,38 +15,37 @@ interface Props extends React.ComponentProps<'div'> {
  * @param open - Whether the content is expanded or collapsed
  */
 export const AnimatedHeight = ({ children, open, className, ...rest }: Props) => {
+	const initial = React.useRef(true);
+
 	const ref = React.useRef<HTMLDivElement>(null);
-	const innerRef = React.useRef<HTMLDivElement>(null);
-	const isInitial = React.useRef(true);
+	const content = React.useRef<HTMLDivElement>(null);
 
 	React.useLayoutEffect(() => {
-		const el = ref.current;
-		const innerElement = innerRef.current;
-		if (!el || !innerElement) return;
+		const element = ref.current;
+		const inner = content.current;
+		if (!element || !inner) return;
 
-		if (isInitial.current) {
-			isInitial.current = false;
-			gsap.set(el, {
-				height: open ? 'auto' : 0,
-			});
+		if (initial.current) {
+			initial.current = false;
+			gsap.set(element, { height: open ? 'auto' : 0 });
 			return;
 		}
 
 		if (open) {
 			gsap.fromTo(
-				el,
+				element,
 				{ height: 0 },
 				{
-					height: innerElement.offsetHeight,
-					duration: DURATION.base,
 					ease: EASE.default,
+					duration: DURATION.base,
+					height: inner.offsetHeight,
 					onComplete: () => {
-						gsap.set(el, { height: 'auto' });
+						gsap.set(element, { height: 'auto' });
 					},
 				}
 			);
 		} else {
-			gsap.to(el, {
+			gsap.to(element, {
 				height: 0,
 				duration: DURATION.base,
 				ease: EASE.default,
@@ -55,7 +55,7 @@ export const AnimatedHeight = ({ children, open, className, ...rest }: Props) =>
 
 	return (
 		<div ref={ref} className={cn('overflow-hidden', className)} {...rest}>
-			<div ref={innerRef}>{children}</div>
+			<div ref={content}>{children}</div>
 		</div>
 	);
 };

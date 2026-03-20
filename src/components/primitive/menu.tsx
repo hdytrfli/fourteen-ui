@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { cn } from '@/libs/utils';
-import { type LucideIcon } from 'lucide-react';
-import { ChevronRight } from 'lucide-react';
-import { AnimatedHeight } from '@/components/primitive/animated-height';
 import type { ClassValue } from 'clsx';
+import { ChevronRight, type LucideIcon } from 'lucide-react';
+
+import { cn } from '@/libs/utils';
 import type { IconPosition } from '@/libs/types';
+import { AnimatedHeight } from '@/components/primitive/animated-height';
 
 interface MenuProps extends React.ComponentProps<'ul'> {
 	children: React.ReactNode;
@@ -15,7 +15,7 @@ interface MenuProps extends React.ComponentProps<'ul'> {
  */
 export const Menu = ({ children, className, ...rest }: MenuProps) => {
 	return (
-		<ul className={cn('flex flex-col gap-1', 'w-full min-w-48', className)} {...rest}>
+		<ul className={cn('flex flex-col', 'w-full min-w-48', className)} {...rest}>
 			{children}
 		</ul>
 	);
@@ -29,8 +29,8 @@ interface MenuItemProps extends React.ComponentProps<'li'> {
 	variant?: Variant;
 	position?: IconPosition;
 	children?: React.ReactNode;
-	submenuRef?: React.Ref<HTMLUListElement>;
 	onExpand?: (open: boolean) => void;
+	submenuRef?: React.Ref<HTMLUListElement>;
 }
 
 const variants: Record<Variant, ClassValue> = {
@@ -76,7 +76,7 @@ export const MenuItem = ({
 	}, [expand, submenu, onExpand]);
 
 	return (
-		<li className='flex flex-col gap-1' {...rest}>
+		<li className='flex flex-col' {...rest}>
 			<button
 				onClick={toggle}
 				aria-expanded={submenu ? expand : undefined}
@@ -104,9 +104,7 @@ export const MenuItem = ({
 			</button>
 			{submenu && (
 				<AnimatedHeight open={expand}>
-					<ul
-						ref={ref}
-						className={cn('ml-4 pl-2', 'flex flex-col gap-1', 'border-l  border-dashed')}>
+					<ul ref={ref} className='ml-4 pl-2 flex flex-col gap-1 border-l border-dashed'>
 						{children}
 					</ul>
 				</AnimatedHeight>

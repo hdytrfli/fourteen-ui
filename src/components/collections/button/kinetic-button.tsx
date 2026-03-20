@@ -5,8 +5,9 @@ import { type LucideIcon } from 'lucide-react';
 
 import { cn } from '@/libs/utils';
 import type { IconPosition } from '@/libs/types';
-import { Button } from '@/components/primitive/button';
 import { DURATION, EASE, STAGGER, VALUES } from '@/libs/constants';
+
+import { Button } from '@/components/primitive/button';
 
 interface Props extends React.ComponentProps<typeof Button> {
 	label: string;
@@ -18,8 +19,6 @@ const positions = {
 	start: 'flex-row-reverse',
 	end: 'flex-row',
 } as const;
-
-const JUMP_HEIGHT = -6;
 
 /**
  * Button with kinetic text that bounces on hover.
@@ -34,72 +33,70 @@ export const KineticButton = ({
 	className,
 	...rest
 }: Props) => {
-	const buttonRef = React.useRef<HTMLButtonElement>(null);
-	const textRef = React.useRef<HTMLSpanElement>(null);
-	const iconRef = React.useRef<HTMLSpanElement>(null);
+	const animating = React.useRef(false);
+	const text = React.useRef<HTMLSpanElement>(null);
+	const icon = React.useRef<HTMLSpanElement>(null);
+	const button = React.useRef<HTMLButtonElement>(null);
 
 	React.useLayoutEffect(() => {
-		const button = buttonRef.current;
-		const textElement = textRef.current;
-		const iconElement = iconRef.current;
-		if (!button || !textElement) return;
+		const textElement = text.current;
+		const iconElement = icon.current;
+		const buttonElement = button.current;
+		if (!buttonElement || !textElement) return;
 
 		const split = SplitText.create(textElement, { type: 'words, chars' });
+
 		gsap.set(split.chars, { y: VALUES.zero });
 		if (iconElement) gsap.set(iconElement, { y: VALUES.zero });
 
-		let ctx: gsap.Context | null = null;
-
 		const animate = () => {
-			if (ctx) ctx.revert();
-			ctx = gsap.context(() => {
-				const first = position === 'start';
-				const delay = first ? VALUES.zero : split.chars.length * STAGGER.base;
+			if (animating.current) return;
+			animating.current = true;
 
-				const state = {
-					y: JUMP_HEIGHT,
-					duration: DURATION.fast,
-					ease: EASE.out,
-					yoyo: true,
-					repeat: 1,
-					repeatDelay: 0.1,
-				} as const;
+			const OFFSET = -6;
+			const LENGTH = split.chars.length;
+			const DELAY = position === 'start' ? VALUES.zero : LENGTH * STAGGER.base;
 
-				if (iconElement) gsap.to(iconElement, { ...state, delay });
-				split.chars.forEach((char, index) => {
-					gsap.to(char, {
-						...state,
-						delay: index * STAGGER.base,
-					});
-				});
+			const timeline = gsap.timeline({
+				defaults: { ease: EASE.default, duration: DURATION.base },
+				onComplete: () => {
+					animating.current = false;
+					gsap.set(split.chars, { y: VALUES.zero });
+					if (iconElement) gsap.set(iconElement, { y: VALUES.zero });
+				},
 			});
+
+			if (iconElement) {
+				timeline
+					.to(iconElement, { y: OFFSET, delay: DELAY }, 0)
+					.to(iconElement, { y: VALUES.zero, delay: DELAY }, DURATION.base);
+			}
+
+			timeline
+				.to(split.chars, { y: OFFSET, stagger: STAGGER.base }, 0)
+				.to(split.chars, { y: VALUES.zero, stagger: STAGGER.base }, DURATION.base);
 		};
 
-		button.addEventListener('mouseenter', animate);
+		buttonElement.addEventListener('mouseenter', animate);
 
 		return () => {
-			button.removeEventListener('mouseenter', animate);
-			if (ctx) ctx.revert();
+			buttonElement.removeEventListener('mouseenter', animate);
 			split.revert();
 		};
 	}, [position]);
 
 	return (
-		<Button
-			ref={buttonRef}
-			aria-label={label}
-			className={cn('overflow-visible', className)}
-			{...rest}>
+		<Button ref={button} aria-label={label} className={cn('overflow-visible', className)} {...rest}>
 			<span
 				className={cn(
 					'relative flex items-center gap-2 pointer-events-none select-none',
 					Icon && positions[position]
 				)}>
-				<span ref={textRef} className='flex gap-1'>
+				<span ref={text} className='flex gap-1'>
 					{label}
 				</span>
 				{Icon && (
-					<span ref={iconRef} aria-hidden className='flex items-center'>
+					<span ref={icon} aria-hidden className='flex items-center'>
 						<Icon size={16} />
 					</span>
 				)}
